@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-                    <Add library="alleg44.dll" />				
+					<Add library="alleg44.dll" />				
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -28,7 +28,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-                    <Add library="alleg44.dll" />				
+					<Add library="alleg44.dll" />				
 				</Linker>
 			</Target>
 		</Build>

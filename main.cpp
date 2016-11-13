@@ -4,11 +4,12 @@
 #include <iostream>
 
 #include "affichable.h"
+#include "console.h"
 #include "helloworld.h"
 
 int main() {
     // Initialisation
-    Affichable::initier(ALLEGRO);
+    Affichable::initier(Affichable::choix());
     
     // Tests
     HelloWorld h;

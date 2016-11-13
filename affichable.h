@@ -11,6 +11,7 @@ enum Etat {CONSOLE, ALLEGRO};
 class Affichable {
     public:
         // Méthodes statiques
+        static Etat choix() noexcept;
         static void initier(Etat e) noexcept;
         static void liberer() noexcept;
         

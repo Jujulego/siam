@@ -10,6 +10,32 @@ Console Affichable::s_console;
 Etat Affichable::s_etat = CONSOLE; // Par defaut mais il vaut mieux appeler initier quand même
 
 // Méthodes statiques
+Etat Affichable::choix() noexcept {
+    // Boucle
+    char choix;
+    
+    do {
+        // Affichage
+        s_console.clear();
+        s_console.gotoLigCol(0, 0);
+
+        // Message d'erreur
+        if (choix != '\0') {
+            s_console.setColor(COLOR_RED);
+            std::cout << "Choix '" << choix << "' inconnu !" << std::endl;
+            s_console.setColor(COLOR_DEFAULT);
+        }
+
+        std::cout << "Quel mode ?" << std::endl;
+        std::cout << "a : Allegro" << std::endl;
+        std::cout << "c : Console" << std::endl;
+        std::cout << std::endl;
+        std::cout << ">>> "; std::cin  >> choix;
+    } while ((choix != 'a') && (choix != 'c'));
+    
+    return (choix == 'a') ? ALLEGRO : CONSOLE;
+}
+
 void Affichable::initier(Etat e) noexcept {
     // Enregistrement du choix
     s_etat = e;
