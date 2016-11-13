@@ -1,8 +1,10 @@
 #ifndef CONSOLE_H_INCLUDED
 #define CONSOLE_H_INCLUDED
 
+// Dépendances
 #include <iostream>
 
+// Enumérations
 enum Color {
     COLOR_BLACK = 0,
     COLOR_WHITE = 1,
@@ -15,6 +17,7 @@ enum Color {
     COLOR_DEFAULT = 8, // gris couleur de base de la console
 };
 
+// Classe
 class Console {
     private:
         // Méthodes privées
@@ -30,8 +33,8 @@ class Console {
         // Méthodes publiques
         void gotoLigCol(int lig, int col);
         void clear();
-        bool isKeyboardPressed();
-        int  getInputKey();
+        int  kbhit();
+        int  getch();
         void setColor(Color front=COLOR_DEFAULT, Color back=COLOR_DEFAULT);
 };
 

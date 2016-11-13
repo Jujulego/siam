@@ -1,14 +1,22 @@
 // Importations
+#include <allegro.h>
+
 #include <iostream>
 
-#include "console.h"
+#include "affichable.h"
+#include "helloworld.h"
 
 int main() {
-    Console c;
+    // Initialisation
+    Affichable::initier(ALLEGRO);
     
-    c.setColor(COLOR_GREEN);
-    std::cout << "Salut le monde !" << std::endl;
-    c.setColor();
+    // Tests
+    HelloWorld h;
+    h.afficher();
+    h.attendre();
+    
+    // Libérations
+    Affichable::liberer();
     
     return 0;
-}
+} END_OF_MAIN();

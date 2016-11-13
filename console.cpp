@@ -1,15 +1,15 @@
 // Importations
 #include "console.h"
 
-#ifndef __gnu_linux__
-# include <conio.h>
-# include <windows.h>
-#else
-# include <fcntl.h>
-# include <unistd.h>
-# include <termios.h>
-
-extern "C" {
+namespace c {
+    #ifndef __gnu_linux__
+    # include <conio.h>
+    # include <windows.h>
+    #else
+    # include <fcntl.h>
+    # include <unistd.h>
+    # include <termios.h>
+    
     int getch(void) {
         struct termios oldattr, newattr;
         int ch;
@@ -34,8 +34,7 @@ extern "C" {
     
     int kbhit() {
         struct termios oldt, newt;
-        int ch;
-        int oldf;
+        int ch, oldf;
         
         // Sauvegarde de la config
         tcgetattr(STDIN_FILENO, &oldt);
@@ -66,8 +65,8 @@ extern "C" {
         
         return 0;
     }
+    #endif
 }
-#endif
 
 // Constructeur
 Console::Console() {
@@ -97,12 +96,12 @@ void Console::clear() {
 #endif
 }
 
-int Console::getInputKey() {
-    return getch();
+int Console::getch() {
+    return c::getch();
 }
 
-bool Console::isKeyboardPressed() {
-    return kbhit();
+int Console::kbhit() {
+    return c::kbhit();
 }
 
 /*
