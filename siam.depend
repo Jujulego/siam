@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1479040423 source:e:\siam\src\affichable.cpp
+	<allegro.h>
+	<cassert>
+	"affichable.h"
+	"console.h"
+
+1479040415 e:\siam\src\affichable.h
+	"console.h"
+
+1479034371 e:\siam\src\console.h
+	<iostream>
+
+1479114226 source:e:\siam\src\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+
+1479034977 source:e:\siam\src\helloworld.cpp
+	<allegro.h>
+	"affichable.h"
+	"helloworld.h"
+
+1478972828 e:\siam\src\helloworld.h
+	"affichable.h"
+
+1479123500 source:e:\siam\src\main.cpp
+	<allegro.h>
+	<iostream>
+	"affichable.h"
+	"console.h"
+	"helloworld.h"
+	"plateau.h"
+
+1479122570 e:\siam\src\plateau.h
+	"affichable.h"
+
+1479128341 source:e:\siam\src\plateau.cpp
+	<string>
+	<vector>
+	"affichable.h"
+	"plateau.h"
+

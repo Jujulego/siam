@@ -6,15 +6,18 @@
 #include "affichable.h"
 #include "console.h"
 #include "helloworld.h"
+#include "plateau.h"
 
 int main() {
     // Initialisation
     Affichable::initier(Affichable::choix());
     
     // Tests
-    HelloWorld h;
+/*    HelloWorld h;
     h.afficher();
-    h.attendre();
+    h.attendre();*/
+    Plateau p;
+    p.afficher();
     
     // Libérations
     Affichable::liberer();
