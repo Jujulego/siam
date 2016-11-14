@@ -12,8 +12,8 @@ Etat Affichable::s_etat = CONSOLE; // Par defaut mais il vaut mieux appeler init
 // Méthodes statiques
 Etat Affichable::choix() noexcept {
     // Boucle
-    char choix;
-    
+    char choix = '\0';
+
     do {
         // Affichage
         s_console.clear();
@@ -22,7 +22,7 @@ Etat Affichable::choix() noexcept {
         // Message d'erreur
         if (choix != '\0') {
             s_console.setColor(COLOR_RED);
-            std::cout << "Choix '" << choix << "' inconnu !" << std::endl;
+            std::cout << "Choix '" << (int) choix << "' inconnu !" << std::endl;
             s_console.setColor(COLOR_DEFAULT);
         }
 
@@ -32,21 +32,21 @@ Etat Affichable::choix() noexcept {
         std::cout << std::endl;
         std::cout << ">>> "; std::cin  >> choix;
     } while ((choix != 'a') && (choix != 'c'));
-    
+
     return (choix == 'a') ? ALLEGRO : CONSOLE;
 }
 
 void Affichable::initier(Etat e) noexcept {
     // Enregistrement du choix
     s_etat = e;
-    
+
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
         allegro_init();
-        
+
         install_mouse();
         install_keyboard();
-        
+
         set_color_depth(desktop_color_depth());
         assert(!set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0));
     }
@@ -73,7 +73,7 @@ void Affichable::afficher() noexcept {
     case CONSOLE:
         afficher_console();
         break;
-    
+
     case ALLEGRO:
         afficher_allegro();
         break;
