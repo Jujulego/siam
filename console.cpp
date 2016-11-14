@@ -9,64 +9,66 @@ namespace c {
     # include <fcntl.h>
     # include <unistd.h>
     # include <termios.h>
-    
+
     int getch(void) {
         struct termios oldattr, newattr;
         int ch;
-        
+
         // Sauvegarde de la config
         tcgetattr(STDIN_FILENO, &oldattr);
-        
+
         // Modification du terminal
         newattr = oldattr;
         newattr.c_lflag &= ~(ICANON | ECHO);
         tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
-        
+
         // Récupération du char
         fflush(stdin);
         ch = getchar();
-        
+
         // Rétablissement du terminal
         tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
-        
+
         return ch;
     }
-    
+
     int kbhit() {
         struct termios oldt, newt;
         int ch, oldf;
-        
+
         // Sauvegarde de la config
         tcgetattr(STDIN_FILENO, &oldt);
-        
+
         // Modification du terminal
         newt = oldt;
         newt.c_lflag &= ~(ICANON | ECHO);
         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-        
+
         // Préparation de stdin (rendu non bloquant)
         fflush(stdin);
         oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
         fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-        
+
         // Récupération d'un charactère (ou EOF)
         ch = getchar();
-        
+
         // Rétablissement
         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
         fcntl(STDIN_FILENO, F_SETFL, oldf);
-        
+
         // Test !
         if (ch != EOF) {
             // Renvoi du charactère
             ungetc(ch, stdin);
             return 1;
         }
-        
+
         return 0;
     }
     #endif
 }
+
+using namespace c;
 
 // Constructeur
 Console::Console() {
@@ -126,7 +128,7 @@ Couleurs Windows :      Couleurs Linux :
 void Console::_setColor(int front, int back) {
 #ifndef __gnu_linux__
     HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(H,front*16+back);
+    SetConsoleTextAttribute(H,back*16+front);
 #else
     std::cout << "\x1b[" << front + 30 << ";" << back + 40 << "m";
 #endif
