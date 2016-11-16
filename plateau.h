@@ -2,19 +2,18 @@
 #define __PLATEAU
 
 // Dépendances
+#include "alleg.h"
 #include "affichable.h"
-#include <allegro.h>
 
 // Classe
 class Plateau : public Affichable {
     private:
         int m_haut = 5;
         int m_larg = 5;
-        BITMAP* m_map;
+        allegro::BITMAP_PT m_map;
 
     public:
         // Constructeur
-        ~Plateau() noexcept;
         Plateau();
         Plateau(int hauteur, int largeur);
 

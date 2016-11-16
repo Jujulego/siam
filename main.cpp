@@ -1,5 +1,5 @@
 // Importations
-#include <allegro.h>
+#include "alleg.h"
 
 #include <iostream>
 
