@@ -36,10 +36,7 @@ Plateau::Plateau() {
 
 // Méthodes
 void Plateau::afficher_allegro() noexcept {
-    draw_sprite(allegro::screen, m_map, 0, 0);
-    while (!allegro::key[allegro::KEY_ESC]) {
-        allegro::rest(100);
-    }
+    draw_sprite(s_buffer, m_map, 0, 0);
 }
 
 void Plateau::afficher_console() noexcept {
