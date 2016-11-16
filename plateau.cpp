@@ -27,31 +27,24 @@ static const std::string FLECHE_DROITE = "\xe2\x87\x92";
 static const std::string FLECHE_BAS    = "\xe2\x87\x93";
 #endif
 
-//Destructeur
-Plateau::~Plateau() noexcept {
+// Construteurs
+Plateau::Plateau() {
     if (s_etat == ALLEGRO) {
-        std::cout << m_map << std::endl;
-        destroy_bitmap(m_map);
+        m_map = allegro::charger_bitmap("test_map.bmp");
     }
 }
 
-// Construteurs
-Plateau::Plateau() {
-    if (s_etat == ALLEGRO)
-        m_map = load_bitmap("test_map.bmp",nullptr);
-}
-
 Plateau::Plateau(int hauteur, int largeur) : m_haut(hauteur), m_larg(largeur) {
-    if (s_etat == ALLEGRO)
-        m_map = load_bitmap("test_map.bmp",nullptr);
+    if (s_etat == ALLEGRO) {
+        m_map = allegro::charger_bitmap("test_map.bmp");
+    }
 }
 
 // Méthodes
 void Plateau::afficher_allegro() noexcept {
-    draw_sprite(screen,m_map,0,0);
-    while (!key[KEY_ESC])
-    {
-
+    draw_sprite(allegro::screen, m_map, 0, 0);
+    while (!allegro::key[allegro::KEY_ESC]) {
+        allegro::rest(100);
     }
 }
 

@@ -1,6 +1,4 @@
 // Importations
-#include <allegro.h>
-
 #include "affichable.h"
 #include "helloworld.h"
 
@@ -16,13 +14,13 @@ void HelloWorld::afficher_console() noexcept {
 }
 
 void HelloWorld::afficher_allegro() noexcept {
-    textprintf_ex(screen, font, 10, 5, 0xffffff, 0x000000, "Hello World !");
+    allegro::textprintf_ex(allegro::screen, allegro::font, 10, 5, 0xffffff, 0x000000, "Hello World !");
 }
 
 void HelloWorld::attendre() noexcept {
     if (s_etat == ALLEGRO) {
-        while (!key[KEY_ESC]) {
-            rest(100);
+        while (!allegro::key[allegro::KEY_ESC]) {
+            allegro::rest(100);
         }
     } else {
         s_console.getch();

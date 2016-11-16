@@ -1,12 +1,13 @@
 // Importations
-#include <allegro.h>
-#include <cassert>
+#include <string>
 
 #include "affichable.h"
+#include "alleg.h"
 #include "console.h"
 
 // Attributs statiques
 Console Affichable::s_console;
+//allegro::ECRAN Affichable::s_ecran;
 Etat Affichable::s_etat = CONSOLE; // Par defaut mais il vaut mieux appeler initier quand même
 
 // Méthodes statiques
@@ -20,11 +21,8 @@ Etat Affichable::choix() noexcept {
         s_console.gotoLigCol(0, 0);
 
         // Message d'erreur
-        if (choix != '\0') {
-            s_console.setColor(COLOR_RED);
-            std::cout << "Choix '" << (int) choix << "' inconnu !" << std::endl;
-            s_console.setColor(COLOR_DEFAULT);
-        }
+        if (choix != '\0')
+            Affichable::erreur((std::string) "Choix '" + choix + "' inconnu !");
 
         std::cout << "Quel mode ?" << std::endl;
         std::cout << "a : Allegro" << std::endl;
@@ -36,26 +34,28 @@ Etat Affichable::choix() noexcept {
     return (choix == 'a') ? ALLEGRO : CONSOLE;
 }
 
+void Affichable::erreur(std::string err) noexcept {
+    s_console.setColor(COLOR_RED);
+    std::cout << err << std::endl;
+    s_console.setColor(COLOR_DEFAULT);
+}
+
 void Affichable::initier(Etat e) noexcept {
     // Enregistrement du choix
     s_etat = e;
 
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro_init();
-
-        install_mouse();
-        install_keyboard();
-
-        set_color_depth(desktop_color_depth());
-        assert(!set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0));
+        allegro::init();
+//        s_ecran = allegro::creer_ecran(800, 600);
     }
 }
 
 void Affichable::liberer() noexcept {
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro_exit();
+        allegro::allegro_exit();
+//        allegro::al_destroy_display(s_ecran);
     }
 }
 
