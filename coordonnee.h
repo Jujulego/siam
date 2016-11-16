@@ -2,7 +2,7 @@
 #define __COORDONNEES
 
 // Classe
-class Coordonnees : {
+class Coordonnees {
     private:
         char m_lig;
         int m_col;
@@ -17,6 +17,6 @@ class Coordonnees : {
         
         void set_lig(char lig);
         void set_col(int col);
-}
+};
 
 #endif // __COORDONNEES

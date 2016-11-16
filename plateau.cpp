@@ -34,12 +34,6 @@ Plateau::Plateau() {
     }
 }
 
-Plateau::Plateau(int hauteur, int largeur) : m_haut(hauteur), m_larg(largeur) {
-    if (s_etat == ALLEGRO) {
-        m_map = allegro::charger_bitmap("test_map.bmp");
-    }
-}
-
 // Méthodes
 void Plateau::afficher_allegro() noexcept {
     draw_sprite(allegro::screen, m_map, 0, 0);

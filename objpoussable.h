@@ -6,7 +6,7 @@
 
 #include "alleg.h"
 #include "affichable.h"
-#include "coordonnees.h"
+#include "coordonnee.h"
 
 // Enumerations
 enum Direction {
