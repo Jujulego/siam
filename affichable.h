@@ -36,7 +36,7 @@ class Affichable {
         // Attributs statiques
         static Etat s_etat;
         static Console s_console;
-//        static allegro::ECRAN s_ecran;
+        static allegro::BITMAP_PT s_buffer;
 };
 
 #endif // __AFFICHABLE

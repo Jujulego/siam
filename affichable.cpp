@@ -7,8 +7,8 @@
 
 // Attributs statiques
 Console Affichable::s_console;
-//allegro::ECRAN Affichable::s_ecran;
 Etat Affichable::s_etat = CONSOLE; // Par defaut mais il vaut mieux appeler initier quand même
+allegro::BITMAP_PT Affichable::s_buffer = nullptr;
 
 // Méthodes statiques
 Etat Affichable::choix() noexcept {
@@ -46,8 +46,8 @@ void Affichable::initier(Etat e) noexcept {
 
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro::init();
-//        s_ecran = allegro::creer_ecran(800, 600);
+        allegro::init(800, 600);
+        s_buffer = allegro::creer_bitmap(800, 600);
     }
 }
 
@@ -55,7 +55,6 @@ void Affichable::liberer() noexcept {
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
         allegro::allegro_exit();
-//        allegro::al_destroy_display(s_ecran);
     }
 }
 
@@ -76,6 +75,8 @@ void Affichable::afficher() noexcept {
 
     case ALLEGRO:
         afficher_allegro();
+        draw_sprite(allegro::screen, s_buffer, 0, 0);
+        
         break;
     }
 }
