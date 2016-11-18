@@ -1,6 +1,4 @@
 // Importations
-#include "alleg.h"
-
 #include <iostream>
 
 #include "alleg.h"
@@ -17,10 +15,6 @@ int main() {
     Plateau p;
     p.afficher();
     
-    while (!allegro::key[allegro::KEY_ESC]) {
-        allegro::rest(100);
-    }
-
     // Libérations
     Affichable::liberer();
 
