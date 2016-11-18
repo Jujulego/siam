@@ -1,6 +1,9 @@
 #ifndef __COORDONNEES
 #define __COORDONNEES
 
+// Dépendances
+#include "affichable.h"
+
 // Classe
 class Coordonnees {
     private:
@@ -10,6 +13,10 @@ class Coordonnees {
     public:
         // Constructeur
         Coordonnees(char lig, int col);
+        
+        // Méthodes
+        int get_as_x(Etat etat) const;
+        int get_as_y(Etat etat) const;
         
         // Accesseurs
         char get_lig() const;

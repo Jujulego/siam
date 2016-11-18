@@ -4,7 +4,8 @@
 #include "alleg.h"
 #include "affichable.h"
 #include "console.h"
-#include "helloworld.h"
+#include "coordonnee.h"
+#include "montagne.h"
 #include "plateau.h"
 
 int main() {
@@ -14,6 +15,9 @@ int main() {
     // Tests
     Plateau p;
     p.afficher();
+    
+    Console c;
+    c.gotoLigCol(21, 0);
     
     // Libérations
     Affichable::liberer();

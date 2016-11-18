@@ -18,8 +18,9 @@ class Plateau : public Affichable {
         int m_haut = 5;
         int m_larg = 5;
         allegro::BITMAP_PT m_map;
-        std::vector<std::shared_ptr<Pion>> equipes;
-        std::vector<std::shared_ptr<ObjPoussable>> pions_joues;
+        
+        std::vector<std::shared_ptr<Pion>> m_equipes;
+        std::vector<std::shared_ptr<ObjPoussable>> m_pions_joues;
     
     public:
         // Constructeur

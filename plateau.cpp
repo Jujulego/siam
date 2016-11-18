@@ -1,8 +1,11 @@
 // Importations
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "affichable.h"
+#include "coordonnee.h"
+#include "montagne.h"
 #include "plateau.h"
 
 #ifndef __gnu_linux__
@@ -29,9 +32,15 @@ static const std::string FLECHE_BAS    = "\xe2\x87\x93";
 
 // Construteurs
 Plateau::Plateau() {
+    // Chargement des images
     if (s_etat == ALLEGRO) {
         m_map = allegro::charger_bitmap("test_map.bmp");
     }
+    
+    // Ajout des montagnes
+    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 1)));
+    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 2)));
+    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 3)));
 }
 
 // Méthodes
@@ -54,4 +63,9 @@ void Plateau::afficher_console() noexcept {
         }
     }
     std::cout << LIGNE_BAS << std::endl;
+    
+    // Affichage des pions
+    for (auto o : m_pions_joues) {
+        o->afficher();
+    }
 }
