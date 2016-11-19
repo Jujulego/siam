@@ -21,7 +21,7 @@ int Coordonnees::get_as_x(Etat etat) const {
 
 int Coordonnees::get_as_y(Etat etat) const {
     if (etat == CONSOLE) {
-        return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 1;
+        return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 4;
     }
     
     return (get_lig() - 'A');

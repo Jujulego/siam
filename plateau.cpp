@@ -6,6 +6,7 @@
 #include "affichable.h"
 #include "coordonnee.h"
 #include "montagne.h"
+#include "pion.h"
 #include "plateau.h"
 
 #ifndef __gnu_linux__
@@ -38,9 +39,15 @@ Plateau::Plateau() {
     }
     
     // Ajout des montagnes
-    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 1)));
-    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 2)));
-    m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', 3)));
+    for (unsigned i = 1; i < 4; i++)
+        m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', i)));
+    
+    // Création des équipes
+    for (auto e : {ELEPH, RHINO}) {
+        for (unsigned i = 0; i < 5; i++) {
+            m_equipes.push_back((std::shared_ptr<Pion>) new Pion(e));
+        }
+    }
 }
 
 // Méthodes
@@ -49,9 +56,48 @@ void Plateau::afficher_allegro() noexcept {
 }
 
 void Plateau::afficher_console() noexcept {
-    // Affichage du plateau
+    // Affichage des Equipes
     s_console.gotoLigCol(0, 0);
-
+    s_console.clear();
+    std::cout << "Equipes des Rhinocéros :" << std::endl;
+    
+    s_console.gotoLigCol(25, 0);
+    std::cout << "Equipes des Elephants :" << std::endl;
+    
+    // Affichage des pions restants
+    unsigned nbr = 0;
+    unsigned nbe = 0;
+    
+    for (auto p : m_equipes) {
+        switch (p->get_equipe()) {
+        case RHINO:
+            s_console.gotoLigCol(1, nbr * 2 + 5);
+            
+            s_console.setColor(COLOR_RED);
+            if (p->get_coord().get_lig() == 'F')
+                s_console.setColor(COLOR_GREEN);
+            
+            std::cout << "R" << std::endl;
+            s_console.setColor(COLOR_DEFAULT);
+            nbr++;
+            break;
+        
+        case ELEPH:
+            s_console.gotoLigCol(26, nbe * 2 + 5);
+            
+            s_console.setColor(COLOR_RED);
+            if (p->get_coord().get_lig() == 'F')
+                s_console.setColor(COLOR_GREEN);
+            
+            std::cout << "E" << std::endl;
+            s_console.setColor(COLOR_DEFAULT);
+            nbe++;
+            break;
+        }
+    }
+    
+    // Affichage du plateau
+    s_console.gotoLigCol(3, 0);
     std::cout << LIGNE_HAUT << std::endl;
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 3; j++) {

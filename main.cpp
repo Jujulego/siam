@@ -17,7 +17,7 @@ int main() {
     p.afficher();
     
     Console c;
-    c.gotoLigCol(21, 0);
+    c.gotoLigCol(40, 0);
     
     // Libérations
     Affichable::liberer();
