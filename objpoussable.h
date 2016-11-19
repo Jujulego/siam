@@ -10,10 +10,10 @@
 
 // Enumerations
 enum Direction {
-    DROITE,
-    GAUCHE,
-    HAUT,
-    BAS,
+    DROITE = 0,
+    HAUT   = 1,
+    GAUCHE = 2,
+    BAS    = 3,
 };
 
 // Classe

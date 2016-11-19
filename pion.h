@@ -2,6 +2,7 @@
 #define __PION
 
 // Dépendances
+#include "coordonnee.h"
 #include "objpoussable.h"
 
 // Enumerations
@@ -14,16 +15,17 @@ enum Equipe {
 class Pion : public ObjPoussable {
     protected:
         // Attributs
-        Equipe m_equipe;
         Direction m_dir;
+        Equipe m_equipe;
     
     public:
         // Constructeur
         Pion(Equipe e);
         
         // Méthodes
+        void placer(Coordonnees coord, Direction dir);
         void tourner(Direction dir);
-        virtual float get_resistance() const;
+        virtual float get_resistance(Direction dir) const;
         
         // Accesseurs
         Equipe get_equipe() const;
