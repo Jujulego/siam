@@ -13,7 +13,7 @@ Coordonnees::Coordonnees(char lig, int col) : m_lig(lig), m_col(col) {
 // Méthodes
 int Coordonnees::get_as_x(Etat etat) const {
     if (etat == CONSOLE) {
-        return (get_col() * (X_CONSOLE + 1)) + 1;
+        return (get_col() * (X_CONSOLE + 1)) + 4;
     }
     
     return get_col();
@@ -21,7 +21,7 @@ int Coordonnees::get_as_x(Etat etat) const {
 
 int Coordonnees::get_as_y(Etat etat) const {
     if (etat == CONSOLE) {
-        return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 4;
+        return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 5;
     }
     
     return (get_lig() - 'A');

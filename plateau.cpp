@@ -61,7 +61,7 @@ void Plateau::afficher_console() noexcept {
     s_console.clear();
     std::cout << "Equipes des Rhinocéros :" << std::endl;
     
-    s_console.gotoLigCol(25, 0);
+    s_console.gotoLigCol(27, 0);
     std::cout << "Equipes des Elephants :" << std::endl;
     
     // Affichage des pions restants
@@ -83,7 +83,7 @@ void Plateau::afficher_console() noexcept {
             break;
         
         case ELEPH:
-            s_console.gotoLigCol(26, nbe * 2 + 5);
+            s_console.gotoLigCol(28, nbe * 2 + 5);
             
             s_console.setColor(COLOR_RED);
             if (p->get_coord().get_lig() == 'F')
@@ -98,17 +98,27 @@ void Plateau::afficher_console() noexcept {
     
     // Affichage du plateau
     s_console.gotoLigCol(3, 0);
-    std::cout << LIGNE_HAUT << std::endl;
+    
+    char l;
+    
+    std::cout << "       0       1       2       3       4" << std::endl;
+    std::cout << "   " << LIGNE_HAUT << std::endl;
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 3; j++) {
-            std::cout << LIGNE_MIL1 << std::endl;
+            l = ' ';
+            if (j % 2) {
+                l = 'A' + i;
+            }
+            
+            std::cout << " " << l << " " << LIGNE_MIL1 << " " << l << std::endl;
         }
 
         if (i != 4) {
-            std::cout << LIGNE_MIL2 << std::endl;
+            std::cout << "   " << LIGNE_MIL2 << std::endl;
         }
     }
-    std::cout << LIGNE_BAS << std::endl;
+    std::cout << "   " << LIGNE_BAS << std::endl;
+    std::cout << "       0       1       2       3       4" << std::endl;
     
     // Affichage des pions
     for (auto o : m_pions_joues) {
