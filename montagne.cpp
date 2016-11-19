@@ -8,6 +8,6 @@ Montagne::Montagne(Coordonnees coord) : ObjPoussable('M', "montagne.bmp", coord)
 }
 
 // Méthodes
-float Montagne::get_resistance(Direction dir) const {
+float Montagne::get_resistance(__attribute__((unused)) Direction dir) const {
     return 0.9;
 }

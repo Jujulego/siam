@@ -26,7 +26,7 @@ class Affichable {
         virtual ~Affichable() noexcept;
         
         // Méthodes
-        void afficher() noexcept;
+        virtual void afficher() noexcept final;
         
         // Méthodes à redéfinir
         virtual void afficher_allegro() = 0;
