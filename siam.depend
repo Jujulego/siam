@@ -84,3 +84,102 @@
 	"affichable.h"
 	<allegro.h>
 
+1479292397 source:e:\siam\siam\affichable.cpp
+	<string>
+	"affichable.h"
+	"alleg.h"
+	"console.h"
+
+1479585941 e:\siam\siam\affichable.h
+	<string>
+	"alleg.h"
+	"console.h"
+
+1479292397 e:\siam\siam\alleg.h
+	<memory>
+	<allegro.h>
+
+1479589157 e:\siam\siam\console.h
+	<iostream>
+
+1479589118 source:e:\siam\siam\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+
+1479588539 source:e:\siam\siam\alleg.cpp
+	<allegro.h>
+	<string.h>
+	"affichable.h"
+	"alleg.h"
+
+1479587500 source:e:\siam\siam\coordonnee.cpp
+	"affichable.h"
+	"coordonnee.h"
+
+1479477187 e:\siam\siam\coordonnee.h
+	"affichable.h"
+
+1479588806 source:e:\siam\siam\main.cpp
+	<allegro.h>
+	<iostream>
+	"alleg.h"
+	"affichable.h"
+	"console.h"
+	"coordonnee.h"
+	"montagne.h"
+	"plateau.h"
+
+1479477187 e:\siam\siam\montagne.h
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479585914 e:\siam\siam\objpoussable.h
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+
+1479477187 e:\siam\siam\plateau.h
+	<memory>
+	<vector>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1479585635 e:\siam\siam\pion.h
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479585774 source:e:\siam\siam\montagne.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"montagne.h"
+
+1479585799 source:e:\siam\siam\objpoussable.cpp
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479585601 source:e:\siam\siam\pion.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1479588973 source:e:\siam\siam\plateau.cpp
+	<memory>
+	<string>
+	<vector>
+	"affichable.h"
+	"coordonnee.h"
+	"montagne.h"
+	"pion.h"
+	"plateau.h"
+

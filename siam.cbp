@@ -41,11 +41,19 @@
 		</Compiler>
 		<Unit filename="affichable.cpp" />
 		<Unit filename="affichable.h" />
+		<Unit filename="alleg.cpp" />
+		<Unit filename="alleg.h" />
 		<Unit filename="console.cpp" />
 		<Unit filename="console.h" />
-		<Unit filename="helloworld.cpp" />
-		<Unit filename="helloworld.h" />
+		<Unit filename="coordonnee.cpp" />
+		<Unit filename="coordonnee.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="montagne.cpp" />
+		<Unit filename="montagne.h" />
+		<Unit filename="objpoussable.cpp" />
+		<Unit filename="objpoussable.h" />
+		<Unit filename="pion.cpp" />
+		<Unit filename="pion.h" />
 		<Unit filename="plateau.cpp" />
 		<Unit filename="plateau.h" />
 		<Unit filename="siam.cbp" />

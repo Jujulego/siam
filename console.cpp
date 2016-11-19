@@ -136,9 +136,9 @@ void Console::_setColor(int front, int back) {
 
 void Console::setColor(Color front, Color back) {
 #ifndef __gnu_linux__
-    int couleurs[] = {0, 15, 12, 10, 9, 14, 11, 7};
+    int couleurs[] = {0, 15, 12, 10, 9, 14, 11, 8, 7};
 #else
-    int couleurs[] = {0, 7, 1, 2, 4, 3, 5, 6, 9};
+    int couleurs[] = {0, 7, 1, 2, 4, 3, 5, 6, 9, 9};
 #endif
     _setColor(couleurs[front], couleurs[back]);
 }

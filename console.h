@@ -15,6 +15,7 @@ enum Color {
     COLOR_PURPLE = 6,
     COLOR_CYAN = 7,
     COLOR_DEFAULT = 8, // gris couleur de base de la console
+    COLOR_DEFAULT_BACK = 9,
 };
 
 // Classe
@@ -22,11 +23,11 @@ class Console {
     private:
         // Méthodes privées
         void _setColor(int front, int back);
-    
+
     public:
         // Constructeur
         Console();
-        
+
         // Destructeur
         ~Console();
 
@@ -35,7 +36,12 @@ class Console {
         void clear();
         int  kbhit();
         int  getch();
-        void setColor(Color front=COLOR_DEFAULT, Color back=COLOR_DEFAULT);
+
+        #ifndef __gnu_linux__
+        void setColor(Color front=COLOR_DEFAULT, Color back=COLOR_DEFAULT_BACK);
+        #else
+        void setColor(Color front=COLOR_DEFAULT, Color back=COLOR_DEFAULT_BACK);
+        #endif
 };
 
 #endif // CONSOLE_H_INCLUDED

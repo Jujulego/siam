@@ -37,11 +37,11 @@ Plateau::Plateau() {
     if (s_etat == ALLEGRO) {
         m_map = allegro::charger_bitmap("test_map.bmp");
     }
-    
+
     // Ajout des montagnes
     for (unsigned i = 1; i < 4; i++)
         m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', i)));
-    
+
     // Création des équipes
     for (auto e : {ELEPH, RHINO}) {
         for (unsigned i = 0; i < 5; i++) {
@@ -59,48 +59,48 @@ void Plateau::afficher_console() noexcept {
     // Affichage des Equipes
     s_console.gotoLigCol(0, 0);
     s_console.clear();
-    std::cout << "Equipes des Rhinocéros :" << std::endl;
-    
+    std::cout << "Equipes des Rhinoceros :" << std::endl;
+
     s_console.gotoLigCol(27, 0);
     std::cout << "Equipes des Elephants :" << std::endl;
-    
+
     // Affichage des pions restants
     unsigned nbr = 0;
     unsigned nbe = 0;
-    
+
     for (auto p : m_equipes) {
         switch (p->get_equipe()) {
         case RHINO:
             s_console.gotoLigCol(1, nbr * 2 + 5);
-            
+
             s_console.setColor(COLOR_RED);
             if (p->get_coord().get_lig() == 'F')
                 s_console.setColor(COLOR_GREEN);
-            
+
             std::cout << "R" << std::endl;
-            s_console.setColor(COLOR_DEFAULT);
+            s_console.setColor();
             nbr++;
             break;
-        
+
         case ELEPH:
             s_console.gotoLigCol(28, nbe * 2 + 5);
-            
+
             s_console.setColor(COLOR_RED);
             if (p->get_coord().get_lig() == 'F')
                 s_console.setColor(COLOR_GREEN);
-            
+
             std::cout << "E" << std::endl;
-            s_console.setColor(COLOR_DEFAULT);
+            s_console.setColor();
             nbe++;
             break;
         }
     }
-    
+
     // Affichage du plateau
     s_console.gotoLigCol(3, 0);
-    
+
     char l;
-    
+
     std::cout << "       0       1       2       3       4" << std::endl;
     std::cout << "   " << LIGNE_HAUT << std::endl;
     for (int i = 0; i < 5; i++) {
@@ -109,7 +109,7 @@ void Plateau::afficher_console() noexcept {
             if (j % 2) {
                 l = 'A' + i;
             }
-            
+
             std::cout << " " << l << " " << LIGNE_MIL1 << " " << l << std::endl;
         }
 
@@ -119,7 +119,7 @@ void Plateau::afficher_console() noexcept {
     }
     std::cout << "   " << LIGNE_BAS << std::endl;
     std::cout << "       0       1       2       3       4" << std::endl;
-    
+
     // Affichage des pions
     for (auto o : m_pions_joues) {
         o->afficher();

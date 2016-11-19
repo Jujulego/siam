@@ -1,4 +1,5 @@
 // Importations
+#include <allegro.h>
 #include <iostream>
 
 #include "alleg.h"
@@ -15,10 +16,10 @@ int main() {
     // Tests
     Plateau p;
     p.afficher();
-    
+
     Console c;
     c.gotoLigCol(40, 0);
-    
+
     // Libérations
     Affichable::liberer();
 
