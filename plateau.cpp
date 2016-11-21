@@ -41,52 +41,24 @@ Plateau::Plateau() {
 }
 
 // Méthodes
+void Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
+    // Récupération du pion
+    for (auto p : m_equipes) {
+        if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
+            p->placer(coord, dir);
+            m_pions_joues.push_back(p);
+            break;
+        }
+    }
+}
+
 void Plateau::afficher_allegro() noexcept {
     draw_sprite(s_buffer, m_map, 0, 0);
 }
 
 void Plateau::afficher_console() noexcept {
-    // Affichage des Equipes
-    s_console.gotoLigCol(0, 0);
-    s_console.clear();
-    std::cout << "Equipes des Rhinoceros :" << std::endl;
-
-    s_console.gotoLigCol(27, 0);
-    std::cout << "Equipes des Elephants :" << std::endl;
-
-    // Affichage des pions restants
-    unsigned nbr = 0;
-    unsigned nbe = 0;
-
-    for (auto p : m_equipes) {
-        switch (p->get_equipe()) {
-        case RHINO:
-            s_console.gotoLigCol(1, nbr * 2 + 5);
-
-            s_console.setColor(COLOR_RED);
-            if (p->get_coord().get_lig() == 'F')
-                s_console.setColor(COLOR_GREEN);
-
-            std::cout << "R" << std::endl;
-            s_console.setColor();
-            nbr++;
-            break;
-
-        case ELEPH:
-            s_console.gotoLigCol(28, nbe * 2 + 5);
-
-            s_console.setColor(COLOR_RED);
-            if (p->get_coord().get_lig() == 'F')
-                s_console.setColor(COLOR_GREEN);
-
-            std::cout << "E" << std::endl;
-            s_console.setColor();
-            nbe++;
-            break;
-        }
-    }
-
     // Affichage du plateau
+    s_console.clear();
     s_console.gotoLigCol(3, 0);
 
     char l;
@@ -109,6 +81,45 @@ void Plateau::afficher_console() noexcept {
     }
     std::cout << "   " << LIGNE_BAS << std::endl;
     std::cout << "       0       1       2       3       4" << std::endl;
+
+    // Affichage des Equipes
+    s_console.gotoLigCol(0, 0);
+    std::cout << "Equipes des Rhinoceros :" << std::endl;
+
+    s_console.gotoLigCol(27, 0);
+    std::cout << "Equipes des Elephants :" << std::endl;
+
+    // Affichage des pions restants
+    unsigned nbr = 0;
+    unsigned nbe = 0;
+
+    for (auto p : m_equipes) {
+        switch (p->get_equipe()) {
+        case RHINO:
+            s_console.gotoLigCol(1, nbr * 2 + 5);
+
+            s_console.setColor(COLOR_RED);
+            if (p->get_coord().get_lig() == 'F')
+                s_console.setColor(COLOR_GREEN);
+            
+            std::cout << "R" << std::endl;
+            s_console.setColor();
+            nbr++;
+            break;
+
+        case ELEPH:
+            s_console.gotoLigCol(28, nbe * 2 + 5);
+
+            s_console.setColor(COLOR_RED);
+            if (p->get_coord().get_lig() == 'F')
+                s_console.setColor(COLOR_GREEN);
+
+            std::cout << "E" << std::endl;
+            s_console.setColor();
+            nbe++;
+            break;
+        }
+    }
 
     // Affichage des pions
     for (auto o : m_pions_joues) {

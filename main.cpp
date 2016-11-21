@@ -2,11 +2,10 @@
 #include <allegro.h>
 #include <iostream>
 
-#include "alleg.h"
 #include "affichable.h"
 #include "console.h"
 #include "coordonnee.h"
-#include "montagne.h"
+#include "pion.h"
 #include "plateau.h"
 
 int main() {
@@ -15,6 +14,8 @@ int main() {
 
     // Tests
     Plateau p;
+    p.placer(RHINO, Coordonnees('A', 4), BAS);
+    p.placer(ELEPH, Coordonnees('D', 3), DROITE);
     p.afficher();
 
     Console c;
