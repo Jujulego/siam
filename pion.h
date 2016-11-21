@@ -23,6 +23,9 @@ class Pion : public ObjPoussable {
         Pion(Equipe e);
         
         // Méthodes
+        virtual void afficher_allegro() noexcept;
+        virtual void afficher_console() noexcept;
+        
         void placer(Coordonnees coord, Direction dir);
         void tourner(Direction dir);
         virtual float get_resistance(Direction dir) const;
