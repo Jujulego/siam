@@ -28,6 +28,8 @@ class Plateau : public Affichable {
 
         // Méthodes
         void placer(Equipe e, Coordonnees coord, Direction dir);
+        std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
+        bool deplacer(Coordonnees coord, Direction dir); // Renvoie vrai s'il n'y a pas de pions au coordonnees donnée, ou si le déplacement est impossible
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
 };

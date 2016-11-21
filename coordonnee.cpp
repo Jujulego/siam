@@ -43,3 +43,8 @@ void Coordonnees::set_lig(char lig) {
 void Coordonnees::set_col(int col) {
     m_col = col;
 }
+
+// Opérateurs
+bool Coordonnees::operator == (Coordonnees const& c) {
+    return (get_lig() == c.get_lig()) && (get_col() == c.get_col());
+}

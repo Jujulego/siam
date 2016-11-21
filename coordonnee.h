@@ -24,6 +24,9 @@ class Coordonnees {
         
         void set_lig(char lig);
         void set_col(int col);
+        
+        // Opérateurs
+        bool operator==(Coordonnees const& c);
 };
 
 #endif // __COORDONNEES

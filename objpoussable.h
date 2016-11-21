@@ -32,7 +32,7 @@ class ObjPoussable : public Affichable {
         virtual ~ObjPoussable()  noexcept;
 
         // Méthodes
-        virtual void deplacer(Direction dir);
+        bool deplacer(Direction dir); // renvoie vrai si le pion sort du plateau
         virtual float get_resistance(Direction dir) const = 0;
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;

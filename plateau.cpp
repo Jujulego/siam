@@ -52,6 +52,35 @@ void Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     }
 }
 
+std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
+    for (auto p : m_pions_joues) {
+        if (p->get_coord() == coord)
+            return p;
+    }
+    
+    return nullptr;
+}
+
+bool Plateau::deplacer(Coordonnees coord, Direction dir) {
+    // Récupération du pion
+    auto p = get_pion(coord);
+    
+    if (p == nullptr)
+        return true;
+    
+    // Déplacement !
+    if (p->deplacer(dir)) {
+        for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
+            if (*it == p) {
+                m_pions_joues.erase(it);
+                break;
+            }
+        }
+    }
+    
+    return false;
+}
+
 void Plateau::afficher_allegro() noexcept {
     draw_sprite(s_buffer, m_map, 0, 0);
 }

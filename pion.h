@@ -28,6 +28,7 @@ class Pion : public ObjPoussable {
         
         void placer(Coordonnees coord, Direction dir);
         void tourner(Direction dir);
+        
         virtual float get_resistance(Direction dir) const;
         
         // Accesseurs
