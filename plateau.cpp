@@ -56,6 +56,7 @@ void Plateau::afficher_allegro() noexcept {
     draw_sprite(s_buffer, m_map, 0, 0);
 }
 
+//Affichage sur la console
 void Plateau::afficher_console() noexcept {
     // Affichage du plateau
     s_console.clear();
@@ -101,7 +102,7 @@ void Plateau::afficher_console() noexcept {
             s_console.setColor(COLOR_RED);
             if (p->get_coord().get_lig() == 'F')
                 s_console.setColor(COLOR_GREEN);
-            
+
             std::cout << "R" << std::endl;
             s_console.setColor();
             nbr++;

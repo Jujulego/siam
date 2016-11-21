@@ -15,7 +15,7 @@ int Coordonnees::get_as_x(Etat etat) const {
     if (etat == CONSOLE) {
         return (get_col() * (X_CONSOLE + 1)) + 4;
     }
-    
+
     return get_col();
 }
 
@@ -23,7 +23,7 @@ int Coordonnees::get_as_y(Etat etat) const {
     if (etat == CONSOLE) {
         return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 5;
     }
-    
+
     return (get_lig() - 'A');
 }
 
@@ -36,6 +36,7 @@ int Coordonnees::get_col() const {
     return m_col;
 }
 
+//Setteurs
 void Coordonnees::set_lig(char lig) {
     m_lig = lig;
 }

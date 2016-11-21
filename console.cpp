@@ -79,7 +79,7 @@ Console::~Console() {
 }
 
 // Méthodes
-void Console::gotoLigCol(int lig, int col) {
+void Console::gotoLigCol(int lig, int col) { //deplacement du curseur
 #ifndef __gnu_linux__
     COORD mycoord;
     mycoord.X = col;
@@ -98,11 +98,11 @@ void Console::clear() {
 #endif
 }
 
-int Console::getch() {
+int Console::getch() { // recupere le caractère du clavier
     return c::getch();
 }
 
-int Console::kbhit() {
+int Console::kbhit() { //renvoi 0 ou 1
     return c::kbhit();
 }
 
