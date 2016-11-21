@@ -23,20 +23,20 @@ class ObjPoussable : public Affichable {
         char m_char;
         Coordonnees m_coord;
         allegro::BITMAP_PT m_image;
-    
+
     public:
         // Constructeur
         ObjPoussable(char c, std::string img, Coordonnees coord);
-        
+
         // Destructeur
-        virtual ~ObjPoussable();
-        
+        virtual ~ObjPoussable()  noexcept;
+
         // Méthodes
         virtual void deplacer(Direction dir);
         virtual float get_resistance(Direction dir) const = 0;
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
-        
+
         // Accesseur
         Coordonnees get_coord() const;
 };

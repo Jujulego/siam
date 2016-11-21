@@ -14,7 +14,7 @@ ObjPoussable::ObjPoussable(char c, std::string img, Coordonnees coord) : Afficha
 }
 
 // Destructeur
-ObjPoussable::~ObjPoussable() {
+ObjPoussable::~ObjPoussable() noexcept{
 }
 
 // Méthodes
