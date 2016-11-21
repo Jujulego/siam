@@ -25,23 +25,23 @@ void Pion::afficher_allegro() noexcept {
 
 void Pion::afficher_console() noexcept {
     ObjPoussable::afficher_console();
-    
+
     switch (m_dir) {
     case HAUT:
         s_console.gotoLigCol(get_coord().get_as_y(s_etat), get_coord().get_as_x(s_etat) + 3);
         std::cout << FLECHE_HAUT;
         break;
-    
+
     case BAS:
         s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 2, get_coord().get_as_x(s_etat) + 3);
         std::cout << FLECHE_BAS;
         break;
-    
+
     case DROITE:
         s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 5);
         std::cout << FLECHE_DROITE;
         break;
-    
+
     case GAUCHE:
         s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 1);
         std::cout << FLECHE_GAUCHE;
@@ -49,12 +49,12 @@ void Pion::afficher_console() noexcept {
     }
 }
 
-void Pion::placer(Coordonnees coord, Direction dir) {
+void Pion::placer(Coordonnees coord, Direction dir) { //placement des pions
     m_coord = coord;
     m_dir = dir;
 }
 
-void Pion::tourner(Direction dir) {
+void Pion::tourner(Direction dir) {  //position du pion
     m_dir = dir;
 }
 
