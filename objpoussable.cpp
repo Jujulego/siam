@@ -34,8 +34,10 @@ void ObjPoussable::afficher_allegro() noexcept {
 }
 
 void ObjPoussable::afficher_console() noexcept {
-    s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 3);
-    std::cout << m_char;
+    if (get_coord().get_lig() != 'F') {
+        s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 3);
+        std::cout << m_char;
+    }
 }
 
 // Accesseur
