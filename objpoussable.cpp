@@ -19,50 +19,12 @@ ObjPoussable::~ObjPoussable() noexcept{
 
 // Méthodes
 bool ObjPoussable::deplacer(Direction dir) {
-    switch (dir) {
-    case HAUT:
-        if (get_coord().get_lig() == 'A') {
-            m_coord.set_lig('F');
-            m_coord.set_col(5);
-            return true;
-        }
-        
-        m_coord.set_lig(get_coord().get_lig() - 1);
-        
-        break;
+    m_coord += dir;
     
-    case BAS:
-        if (get_coord().get_lig() == 'E') {
-            m_coord.set_lig('F');
-            m_coord.set_col(5);
-            return true;
-        }
-        
-        m_coord.set_lig(get_coord().get_lig() + 1);
-        
-        break;
-    
-    case DROITE:
-        if (get_coord().get_col() == 4) {
-            m_coord.set_lig('F');
-            m_coord.set_col(5);
-            return true;
-        }
-        
-        m_coord.set_col(get_coord().get_col() + 1);
-        
-        break;
-    
-    case GAUCHE:
-        if (get_coord().get_col() == 0) {
-            m_coord.set_lig('F');
-            m_coord.set_col(5);
-            return true;
-        }
-        
-        m_coord.set_col(get_coord().get_col() - 1);
-        
-        break;
+    if ((m_coord.get_lig() < 'A') || (m_coord.get_lig() > 'E') || (m_coord.get_col() < 0) || (m_coord.get_col() > 4)) {
+        m_coord.set_lig('F');
+        m_coord.set_col(5);
+        return true;
     }
     
     return false;
