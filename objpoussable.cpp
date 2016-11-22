@@ -7,29 +7,42 @@
 #include "objpoussable.h"
 
 // Constructeur
-ObjPoussable::ObjPoussable(char c, std::string img, Coordonnees coord) : Affichable(), m_char(c), m_coord(coord) {
+ObjPoussable::ObjPoussable(Equipe e, char c, std::string img, Coordonnees coord) : Affichable(), m_equipe(e), m_char(c), m_coord(coord) {
     if (s_etat == ALLEGRO) {
         m_image = allegro::charger_bitmap(img);
     }
 }
 
 // Destructeur
-ObjPoussable::~ObjPoussable() {
+ObjPoussable::~ObjPoussable() noexcept{
 }
 
 // Méthodes
-void ObjPoussable::deplacer(Direction dir) {
+bool ObjPoussable::deplacer(Direction dir) {
+    m_coord += dir;
+    
+    if ((m_coord.get_lig() < 'A') || (m_coord.get_lig() > 'E') || (m_coord.get_col() < 0) || (m_coord.get_col() > 4)) {
+        m_coord.set_lig('F');
+        m_coord.set_col(5);
+        return true;
+    }
+    
+    return false;
 }
 
 void ObjPoussable::afficher_allegro() noexcept {
 }
 
 void ObjPoussable::afficher_console() noexcept {
-    s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat));
-    std::cout << "   " << m_char;
+    s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 3);
+    std::cout << m_char;
 }
 
 // Accesseur
 Coordonnees ObjPoussable::get_coord() const {
     return m_coord;
+}
+
+Equipe ObjPoussable::get_equipe() const {
+    return m_equipe;
 }

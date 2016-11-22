@@ -1,5 +1,6 @@
 // Importations
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -14,21 +15,11 @@ static const std::string LIGNE_HAUT = "\xda\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc2\xc4\
 static const std::string LIGNE_MIL1 = "\xb3       \xb3       \xb3       \xb3       \xb3       \xb3";
 static const std::string LIGNE_MIL2 = "\xc3\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc5\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc5\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc5\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc5\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xb4";
 static const std::string LIGNE_BAS  = "\xc0\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc1\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc1\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc1\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc1\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xd9";
-
-static const std::string FLECHE_GAUCHE = "\x1b";
-static const std::string FLECHE_HAUT   = "\x18";
-static const std::string FLECHE_DROITE = "\x1a";
-static const std::string FLECHE_BAS    = "\x19";
 #else
 static const std::string LIGNE_HAUT = "\xe2\x95\xad\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xac\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xac\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xac\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xac\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x95\xae";
 static const std::string LIGNE_MIL1 = "\xe2\x94\x82       \xe2\x94\x82       \xe2\x94\x82       \xe2\x94\x82       \xe2\x94\x82       \xe2\x94\x82";
 static const std::string LIGNE_MIL2 = "\xe2\x94\x9c\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xbc\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xbc\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xbc\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xbc\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xa4";
 static const std::string LIGNE_BAS  = "\xe2\x95\xb0\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xb4\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xb4\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xb4\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\xb4\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x94\x80\xe2\x95\xaf";
-
-static const std::string FLECHE_GAUCHE = "\xe2\x87\x90";
-static const std::string FLECHE_HAUT   = "\xe2\x87\x91";
-static const std::string FLECHE_DROITE = "\xe2\x87\x92";
-static const std::string FLECHE_BAS    = "\xe2\x87\x93";
 #endif
 
 // Construteurs
@@ -51,14 +42,147 @@ Plateau::Plateau() {
 }
 
 // Méthodes
+bool Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
+    // Verification que la case est vide
+    if (get_pion(coord) != nullptr) {
+        m_message = "Cette case est déjà occupée !";
+        return true;
+    }
+    
+    // Récupération du pion
+    for (auto p : m_equipes) {
+        if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
+            p->placer(coord, dir);
+            m_pions_joues.push_back(p);
+            return false;
+        }
+    }
+    
+    m_message = "Vous n'avez plus le pion libre !";
+    return true;
+}
+
+std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
+    for (auto p : m_pions_joues) {
+        if (p->get_coord() == coord)
+            return p;
+    }
+    
+    return nullptr;
+}
+
+bool Plateau::deplacer(Coordonnees coord, Direction dir) {
+    // Récupération du pion
+    auto pion = get_pion(coord);
+    
+    if (pion == nullptr) {
+        m_message = "Il n'y a pas de pion ici !";
+        return true;
+    }
+    
+    if (pion->get_equipe() == MONTAGNE) {
+        m_message = "Hey c'est une montagne ...";
+        return true;
+    }
+    
+    // Récupérations des éléments dans la direction
+    std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
+    float resist = 0.0;
+    
+    if (dir == pion->get_dir()) {
+        // Parcours de ce qu'il y a avant le pion
+        for (Coordonnees c = coord; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+            auto p = get_pion(c);
+            
+            if (p == nullptr)
+                break;
+            
+            resist += p->get_resistance(dir);
+            objdevant.insert(p);
+        }
+        
+        // Check resistance
+        if (resist >= pion->get_force(dir)) {
+            m_message = "Impossible de bouger, c'est trop lourd ...";
+            return true;
+        }
+    } else {
+        if (get_pion(coord + dir) != nullptr) {
+            m_message = "C'est occupé !";
+            return true;
+        }
+    }
+    
+    // Déplacements !
+    for (auto p : objdevant) {
+        if (p->deplacer(dir)) {
+            if (p->get_equipe() == MONTAGNE) {
+                m_message = "GAGNE !";
+            } else {
+                for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
+                    if (*it == p) {
+                        m_pions_joues.erase(it);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool Plateau::tourner(Coordonnees coord, Direction dir) {
+    // Récupération du pion
+    auto pion = get_pion(coord);
+    
+    if (pion == nullptr) {
+        m_message = "Il n'y a pas de pion ici !";
+        return true;
+    }
+    
+    if (pion->get_equipe() == MONTAGNE) {
+        m_message = "Hey c'est une montagne ...";
+        return true;
+    }
+    
+    pion->tourner(dir);
+    return false;
+}
+
 void Plateau::afficher_allegro() noexcept {
     draw_sprite(s_buffer, m_map, 0, 0);
 }
 
+//Affichage sur la console
 void Plateau::afficher_console() noexcept {
+    // Affichage du plateau
+    s_console.clear();
+    s_console.gotoLigCol(3, 0);
+
+    char l;
+
+    std::cout << "       0       1       2       3       4" << std::endl;
+    std::cout << "   " << LIGNE_HAUT << std::endl;
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 3; j++) {
+            l = ' ';
+            if (j % 2) {
+                l = 'A' + i;
+            }
+
+            std::cout << " " << l << " " << LIGNE_MIL1 << " " << l << std::endl;
+        }
+
+        if (i != 4) {
+            std::cout << "   " << LIGNE_MIL2 << std::endl;
+        }
+    }
+    std::cout << "   " << LIGNE_BAS << std::endl;
+    std::cout << "       0       1       2       3       4" << std::endl;
+
     // Affichage des Equipes
     s_console.gotoLigCol(0, 0);
-    s_console.clear();
     std::cout << "Equipes des Rhinoceros :" << std::endl;
 
     s_console.gotoLigCol(27, 0);
@@ -93,35 +217,19 @@ void Plateau::afficher_console() noexcept {
             s_console.setColor();
             nbe++;
             break;
+        
+        default:
+            break;
         }
     }
-
-    // Affichage du plateau
-    s_console.gotoLigCol(3, 0);
-
-    char l;
-
-    std::cout << "       0       1       2       3       4" << std::endl;
-    std::cout << "   " << LIGNE_HAUT << std::endl;
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 3; j++) {
-            l = ' ';
-            if (j % 2) {
-                l = 'A' + i;
-            }
-
-            std::cout << " " << l << " " << LIGNE_MIL1 << " " << l << std::endl;
-        }
-
-        if (i != 4) {
-            std::cout << "   " << LIGNE_MIL2 << std::endl;
-        }
-    }
-    std::cout << "   " << LIGNE_BAS << std::endl;
-    std::cout << "       0       1       2       3       4" << std::endl;
 
     // Affichage des pions
     for (auto o : m_pions_joues) {
         o->afficher();
     }
+    
+    // Affichage du message
+    s_console.gotoLigCol(30, 2);
+    Affichable::erreur(m_message);
+    m_message = "";
 }

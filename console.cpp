@@ -12,7 +12,7 @@ namespace c {
 
     int getch(void) {
         struct termios oldattr, newattr;
-        int ch;
+        int ch, oldf;
 
         // Sauvegarde de la config
         tcgetattr(STDIN_FILENO, &oldattr);
@@ -22,8 +22,15 @@ namespace c {
         newattr.c_lflag &= ~(ICANON | ECHO);
         tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
 
+        // Vidage du buffer
+        oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+        fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+        while (getchar() != EOF) {}
+
+        fcntl(STDIN_FILENO, F_SETFL, oldf);
+        
         // Récupération du char
-        fflush(stdin);
         ch = getchar();
 
         // Rétablissement du terminal
@@ -79,7 +86,7 @@ Console::~Console() {
 }
 
 // Méthodes
-void Console::gotoLigCol(int lig, int col) {
+void Console::gotoLigCol(int lig, int col) { //deplacement du curseur
 #ifndef __gnu_linux__
     COORD mycoord;
     mycoord.X = col;
@@ -98,11 +105,11 @@ void Console::clear() {
 #endif
 }
 
-int Console::getch() {
+int Console::getch() { // recupere le caractère du clavier
     return c::getch();
 }
 
-int Console::kbhit() {
+int Console::kbhit() { //renvoi 0 ou 1
     return c::kbhit();
 }
 
