@@ -4,7 +4,7 @@
 #include "objpoussable.h"
 
 // Constructeur
-Joueur::Joueur(Equipe e) : m_equipe(e) {
+Joueur::Joueur(Equipe e) : Affichable(), m_equipe(e) {
 };
 
 // Destructeur

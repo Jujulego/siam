@@ -105,10 +105,12 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
     }
     
     // Déplacements !
+    Retour r = OK;
     for (auto p : objdevant) {
         if (p->deplacer(dir)) {
             if (p->get_equipe() == MONTAGNE) {
                 m_message = "GAGNE !";
+                r = FIN;
             } else {
                 for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
                     if (*it == p) {
@@ -120,7 +122,7 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
         }
     }
     
-    return OK;
+    return r;
 }
 
 Retour Plateau::tourner(Coordonnees coord, Direction dir) {

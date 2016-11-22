@@ -2,11 +2,12 @@
 #define __JOUEUR
 
 // Dépendances
+#include "affichable.h"
 #include "objpoussable.h"
 #include "plateau.h"
 
 // Classe
-class Joueur {
+class Joueur : public Affichable {
     protected:
         // Attributs
         Equipe m_equipe;
