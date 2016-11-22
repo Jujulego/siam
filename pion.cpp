@@ -16,7 +16,7 @@ static const std::string FLECHE_BAS    = "\xe2\x87\x93";
 #endif
 
 // Constructeur
-Pion::Pion(Equipe e) : ObjPoussable((e == ELEPH) ? 'E' : 'R', "pas d'image !", Coordonnees('F', 5)), m_dir(HAUT), m_equipe(e) {
+Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', "pas d'image !", Coordonnees('F', 5)), m_dir(HAUT) {
 }
 
 // Méthodes
@@ -62,11 +62,11 @@ float Pion::get_resistance(Direction dir) const {
     return ((dir + 2) % 4 == get_dir()) ? 1.0f : 0.0f;
 }
 
-// Accesseurs
-Equipe Pion::get_equipe() const {
-    return m_equipe;
+float Pion::get_force(Direction dir) const {
+    return (dir == get_dir()) ? 1.0f : 0.0f;
 }
 
+// Accesseurs
 Direction Pion::get_dir() const {
     return m_dir;
 }

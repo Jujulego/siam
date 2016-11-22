@@ -10,6 +10,9 @@
 Coordonnees::Coordonnees(char lig, int col) : m_lig(lig), m_col(col) {
 }
 
+Coordonnees::Coordonnees(Coordonnees const& c) : m_lig(c.get_lig()), m_col(c.get_col()) {
+}
+
 // Méthodes
 int Coordonnees::get_as_x(Etat etat) const {
     if (etat == CONSOLE) {
@@ -48,4 +51,20 @@ void Coordonnees::set_col(int col) {
 // Opérateurs
 bool Coordonnees::operator == (Coordonnees const& c) {
     return (get_lig() == c.get_lig()) && (get_col() == c.get_col());
+}
+
+void Coordonnees::operator += (Direction const& d) {
+    if (d % 2) {
+        m_lig += (d == BAS) ? 1 : -1;
+    } else {
+        m_col += (d == DROITE) ? 1 : -1;
+    }
+}
+
+Coordonnees Coordonnees::operator + (Direction const& d) {
+    // Copie
+    Coordonnees c = *this;
+    c += d;
+    
+    return c;
 }

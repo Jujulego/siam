@@ -1,5 +1,6 @@
 // Importations
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -41,15 +42,24 @@ Plateau::Plateau() {
 }
 
 // Méthodes
-void Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
+bool Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
+    // Verification que la case est vide
+    if (get_pion(coord) != nullptr) {
+        m_message = "Cette case est déjà occupée !";
+        return true;
+    }
+    
     // Récupération du pion
     for (auto p : m_equipes) {
         if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
             p->placer(coord, dir);
             m_pions_joues.push_back(p);
-            break;
+            return false;
         }
     }
+    
+    m_message = "Vous n'avez plus le pion libre !";
+    return true;
 }
 
 std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
@@ -63,21 +73,80 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 
 bool Plateau::deplacer(Coordonnees coord, Direction dir) {
     // Récupération du pion
-    auto p = get_pion(coord);
+    auto pion = get_pion(coord);
     
-    if (p == nullptr)
+    if (pion == nullptr) {
+        m_message = "Il n'y a pas de pion ici !";
         return true;
+    }
     
-    // Déplacement !
-    if (p->deplacer(dir)) {
-        for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
-            if (*it == p) {
-                m_pions_joues.erase(it);
+    if (pion->get_equipe() == MONTAGNE) {
+        m_message = "Hey c'est une montagne ...";
+        return true;
+    }
+    
+    // Récupérations des éléments dans la direction
+    std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
+    float resist = 0.0;
+    
+    if (dir == pion->get_dir()) {
+        // Parcours de ce qu'il y a avant le pion
+        for (Coordonnees c = coord; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+            auto p = get_pion(c);
+            
+            if (p == nullptr)
                 break;
+            
+            resist += p->get_resistance(dir);
+            objdevant.insert(p);
+        }
+        
+        // Check resistance
+        if (resist >= pion->get_force(dir)) {
+            m_message = "Impossible de bouger, c'est trop lourd ...";
+            return true;
+        }
+    } else {
+        if (get_pion(coord + dir) != nullptr) {
+            m_message = "C'est occupé !";
+            return true;
+        }
+    }
+    
+    // Déplacements !
+    for (auto p : objdevant) {
+        if (p->deplacer(dir)) {
+            if (p->get_equipe() == MONTAGNE) {
+                m_message = "GAGNE !";
+            } else {
+                for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
+                    if (*it == p) {
+                        m_pions_joues.erase(it);
+                        break;
+                    }
+                }
             }
         }
     }
     
+    return false;
+}
+
+bool Plateau::tourner(Coordonnees coord, Direction dir) {
+    // Récupération du pion
+    auto pion = get_pion(coord);
+    
+    if (pion == nullptr) {
+        m_message = "Il n'y a pas de pion ici !";
+        return true;
+    }
+    
+    if (pion->get_equipe() == MONTAGNE) {
+        m_message = "Hey c'est une montagne ...";
+        return true;
+    }
+    
+    pion->tourner(dir);
     return false;
 }
 
@@ -148,6 +217,9 @@ void Plateau::afficher_console() noexcept {
             s_console.setColor();
             nbe++;
             break;
+        
+        default:
+            break;
         }
     }
 
@@ -155,4 +227,9 @@ void Plateau::afficher_console() noexcept {
     for (auto o : m_pions_joues) {
         o->afficher();
     }
+    
+    // Affichage du message
+    s_console.gotoLigCol(30, 2);
+    Affichable::erreur(m_message);
+    m_message = "";
 }

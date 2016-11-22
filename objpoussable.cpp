@@ -7,7 +7,7 @@
 #include "objpoussable.h"
 
 // Constructeur
-ObjPoussable::ObjPoussable(char c, std::string img, Coordonnees coord) : Affichable(), m_char(c), m_coord(coord) {
+ObjPoussable::ObjPoussable(Equipe e, char c, std::string img, Coordonnees coord) : Affichable(), m_equipe(e), m_char(c), m_coord(coord) {
     if (s_etat == ALLEGRO) {
         m_image = allegro::charger_bitmap(img);
     }
@@ -79,4 +79,8 @@ void ObjPoussable::afficher_console() noexcept {
 // Accesseur
 Coordonnees ObjPoussable::get_coord() const {
     return m_coord;
+}
+
+Equipe ObjPoussable::get_equipe() const {
+    return m_equipe;
 }
