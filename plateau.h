@@ -11,6 +11,14 @@
 #include "objpoussable.h"
 #include "pion.h"
 
+// Enumeration
+enum Retour {
+    OK,
+    FIN,
+    PASPION,
+    ERREUR,  // Peux signifier 2 choses : si renvoyé par placer : la place est prise, si renvoyé pas deplacer : mvt impossible
+};
+
 // Classe
 class Plateau : public Affichable {
     private:
@@ -28,10 +36,11 @@ class Plateau : public Affichable {
         Plateau();
 
         // Méthodes
-        bool placer(Equipe e, Coordonnees coord, Direction dir);
+        Retour placer(Equipe e, Coordonnees coord, Direction dir);
+        Retour deplacer(Coordonnees coord, Direction dir);
+        Retour tourner(Coordonnees coord, Direction dir);
+        
         std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
-        bool deplacer(Coordonnees coord, Direction dir); // Renvoie vrai s'il n'y a pas de pions au coordonnees donnée, ou si le déplacement est impossible
-        bool tourner(Coordonnees coord, Direction dir); // Renvoie vrai s'il n'y a pas de pions au coordonnees donnée
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
 };

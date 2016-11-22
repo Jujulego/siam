@@ -42,11 +42,11 @@ Plateau::Plateau() {
 }
 
 // Méthodes
-bool Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
+Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     // Verification que la case est vide
     if (get_pion(coord) != nullptr) {
         m_message = "Cette case est déjà occupée !";
-        return true;
+        return ERREUR;
     }
     
     // Récupération du pion
@@ -54,35 +54,26 @@ bool Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
         if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
             p->placer(coord, dir);
             m_pions_joues.push_back(p);
-            return false;
+            return OK;
         }
     }
     
     m_message = "Vous n'avez plus le pion libre !";
-    return true;
+    return PASPION;
 }
 
-std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
-    for (auto p : m_pions_joues) {
-        if (p->get_coord() == coord)
-            return p;
-    }
-    
-    return nullptr;
-}
-
-bool Plateau::deplacer(Coordonnees coord, Direction dir) {
+Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
     
     if (pion == nullptr) {
         m_message = "Il n'y a pas de pion ici !";
-        return true;
+        return PASPION;
     }
     
     if (pion->get_equipe() == MONTAGNE) {
         m_message = "Hey c'est une montagne ...";
-        return true;
+        return PASPION;
     }
     
     // Récupérations des éléments dans la direction
@@ -104,12 +95,12 @@ bool Plateau::deplacer(Coordonnees coord, Direction dir) {
         // Check resistance
         if (resist >= pion->get_force(dir)) {
             m_message = "Impossible de bouger, c'est trop lourd ...";
-            return true;
+            return ERREUR;
         }
     } else {
         if (get_pion(coord + dir) != nullptr) {
             m_message = "C'est occupé !";
-            return true;
+            return ERREUR;
         }
     }
     
@@ -129,25 +120,34 @@ bool Plateau::deplacer(Coordonnees coord, Direction dir) {
         }
     }
     
-    return false;
+    return OK;
 }
 
-bool Plateau::tourner(Coordonnees coord, Direction dir) {
+Retour Plateau::tourner(Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
     
     if (pion == nullptr) {
         m_message = "Il n'y a pas de pion ici !";
-        return true;
+        return PASPION;
     }
     
     if (pion->get_equipe() == MONTAGNE) {
         m_message = "Hey c'est une montagne ...";
-        return true;
+        return ERREUR;
     }
     
     pion->tourner(dir);
-    return false;
+    return OK;
+}
+
+std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
+    for (auto p : m_pions_joues) {
+        if (p->get_coord() == coord)
+            return p;
+    }
+    
+    return nullptr;
 }
 
 void Plateau::afficher_allegro() noexcept {
