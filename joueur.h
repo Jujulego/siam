@@ -11,14 +11,14 @@ class Joueur : public Affichable {
     protected:
         // Attributs
         Equipe m_equipe;
-    
+
     public:
         // Constructeur
         Joueur(Equipe e);
-        
+
         // Destructeur
-        virtual ~Joueur();
-        
+        virtual ~Joueur() noexcept;
+
         // Méthodes
         virtual bool jouer(Plateau& p) = 0;
 };

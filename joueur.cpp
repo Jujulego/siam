@@ -8,5 +8,5 @@ Joueur::Joueur(Equipe e) : Affichable(), m_equipe(e) {
 };
 
 // Destructeur
-Joueur::~Joueur() {
+Joueur::~Joueur() noexcept {
 }

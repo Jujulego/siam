@@ -1,5 +1,5 @@
 // Importations
-#include <vector.h>
+#include <vector>
 
 #include "affichable.h"
 #include "coordonnee.h"
@@ -8,7 +8,7 @@
 #include "progjoueur.h"
 
 // Constructeur
-ProgJoueur::ProgJoueur(Equipe e, std::vector<Mov>& actions) : Joueur(e), m_actions(actions) {
+ProgJoueur::ProgJoueur(Equipe e, std::vector<Mov> const& actions) : Joueur(e), m_actions(actions) {
 }
 
 // Méthodes
@@ -27,15 +27,16 @@ bool ProgJoueur::jouer(Plateau& p) {
     
     switch (m.a) {
     case P:
-        p.placer(m_equipe, m.c, m.d);
-        break;
+        return p.placer(m_equipe, m.c, m.d);
     
     case D:
-        p.deplacer(m.c, m.d);
+        return p.deplacer(m.c, m.d);
         break;
     
     case T:
-        p.tourner(m.c, m.d);
+        return p.tourner(m.c, m.d);
         break;
     }
+    
+    return false;
 }
