@@ -44,13 +44,13 @@
 	"affichable.h"
 	"plateau.h"
 
-1479719222 source:c:\users\maxime\desktop\programmes\siam\affichable.cpp
+1479739722 source:c:\users\maxime\desktop\programmes\siam\affichable.cpp
 	<string>
 	"affichable.h"
 	"alleg.h"
 	"console.h"
 
-1479719222 c:\users\maxime\desktop\programmes\siam\affichable.h
+1479739682 c:\users\maxime\desktop\programmes\siam\affichable.h
 	<string>
 	"alleg.h"
 	"console.h"
@@ -58,7 +58,7 @@
 1479719223 c:\users\maxime\desktop\programmes\siam\console.h
 	<iostream>
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\console.cpp
+1479737255 source:c:\users\maxime\desktop\programmes\siam\console.cpp
 	"console.h"
 	<conio.h>
 	<windows.h>
@@ -74,14 +74,13 @@
 1479115684 c:\users\maxime\desktop\programmes\siam\helloworld.h
 	"affichable.h"
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\main.cpp
+1479739525 source:c:\users\maxime\desktop\programmes\siam\main.cpp
 	<allegro.h>
 	<iostream>
-	"alleg.h"
 	"affichable.h"
 	"console.h"
 	"coordonnee.h"
-	"montagne.h"
+	"pion.h"
 	"plateau.h"
 
 1479719223 c:\users\maxime\desktop\programmes\siam\plateau.h
@@ -219,31 +218,32 @@
 	"affichable.h"
 	"coordonnee.h"
 
-1479719223 c:\users\maxime\desktop\programmes\siam\pion.h
+1479737036 c:\users\maxime\desktop\programmes\siam\pion.h
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\montagne.cpp
+1479738875 source:c:\users\maxime\desktop\programmes\siam\montagne.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"montagne.h"
 
-1479728372 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
+1479737036 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
 	<string>
 	"alleg.h"
 	"affichable.h"
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
+1479738858 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"pion.h"
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\plateau.cpp
+1479740259 source:c:\users\maxime\desktop\programmes\siam\plateau.cpp
 	<memory>
 	<string>
 	<vector>
+	"alleg.h"
 	"affichable.h"
 	"coordonnee.h"
 	"montagne.h"

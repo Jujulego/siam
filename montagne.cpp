@@ -4,7 +4,7 @@
 #include "montagne.h"
 
 // Constructeur
-Montagne::Montagne(Coordonnees coord) : ObjPoussable('M', "montagne.bmp", coord) {
+Montagne::Montagne(Coordonnees coord) : ObjPoussable('M', "test_mont.bmp", coord) {
 }
 
 // Méthodes

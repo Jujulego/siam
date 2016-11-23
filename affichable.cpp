@@ -65,6 +65,12 @@ Affichable::Affichable() noexcept {
 Affichable::~Affichable() noexcept {
 }
 
+// Getter
+Etat const& Affichable::getEtat() noexcept
+{
+    return s_etat;
+}
+
 // Méthodes
 void Affichable::afficher() noexcept {
     // Appel de la bonne fonction
@@ -76,7 +82,7 @@ void Affichable::afficher() noexcept {
     case ALLEGRO:
         afficher_allegro();
         draw_sprite(allegro::screen, s_buffer, 0, 0);
-        
+
         break;
     }
 }

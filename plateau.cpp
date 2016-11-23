@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "alleg.h"
 #include "affichable.h"
 #include "coordonnee.h"
 #include "montagne.h"
@@ -53,7 +54,9 @@ void Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
 }
 
 void Plateau::afficher_allegro() noexcept {
-    draw_sprite(s_buffer, m_map, 0, 0);
+    allegro::draw_sprite(s_buffer, m_map, 0, 0);
+
+
 }
 
 void Plateau::afficher_console() noexcept {
@@ -101,7 +104,7 @@ void Plateau::afficher_console() noexcept {
             s_console.setColor(COLOR_RED);
             if (p->get_coord().get_lig() == 'F')
                 s_console.setColor(COLOR_GREEN);
-            
+
             std::cout << "R" << std::endl;
             s_console.setColor();
             nbr++;

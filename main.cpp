@@ -18,6 +18,14 @@ int main() {
     p.placer(ELEPH, Coordonnees('D', 3), DROITE);
     p.afficher();
 
+    if (Affichable::getEtat())
+    {
+        while (!key[KEY_ESC])
+        {
+
+        }
+    }
+
     Console c;
     c.gotoLigCol(40, 0);
 
