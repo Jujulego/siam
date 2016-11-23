@@ -18,20 +18,23 @@ class Affichable {
         static void erreur(std::string err) noexcept;
         static void initier(Etat e) noexcept;
         static void liberer() noexcept;
-        
+
         // Constructeur
         Affichable() noexcept;
-        
+
         // Destructeur
         virtual ~Affichable() noexcept;
-        
+
+        // Getter
+        static Etat const& getEtat() noexcept;
+
         // Méthodes
         virtual void afficher() noexcept final;
-        
+
         // Méthodes à redéfinir
         virtual void afficher_allegro() = 0;
         virtual void afficher_console() = 0;
-    
+
     protected:
         // Attributs statiques
         static Etat s_etat;
