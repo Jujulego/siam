@@ -46,8 +46,8 @@ void Affichable::initier(Etat e) noexcept {
 
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro::init(800, 600);
-        s_buffer = allegro::creer_bitmap(800, 600);
+        allegro::init(1100, 740);
+        s_buffer = allegro::creer_bitmap(1100, 740);
     }
 }
 

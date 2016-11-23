@@ -47,6 +47,8 @@
 		<Unit filename="console.h" />
 		<Unit filename="coordonnee.cpp" />
 		<Unit filename="coordonnee.h" />
+		<Unit filename="joueur.cpp" />
+		<Unit filename="joueur.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="montagne.cpp" />
 		<Unit filename="montagne.h" />
@@ -56,6 +58,8 @@
 		<Unit filename="pion.h" />
 		<Unit filename="plateau.cpp" />
 		<Unit filename="plateau.h" />
+		<Unit filename="progjoueur.cpp" />
+		<Unit filename="progjoueur.h" />
 		<Unit filename="siam.cbp" />
 		<Extensions>
 			<code_completion />

@@ -47,19 +47,22 @@ int main() {
         }
     }
 
-    c.gotoLigCol(40, 0);
+    else {
 
-    while (!fini) {
-        fini = j1->jouer(p);
-        p.afficher();
-        j1->afficher();
-        
-        if (fini)
-            break;
-        
-        fini = j2->jouer(p);
-        p.afficher();
-        j2->afficher();
+        c.gotoLigCol(40, 0);
+
+        while (!fini) {
+            fini = j1->jouer(p);
+            p.afficher();
+            j1->afficher();
+
+            if (fini)
+                break;
+
+            fini = j2->jouer(p);
+            p.afficher();
+            j2->afficher();
+        }
     }
 
     // Libérations

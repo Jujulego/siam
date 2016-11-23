@@ -27,7 +27,7 @@ static const std::string LIGNE_BAS  = "\xe2\x95\xb0\xe2\x94\x80\xe2\x94\x80\xe2\
 Plateau::Plateau() {
     // Chargement des images
     if (s_etat == ALLEGRO) {
-        m_map = allegro::charger_bitmap("test_map.bmp");
+        m_map = allegro::charger_bitmap("map.bmp");
     }
 
     // Ajout des montagnes
@@ -155,6 +155,7 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 
 void Plateau::afficher_allegro() noexcept {
     allegro::draw_sprite(s_buffer, m_map, 0, 0);
+
 
 
 }

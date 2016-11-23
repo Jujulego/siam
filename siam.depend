@@ -44,21 +44,21 @@
 	"affichable.h"
 	"plateau.h"
 
-1479739722 source:c:\users\maxime\desktop\programmes\siam\affichable.cpp
+1479908397 source:c:\users\maxime\desktop\programmes\siam\affichable.cpp
 	<string>
 	"affichable.h"
 	"alleg.h"
 	"console.h"
 
-1479739682 c:\users\maxime\desktop\programmes\siam\affichable.h
+1479892682 c:\users\maxime\desktop\programmes\siam\affichable.h
 	<string>
 	"alleg.h"
 	"console.h"
 
-1479719223 c:\users\maxime\desktop\programmes\siam\console.h
+1479892618 c:\users\maxime\desktop\programmes\siam\console.h
 	<iostream>
 
-1479737255 source:c:\users\maxime\desktop\programmes\siam\console.cpp
+1479892682 source:c:\users\maxime\desktop\programmes\siam\console.cpp
 	"console.h"
 	<conio.h>
 	<windows.h>
@@ -74,16 +74,18 @@
 1479115684 c:\users\maxime\desktop\programmes\siam\helloworld.h
 	"affichable.h"
 
-1479739525 source:c:\users\maxime\desktop\programmes\siam\main.cpp
+1479908363 source:c:\users\maxime\desktop\programmes\siam\main.cpp
 	<allegro.h>
 	<iostream>
+	<vector>
 	"affichable.h"
 	"console.h"
 	"coordonnee.h"
-	"pion.h"
+	"objpoussable.h"
 	"plateau.h"
+	"progjoueur.h"
 
-1479719223 c:\users\maxime\desktop\programmes\siam\plateau.h
+1479892618 c:\users\maxime\desktop\programmes\siam\plateau.h
 	<memory>
 	<vector>
 	"alleg.h"
@@ -195,52 +197,53 @@
 	<memory>
 	<allegro.h>
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\alleg.cpp
+1479892618 source:c:\users\maxime\desktop\programmes\siam\alleg.cpp
 	<allegro.h>
 	<string.h>
 	"affichable.h"
 	"alleg.h"
 
-1479719223 source:c:\users\maxime\desktop\programmes\siam\coordonnee.cpp
+1479892682 source:c:\users\maxime\desktop\programmes\siam\coordonnee.cpp
 	"affichable.h"
 	"coordonnee.h"
 
-1479719223 c:\users\maxime\desktop\programmes\siam\coordonnee.h
+1479892618 c:\users\maxime\desktop\programmes\siam\coordonnee.h
 	"affichable.h"
 
-1479719223 c:\users\maxime\desktop\programmes\siam\montagne.h
+1479892618 c:\users\maxime\desktop\programmes\siam\montagne.h
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479728332 c:\users\maxime\desktop\programmes\siam\objpoussable.h
+1479892618 c:\users\maxime\desktop\programmes\siam\objpoussable.h
 	<string>
 	"alleg.h"
 	"affichable.h"
 	"coordonnee.h"
 
-1479737036 c:\users\maxime\desktop\programmes\siam\pion.h
+1479892618 c:\users\maxime\desktop\programmes\siam\pion.h
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479738875 source:c:\users\maxime\desktop\programmes\siam\montagne.cpp
+1479894287 source:c:\users\maxime\desktop\programmes\siam\montagne.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"montagne.h"
 
-1479737036 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
+1479892682 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
 	<string>
 	"alleg.h"
 	"affichable.h"
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479738858 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
+1479894287 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"pion.h"
 
-1479740259 source:c:\users\maxime\desktop\programmes\siam\plateau.cpp
+1479908363 source:c:\users\maxime\desktop\programmes\siam\plateau.cpp
 	<memory>
+	<set>
 	<string>
 	<vector>
 	"alleg.h"
@@ -347,4 +350,28 @@
 	"montagne.h"
 	"pion.h"
 	"plateau.h"
+
+1479894140 source:c:\users\maxime\desktop\programmes\siam\joueur.cpp
+	"joueur.h"
+	"plateau.h"
+	"objpoussable.h"
+
+1479894140 c:\users\maxime\desktop\programmes\siam\joueur.h
+	"affichable.h"
+	"objpoussable.h"
+	"plateau.h"
+
+1479894140 c:\users\maxime\desktop\programmes\siam\progjoueur.h
+	<vector>
+	"coordonnee.h"
+	"joueur.h"
+	"plateau.h"
+
+1479894140 source:c:\users\maxime\desktop\programmes\siam\progjoueur.cpp
+	<vector>
+	"affichable.h"
+	"coordonnee.h"
+	"joueur.h"
+	"plateau.h"
+	"progjoueur.h"
 

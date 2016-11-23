@@ -20,7 +20,7 @@ static const std::string FLECHE_BAS    = "\xe2\x87\x93";
 #endif
 
 // Constructeur
-Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? "test_eleph.bmp" : "test_rhino.bmp", Coordonnees('F', 5)), m_dir(HAUT) {
+Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? "elephant.bmp" : "rhino.bmp", Coordonnees('F', 5)), m_dir(HAUT) {
 }
 
 // Méthodes
