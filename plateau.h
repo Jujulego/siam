@@ -30,6 +30,8 @@ class Plateau : public Affichable {
         
         std::vector<std::shared_ptr<Pion>> m_equipes;
         std::vector<std::shared_ptr<ObjPoussable>> m_pions_joues;
+        
+        Retour _deplacer(std::shared_ptr<ObjPoussable> p, Coordonnees coord, Direction dir);
     
     public:
         // Constructeur
