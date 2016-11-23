@@ -47,7 +47,6 @@ int main() {
         }
     }
 
-    Console c;
     c.gotoLigCol(40, 0);
 
     while (!fini) {

@@ -1,5 +1,5 @@
 // Importations
-#include <vector.h>
+#include <vector>
 
 #include "affichable.h"
 #include "coordonnee.h"
@@ -8,7 +8,7 @@
 #include "progjoueur.h"
 
 // Constructeur
-ProgJoueur::ProgJoueur(Equipe e, std::vector<Mov>& actions) : Joueur(e), m_actions(actions) {
+ProgJoueur::ProgJoueur(Equipe e, std::vector<Mov> const& actions) : Joueur(e), m_actions(actions) {
 }
 
 // Méthodes

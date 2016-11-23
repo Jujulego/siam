@@ -27,11 +27,11 @@ class ProgJoueur : public Joueur {
         // Attributs
         std::vector<Mov> m_actions;
         unsigned m_i = 0;
-    
+
     public:
         // Constructeur
-        ProgJoueur(Equipe e, std::vector<Mov> actions);
-        
+        ProgJoueur(Equipe e, std::vector<Mov> const& actions);
+
         // Méthodes
         virtual void afficher_console() noexcept;
         virtual void afficher_allegro() noexcept;
