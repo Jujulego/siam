@@ -11,6 +11,14 @@
 #include "objpoussable.h"
 #include "pion.h"
 
+// Enumeration
+enum Retour {
+    OK,
+    FIN,
+    PASPION,
+    ERREUR,  // Peux signifier 2 choses : si renvoyé par placer : la place est prise, si renvoyé pas deplacer : mvt impossible
+};
+
 // Classe
 class Plateau : public Affichable {
     private:
@@ -18,6 +26,7 @@ class Plateau : public Affichable {
         int m_haut = 5;
         int m_larg = 5;
         allegro::BITMAP_PT m_map;
+        std::string m_message = "";
         
         std::vector<std::shared_ptr<Pion>> m_equipes;
         std::vector<std::shared_ptr<ObjPoussable>> m_pions_joues;
@@ -27,7 +36,11 @@ class Plateau : public Affichable {
         Plateau();
 
         // Méthodes
-        void placer(Equipe e, Coordonnees coord, Direction dir);
+        Retour placer(Equipe e, Coordonnees coord, Direction dir);
+        Retour deplacer(Coordonnees coord, Direction dir);
+        Retour tourner(Coordonnees coord, Direction dir);
+        
+        std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
 };

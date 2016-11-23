@@ -12,7 +12,10 @@ class Montagne : public ObjPoussable {
         Montagne(Coordonnees coord);
         
         // Méthodes
+        virtual void tourner(Direction dir);
         virtual float get_resistance(Direction dir) const;
+        virtual float get_force(Direction dir) const;
+        virtual Direction get_dir() const;
 };
 
 #endif // __MONTAGNE

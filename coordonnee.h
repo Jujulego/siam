@@ -4,6 +4,14 @@
 // Dépendances
 #include "affichable.h"
 
+// Enumerations
+enum Direction {
+    DROITE = 0,
+    HAUT   = 1,
+    GAUCHE = 2,
+    BAS    = 3,
+};
+
 // Classe
 class Coordonnees {
     private:
@@ -13,6 +21,7 @@ class Coordonnees {
     public:
         // Constructeur
         Coordonnees(char lig, int col);
+        Coordonnees(Coordonnees const& c);
         
         // Méthodes
         int get_as_x(Etat etat) const;
@@ -24,6 +33,11 @@ class Coordonnees {
         
         void set_lig(char lig);
         void set_col(int col);
+        
+        // Opérateurs
+        bool operator == (Coordonnees const& c);
+        void operator += (Direction const& d);
+        Coordonnees operator + (Direction const& d);
 };
 
 #endif // __COORDONNEES

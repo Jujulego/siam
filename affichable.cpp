@@ -34,9 +34,9 @@ Etat Affichable::choix() noexcept {
     return (choix == 'a') ? ALLEGRO : CONSOLE;
 }
 
-void Affichable::erreur(std::string err) noexcept {
+void Affichable::erreur(std::string err) noexcept { //affichage d'une erreur en rouge
     s_console.setColor(COLOR_RED);
-    std::cout << err << std::endl;
+    std::cerr << err << std::endl;//cerr:affiche sur le flux d'erreur
     s_console.setColor(COLOR_DEFAULT);
 }
 
@@ -62,6 +62,7 @@ void Affichable::liberer() noexcept {
 Affichable::Affichable() noexcept {
 }
 
+//Destructeur
 Affichable::~Affichable() noexcept {
 }
 
@@ -73,7 +74,7 @@ Etat const& Affichable::getEtat() noexcept
 
 // Méthodes
 void Affichable::afficher() noexcept {
-    // Appel de la bonne fonction
+    // Appel de la bonne fonction pour l'affichage allegro ou console
     switch (s_etat) {
     case CONSOLE:
         afficher_console();

@@ -250,3 +250,101 @@
 	"pion.h"
 	"plateau.h"
 
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\affichable.cpp
+	<string>
+	"affichable.h"
+	"alleg.h"
+	"console.h"
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\affichable.h
+	<string>
+	"alleg.h"
+	"console.h"
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\alleg.h
+	<memory>
+	<allegro.h>
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\console.h
+	<iostream>
+
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\alleg.cpp
+	<allegro.h>
+	<string.h>
+	"affichable.h"
+	"alleg.h"
+
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\coordonnee.cpp
+	"affichable.h"
+	"coordonnee.h"
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\coordonnee.h
+	"affichable.h"
+
+1479737455 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
+	<allegro.h>
+	<iostream>
+	"affichable.h"
+	"console.h"
+	"coordonnee.h"
+	"pion.h"
+	"plateau.h"
+
+1479737455 c:\users\nolwenn\documents\ece\projet informatique\pion.h
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479737455 c:\users\nolwenn\documents\ece\projet informatique\objpoussable.h
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\plateau.h
+	<memory>
+	<vector>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\montagne.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"montagne.h"
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\montagne.h
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479737455 source:c:\users\nolwenn\documents\ece\projet informatique\objpoussable.cpp
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+
+1479737455 source:c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1479737455 source:c:\users\nolwenn\documents\ece\projet informatique\plateau.cpp
+	<memory>
+	<string>
+	<vector>
+	"affichable.h"
+	"coordonnee.h"
+	"montagne.h"
+	"pion.h"
+	"plateau.h"
+
