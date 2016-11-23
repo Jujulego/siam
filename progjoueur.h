@@ -30,7 +30,7 @@ class ProgJoueur : public Joueur {
     
     public:
         // Constructeur
-        ProgJoueur(Equipe e, std::vector<Mov> actions);
+        ProgJoueur(Equipe e, std::vector<Mov> const& actions);
         
         // Méthodes
         virtual void afficher_console() noexcept;

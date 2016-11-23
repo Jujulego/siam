@@ -40,14 +40,16 @@ int main() {
     p.afficher();
     
     while (!fini) {
-        j1->afficher();
         fini = j1->jouer(p);
+        p.afficher();
+        j1->afficher();
         
         if (fini)
             break;
         
-        j2->afficher();
         fini = j2->jouer(p);
+        p.afficher();
+        j2->afficher();
     }
     
     // Libérations

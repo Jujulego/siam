@@ -112,7 +112,7 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
                 m_message = "GAGNE !";
                 r = FIN;
             } else {
-                for (auto it = m_pions_joues.cbegin(); it != m_pions_joues.cend(); it++) {
+                for (auto it = m_pions_joues.begin(); it != m_pions_joues.end(); it++) {
                     if (*it == p) {
                         m_pions_joues.erase(it);
                         break;
