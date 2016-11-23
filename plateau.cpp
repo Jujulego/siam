@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "alleg.h"
 #include "affichable.h"
 #include "coordonnee.h"
 #include "montagne.h"
@@ -153,7 +154,9 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 }
 
 void Plateau::afficher_allegro() noexcept {
-    draw_sprite(s_buffer, m_map, 0, 0);
+    allegro::draw_sprite(s_buffer, m_map, 0, 0);
+
+
 }
 
 //Affichage sur la console

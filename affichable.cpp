@@ -66,6 +66,12 @@ Affichable::Affichable() noexcept {
 Affichable::~Affichable() noexcept {
 }
 
+// Getter
+Etat const& Affichable::getEtat() noexcept
+{
+    return s_etat;
+}
+
 // Méthodes
 void Affichable::afficher() noexcept {
     // Appel de la bonne fonction pour l'affichage allegro ou console

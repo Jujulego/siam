@@ -15,7 +15,7 @@ int main() {
     Affichable::initier(Affichable::choix());
     Console c;
     Plateau p;
-    
+
     Joueur* j1 = new ProgJoueur(ELEPH, {
         {P, Coordonnees('D', 3), GAUCHE},
         {P, Coordonnees('E', 4), HAUT},
@@ -24,7 +24,7 @@ int main() {
         {D, Coordonnees('E', 4), GAUCHE},
         {D, Coordonnees('E', 3), DROITE},
     });
-    
+
     Joueur* j2 = new ProgJoueur(RHINO, {
         {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('D', 2), DROITE},
@@ -38,7 +38,18 @@ int main() {
     // Tests
     bool fini = false;
     p.afficher();
-    
+
+    if (Affichable::getEtat())
+    {
+        while (!key[KEY_ESC])
+        {
+
+        }
+    }
+
+    Console c;
+    c.gotoLigCol(40, 0);
+
     while (!fini) {
         fini = j1->jouer(p);
         p.afficher();
@@ -51,7 +62,7 @@ int main() {
         p.afficher();
         j2->afficher();
     }
-    
+
     // Libérations
     Affichable::liberer();
     delete j1;
