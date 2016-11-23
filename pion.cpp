@@ -53,7 +53,7 @@ void Pion::afficher_console() noexcept {
     }
 }
 
-void Pion::placer(Coordonnees coord, Direction dir) { //placement des pions
+void Pion::placer(Coordonnees coord, Direction dir) { // placement des pions
     m_coord = coord;
     m_dir = dir;
 }
