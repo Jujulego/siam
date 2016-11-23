@@ -37,7 +37,9 @@ class Coordonnees {
         // Opérateurs
         bool operator == (Coordonnees const& c);
         void operator += (Direction const& d);
+        void operator -= (Direction const& d);
         Coordonnees operator + (Direction const& d);
+        Coordonnees operator - (Direction const& d);
 };
 
 #endif // __COORDONNEES

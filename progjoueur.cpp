@@ -23,7 +23,9 @@ bool ProgJoueur::jouer(Plateau& p) {
     s_console.getch();
     
     Mov m = m_actions[m_i];
+    
     m_i++;
+    m_i %= m_actions.size();
     
     switch (m.a) {
     case P:
