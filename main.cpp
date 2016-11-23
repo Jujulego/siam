@@ -18,6 +18,7 @@ int main() {
 
     Joueur* j1 = new ProgJoueur(RHINO, {
         {P, Coordonnees('A', 4), BAS},
+        {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('D', 2), DROITE},
         {D, Coordonnees('A', 4), BAS},
         {D, Coordonnees('B', 4), GAUCHE},
@@ -27,6 +28,7 @@ int main() {
     });
 
     Joueur* j2 = new ProgJoueur(ELEPH, {
+        {P, Coordonnees('E', 2), GAUCHE},
         {P, Coordonnees('D', 3), GAUCHE},
         {P, Coordonnees('E', 4), HAUT},
         {D, Coordonnees('D', 3), DROITE},

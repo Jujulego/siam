@@ -45,17 +45,28 @@ Plateau::Plateau() {
 // Méthodes
 Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     // Verification que la case est vide
-    if (get_pion(coord) != nullptr) {
+/*    if (get_pion(coord) != nullptr) {
         m_message = "Cette case est déjà occupée !";
         return ERREUR;
-    }
+    }*/
 
     // Récupération du pion
+    Retour r = OK;
+    
     for (auto p : m_equipes) {
         if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
+            coord -= dir;
+            
             p->placer(coord, dir);
-            m_pions_joues.push_back(p);
-            return OK;
+            r = _deplacer(p, coord, dir);
+            
+            if (r == OK) {
+                m_pions_joues.push_back(p);
+            } else {
+                p->placer(Coordonnees('F', 5), BAS);
+            }
+            
+            return r;
         }
     }
 
@@ -76,14 +87,18 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
         m_message = "Hey c'est une montagne ...";
         return PASPION;
     }
+    
+    return _deplacer(pion, coord, dir);
+}
 
+Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord, Direction dir) {
     // Récupérations des éléments dans la direction
     std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
     float resist = 0.0;
 
     if (dir == pion->get_dir()) {
         // Parcours de ce qu'il y a avant le pion
-        for (Coordonnees c = coord; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
             auto p = get_pion(c);
 
             if (p == nullptr)
@@ -155,8 +170,6 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 
 void Plateau::afficher_allegro() noexcept {
     allegro::draw_sprite(s_buffer, m_map, 0, 0);
-
-
 }
 
 //Affichage sur la console
