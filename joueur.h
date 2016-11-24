@@ -6,6 +6,13 @@
 #include "objpoussable.h"
 #include "plateau.h"
 
+// Enumérations
+enum Action {
+    P, // placer un pion
+    D, // deplacer un pion
+    T, // tourner un pion
+};
+
 // Classe
 class Joueur : public Affichable {
     protected:

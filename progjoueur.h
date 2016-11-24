@@ -9,12 +9,6 @@
 #include "plateau.h"
 
 // Enumérations
-enum Action {
-    P, // placer un pion
-    D, // deplacer un pion
-    T, // tourner un pion
-};
-
 struct Mov {
     Action a;
     Coordonnees c;
