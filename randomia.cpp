@@ -1,6 +1,7 @@
 // Importations
 #include <cstdlib>
 
+#include "alleg.h"
 #include "coordonnee.h"
 #include "joueur.h"
 #include "objpoussable.h"
@@ -10,7 +11,7 @@
 // Constantes de contrôle
 #define INTERET_P 1
 #define INTERET_D 10
-#define INTERET_T 5
+#define INTERET_T 3
 
 // Constructeur
 RandomIA::RandomIA(Equipe e) noexcept : IA(e) {
@@ -80,11 +81,22 @@ bool RandomIA::jouer(Plateau& p) {
     reset_map(INTERET_P * p.get_equipe(m_equipe).size());
     
     // ajout des positions déplacables
-    for (auto p : p.get_plateau()) {
-        Coordonnees c = p->get_coord();
+    for (auto pion : p.get_plateau()) {
+        Coordonnees c = pion->get_coord();
         
-        if ((c.get_lig() != 'F') && (p->get_equipe() == m_equipe))
+        if ((c.get_lig() != 'F') && (pion->get_equipe() == m_equipe)) {
+            auto cote = p.get_pion(c + pion->get_dir());
+            
+            set_coup(c.get_lig(), c.get_col(), T, INTERET_T);
             set_coup(c.get_lig(), c.get_col(), D, INTERET_D);
+
+            if (cote != nullptr) {
+                if (cote->get_equipe() == MONTAGNE) {
+                    set_coup(c.get_lig(), c.get_col(), D, 2*INTERET_D);
+                    set_coup(c.get_lig(), c.get_col(), T, 0);
+                }
+            }
+        }
     }
     
     // Détermination du pion
@@ -120,6 +132,8 @@ bool RandomIA::jouer(Plateau& p) {
         
         if (act <= 0) {
             std::cout << " D";
+            
+            // Déplacement dans la direction du pion
             r = (p.deplacer(m_equipe, coord, p.get_pion(coord)->get_dir()) == FIN);
         } else {
             // placer
@@ -139,15 +153,27 @@ bool RandomIA::jouer(Plateau& p) {
                 else if (c == 0)
                     d = DROITE;
                 
+                // Placement !
                 r = (p.placer(m_equipe, coord, d) == FIN);
             } else {
                 // tourner
                 std::cout << " T";
+                
+                // Choix de la direction
+                Direction dep = p.get_pion(coord)->get_dir();
+                int r = random(0, 4);
+                
+                while (r == dep)
+                    r = random(0, 4);
+                
+                // Rotation !
+                r = (p.tourner(m_equipe, coord, as_dir(r)) == FIN);
             }
         }
         
     }
     
-    s_console.getch();
+    allegro::sleep(1);
+//    s_console.getch();
     return r;
 }

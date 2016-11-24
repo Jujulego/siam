@@ -2,6 +2,7 @@
 #define __IA
 
 // Dépendances
+#include "coordonnee.h"
 #include "joueur.h"
 #include "objpoussable.h"
 
@@ -21,6 +22,7 @@ class IA : public Joueur {
         // Méthodes statiques
         static void init() noexcept;
         static int random(int min, int max) noexcept;
+        static Direction as_dir(int d) noexcept;
 };
 
 #endif // __IA

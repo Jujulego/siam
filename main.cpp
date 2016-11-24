@@ -21,7 +21,7 @@ int main() {
     Console c;
     Plateau p;
 
-    Joueur* j1 = new ProgJoueur(RHINO, {
+/*    Joueur* j1 = new ProgJoueur(RHINO, {
         {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('D', 2), DROITE},
@@ -30,8 +30,9 @@ int main() {
         {D, Coordonnees('B', 3), BAS},
         {D, Coordonnees('D', 2), DROITE},
         {D, Coordonnees('D', 3), DROITE},
-    });
+    });*/
     
+    Joueur* j1 = new RandomIA(RHINO);
     Joueur* j2 = new RandomIA(ELEPH);
 /*    Joueur* j2 = new ProgJoueur(ELEPH, {
         {P, Coordonnees('E', 2), GAUCHE},

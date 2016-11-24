@@ -29,3 +29,25 @@ void IA::init() noexcept {
 int IA::random(int min, int max) noexcept {
     return (rand() % (max - min +1)) + min;
 }
+
+Direction IA::as_dir(int d) noexcept {
+    // Modulo !
+    d %= 4;
+    
+    // Convertion
+    switch (d) {
+    case HAUT:
+        return HAUT;
+    
+    case DROITE:
+        return DROITE;
+    
+    case BAS:
+        return BAS;
+    
+    case GAUCHE:
+        break;
+    }
+    
+    return GAUCHE;
+}
