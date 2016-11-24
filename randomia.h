@@ -27,7 +27,7 @@ class RandomIA : public IA {
         
         // Méthodes
         void set_coup(char lig, int col, Action a, int val);
-        void reset_map();
+        void reset_map(int p);
     
     public:
         // Constructeur

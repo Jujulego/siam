@@ -119,7 +119,12 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     for (auto p : objdevant) {
         if (p->deplacer(dir)) {
             if (p->get_equipe() == MONTAGNE) {
-                m_message = "GAGNE !";
+                if (pion->get_equipe() == RHINO) {
+                    m_message = "Les Rhinoceros ont gagné !";
+                } else if (pion->get_equipe() == ELEPH) {
+                    m_message = "Les Elephants ont gagné !";
+                }
+                
                 r = FIN;
             } else {
                 for (auto it = m_pions_joues.begin(); it != m_pions_joues.end(); it++) {
@@ -164,6 +169,16 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 
 std::vector<std::shared_ptr<Pion>> const& Plateau::get_pions() const {
     return m_equipes;
+}
+
+std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+    
+    for (auto p : get_pions()) {
+        if ((p->get_coord().get_lig() == 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+    }
+    
+    return equipe;
 }
 
 std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {

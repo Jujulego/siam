@@ -48,6 +48,7 @@ class Plateau : public Affichable {
         
         // Accesseurs
         std::vector<std::shared_ptr<Pion>> const& get_pions() const;
+        std::vector<std::shared_ptr<Pion>> get_equipe(Equipe e) const;
         std::vector<std::shared_ptr<ObjPoussable>> const& get_plateau() const;
 };
 
