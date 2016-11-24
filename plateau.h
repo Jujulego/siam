@@ -39,12 +39,16 @@ class Plateau : public Affichable {
 
         // Méthodes
         Retour placer(Equipe e, Coordonnees coord, Direction dir);
-        Retour deplacer(Coordonnees coord, Direction dir);
-        Retour tourner(Coordonnees coord, Direction dir);
+        Retour deplacer(Equipe e, Coordonnees coord, Direction dir);
+        Retour tourner(Equipe e, Coordonnees coord, Direction dir);
         
         std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
+        
+        // Accesseurs
+        std::vector<std::shared_ptr<Pion>> const& get_pions() const;
+        std::vector<std::shared_ptr<ObjPoussable>> const& get_plateau() const;
 };
 
 #endif // __PLATEAU

@@ -44,12 +44,6 @@ Plateau::Plateau() {
 
 // Méthodes
 Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
-    // Verification que la case est vide
-/*    if (get_pion(coord) != nullptr) {
-        m_message = "Cette case est déjà occupée !";
-        return ERREUR;
-    }*/
-
     // Récupération du pion
     Retour r = OK;
     
@@ -60,7 +54,7 @@ Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
             p->placer(coord, dir);
             r = _deplacer(p, coord, dir);
             
-            if (r == OK) {
+            if ((r == OK) || (r == FIN)) {
                 m_pions_joues.push_back(p);
             } else {
                 p->placer(Coordonnees('F', 5), BAS);
@@ -74,7 +68,7 @@ Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     return PASPION;
 }
 
-Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
+Retour Plateau::deplacer(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
 
@@ -83,8 +77,8 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
         return PASPION;
     }
 
-    if (pion->get_equipe() == MONTAGNE) {
-        m_message = "Hey c'est une montagne ...";
+    if (pion->get_equipe() != e) {
+        m_message = "Hey c'est pas un de tes pions ...";
         return PASPION;
     }
     
@@ -141,7 +135,7 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     return r;
 }
 
-Retour Plateau::tourner(Coordonnees coord, Direction dir) {
+Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
 
@@ -150,8 +144,8 @@ Retour Plateau::tourner(Coordonnees coord, Direction dir) {
         return PASPION;
     }
 
-    if (pion->get_equipe() == MONTAGNE) {
-        m_message = "Hey c'est une montagne ...";
+    if (pion->get_equipe() != e) {
+        m_message = "Hey c'est pas un de test pions ...";
         return ERREUR;
     }
 
@@ -166,6 +160,14 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
     }
 
     return nullptr;
+}
+
+std::vector<std::shared_ptr<Pion>> const& Plateau::get_pions() const {
+    return m_equipes;
+}
+
+std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {
+    return m_pions_joues;
 }
 
 void Plateau::afficher_allegro() noexcept {
