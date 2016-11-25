@@ -18,11 +18,11 @@
 RandomIA::RandomIA(Equipe e) noexcept : IA(e) {
     // Remplissage de la map
     m_map = {
-        {'A', std::vector<Coup>(5, {0, 0, 0, 0})},
-        {'B', std::vector<Coup>(5, {0, 0, 0, 0})},
-        {'C', std::vector<Coup>(5, {0, 0, 0, 0})},
-        {'D', std::vector<Coup>(5, {0, 0, 0, 0})},
-        {'E', std::vector<Coup>(5, {0, 0, 0, 0})},
+        {'A', std::vector<RCoup>(5, {0, 0, 0, 0})},
+        {'B', std::vector<RCoup>(5, {0, 0, 0, 0})},
+        {'C', std::vector<RCoup>(5, {0, 0, 0, 0})},
+        {'D', std::vector<RCoup>(5, {0, 0, 0, 0})},
+        {'E', std::vector<RCoup>(5, {0, 0, 0, 0})},
     };
 }
 
@@ -33,7 +33,7 @@ RandomIA::~RandomIA() noexcept {
 // Méthodes
 void RandomIA::set_coup(char lig, int col, Action a, int val) {
     // Modif du coup
-    Coup& c = m_map[lig][col];
+    RCoup& c = m_map[lig][col];
     int s = c.s;
     
     switch (a) {
@@ -131,7 +131,7 @@ bool RandomIA::jouer(Plateau& p) {
     if ((l != 'F') && (c != 5)) {
         // Détermination de l'action
         Coordonnees coord = Coordonnees(l, c);
-        Coup& coup = m_map[l][c];
+        RCoup& coup = m_map[l][c];
         
         int act = random(1, coup.s);
         

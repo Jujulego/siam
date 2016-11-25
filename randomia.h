@@ -11,7 +11,7 @@
 #include "plateau.h"
 
 // Structure
-struct Coup {
+struct RCoup {
     int s; // somme => intérêt de la case
     int d; // Déplacer
     int p; // Placer
@@ -23,7 +23,7 @@ class RandomIA : public IA {
     private:
         // Attributs
         unsigned m_somme;
-        std::map<char,std::vector<Coup>> m_map;
+        std::map<char,std::vector<RCoup>> m_map;
         
         // Méthodes
         void set_coup(char lig, int col, Action a, int val);
