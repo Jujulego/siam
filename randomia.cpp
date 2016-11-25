@@ -103,6 +103,10 @@ bool RandomIA::jouer(Plateau& p) {
                 }
             }
         }
+        
+        // Placer
+        if ((c.get_lig() == 'A') || (c.get_lig() == 'E') || (c.get_col() == 0) || (c.get_col() == 4))
+            set_coup(c.get_lig(), c.get_col(), P, m_map[c.get_lig()][c.get_col()].p * 2);
     }
     
     // Détermination du pion
