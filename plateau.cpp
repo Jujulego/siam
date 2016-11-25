@@ -85,14 +85,33 @@ Retour Plateau::deplacer(Equipe e, Coordonnees coord, Direction dir) {
     return _deplacer(pion, coord, dir);
 }
 
+float Plateau::get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant) {
+    // Déclarations
+    float resist = 0.0;
+    
+    // Parcours de ce qu'il y a avant le pion
+    for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+        auto p = get_pion(c);
+
+        if (p == nullptr)
+            break;
+
+        resist += p->get_resistance(dir);
+        
+        if (objdevant != nullptr)
+            objdevant->insert(p);
+    }
+    
+    return resist;
+}
+
 Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord, Direction dir) {
     // Récupérations des éléments dans la direction
     std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
-    float resist = 0.0;
 
     if (dir == pion->get_dir()) {
         // Parcours de ce qu'il y a avant le pion
-        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+/*        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
             auto p = get_pion(c);
 
             if (p == nullptr)
@@ -100,10 +119,10 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
 
             resist += p->get_resistance(dir);
             objdevant.insert(p);
-        }
+        }*/
 
         // Check resistance
-        if (resist >= pion->get_force(dir)) {
+        if (get_resistance(coord, dir, &objdevant) >= pion->get_force(dir)) {
             m_message = "Impossible de bouger, c'est trop lourd ...";
             return ERREUR;
         }

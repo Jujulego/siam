@@ -1,5 +1,6 @@
 // Importations
 #include <cstdlib>
+#include <map>
 
 #include "alleg.h"
 #include "coordonnee.h"
@@ -87,13 +88,18 @@ bool RandomIA::jouer(Plateau& p) {
         if ((c.get_lig() != 'F') && (pion->get_equipe() == m_equipe)) {
             auto cote = p.get_pion(c + pion->get_dir());
             
+            // Tourner
             set_coup(c.get_lig(), c.get_col(), T, INTERET_T);
-            set_coup(c.get_lig(), c.get_col(), D, INTERET_D);
-
-            if (cote != nullptr) {
-                if (cote->get_equipe() == MONTAGNE) {
-                    set_coup(c.get_lig(), c.get_col(), D, 2*INTERET_D);
-                    set_coup(c.get_lig(), c.get_col(), T, 0);
+            
+            // Déplacer
+            if (p.get_resistance(c, pion->get_dir()) < pion->get_force(pion->get_dir())) {
+                set_coup(c.get_lig(), c.get_col(), D, INTERET_D);
+            
+                if (cote != nullptr) {
+                    if (cote->get_equipe() == MONTAGNE) {
+                        set_coup(c.get_lig(), c.get_col(), D, 2*INTERET_D);
+                        set_coup(c.get_lig(), c.get_col(), T, 0);
+                    }
                 }
             }
         }
@@ -160,20 +166,58 @@ bool RandomIA::jouer(Plateau& p) {
                 std::cout << " T";
                 
                 // Choix de la direction
-                Direction dep = p.get_pion(coord)->get_dir();
-                int r = random(0, 4);
+                int s = 4;
+                std::map<Direction,int> dirs = {
+                    {HAUT,   1},
+                    {DROITE, 1},
+                    {BAS,    1},
+                    {GAUCHE, 1},
+                };
                 
-                while (r == dep)
-                    r = random(0, 4);
+                for (auto d: dirs) {
+                    auto pion = p.get_pion(coord + d.first);
+                    
+                    if (pion != nullptr) {
+                        switch (pion->get_equipe()) {
+                        case MONTAGNE:
+                            s += 10 - d.second;
+                            dirs[d.first] = 10;
+                            break;
+                        
+                        case ELEPH:
+                            s += 2 - d.second;
+                            dirs[d.first] = 2;
+                            break;
+                        
+                        case RHINO:
+                            s += 3 - d.second;
+                            dirs[d.first] = 3;
+                            break;
+                        }
+                    }
+                }
                 
-                // Rotation !
-                r = (p.tourner(m_equipe, coord, as_dir(r)) == FIN);
+                // On ne tourne pas dans la direction actuelle du pion
+                s -= dirs[p.get_pion(coord)->get_dir()];
+                dirs[p.get_pion(coord)->get_dir()] = 0;
+                
+                // Random !
+                int rand = random(1, s);
+                for (auto d: dirs) {
+                    rand -= d.second;
+                    
+                    if (rand <= 0) {
+                        // Rotation !
+                        r = (p.tourner(m_equipe, coord, d.first) == FIN);
+                        break;
+                    }
+                }
             }
         }
         
     }
     
     allegro::sleep(1);
-//    s_console.getch();
+    //s_console.getch();
     return r;
 }
