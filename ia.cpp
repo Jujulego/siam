@@ -1,6 +1,6 @@
 // Dépendances
 #include <cstdlib>
-
+#include <time.h>
 #include "ia.h"
 #include "joueur.h"
 #include "objpoussable.h"
@@ -33,21 +33,21 @@ int IA::random(int min, int max) noexcept {
 Direction IA::as_dir(int d) noexcept {
     // Modulo !
     d %= 4;
-    
+
     // Convertion
     switch (d) {
     case HAUT:
         return HAUT;
-    
+
     case DROITE:
         return DROITE;
-    
+
     case BAS:
         return BAS;
-    
+
     case GAUCHE:
         break;
     }
-    
+
     return GAUCHE;
 }

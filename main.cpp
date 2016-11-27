@@ -11,12 +11,13 @@
 #include "plateau.h"
 #include "progjoueur.h"
 #include "randomia.h"
+#include "ConsoleJoueur.h"
 
 int main() {
     // Initialisation
     Affichable::initier(Affichable::choix());
     IA::init();
-    
+
     // Déclarations
     Console c;
     Plateau p;
@@ -31,7 +32,7 @@ int main() {
         {D, Coordonnees('D', 2), DROITE},
         {D, Coordonnees('D', 3), DROITE},
     });*/
-    
+
     Joueur* j1 = new RandomIA(RHINO);
     Joueur* j2 = new RandomIA(ELEPH);
 /*    Joueur* j2 = new ProgJoueur(ELEPH, {
@@ -62,10 +63,10 @@ int main() {
         fini = j1->jouer(p);
         p.afficher();
         j1->afficher();
-        
+
         if (fini)
             break;
-        
+
         fini = j2->jouer(p);
         p.afficher();
         j2->afficher();
