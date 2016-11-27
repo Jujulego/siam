@@ -29,14 +29,14 @@ bool ProgJoueur::jouer(Plateau& p) {
     
     switch (m.a) {
     case P:
-        return p.placer(m_equipe, m.c, m.d);
+        return p.placer(m_equipe, m.c, m.d) == FIN;
     
     case D:
-        return p.deplacer(m_equipe, m.c, m.d);
+        return p.deplacer(m_equipe, m.c, m.d) == FIN;
         break;
     
     case T:
-        return p.tourner(m_equipe, m.c, m.d);
+        return p.tourner(m_equipe, m.c, m.d) == FIN;
         break;
     }
     

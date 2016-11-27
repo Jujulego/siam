@@ -85,14 +85,33 @@ Retour Plateau::deplacer(Equipe e, Coordonnees coord, Direction dir) {
     return _deplacer(pion, coord, dir);
 }
 
+float Plateau::get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant) {
+    // Déclarations
+    float resist = 0.0;
+    
+    // Parcours de ce qu'il y a avant le pion
+    for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+        auto p = get_pion(c);
+
+        if (p == nullptr)
+            break;
+
+        resist += p->get_resistance(dir);
+        
+        if (objdevant != nullptr)
+            objdevant->insert(p);
+    }
+    
+    return resist;
+}
+
 Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord, Direction dir) {
     // Récupérations des éléments dans la direction
     std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
-    float resist = 0.0;
 
     if (dir == pion->get_dir()) {
         // Parcours de ce qu'il y a avant le pion
-        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+/*        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
             auto p = get_pion(c);
 
             if (p == nullptr)
@@ -100,10 +119,10 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
 
             resist += p->get_resistance(dir);
             objdevant.insert(p);
-        }
+        }*/
 
         // Check resistance
-        if (resist >= pion->get_force(dir)) {
+        if (get_resistance(coord, dir, &objdevant) >= pion->get_force(dir)) {
             m_message = "Impossible de bouger, c'est trop lourd ...";
             return ERREUR;
         }
@@ -119,7 +138,12 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     for (auto p : objdevant) {
         if (p->deplacer(dir)) {
             if (p->get_equipe() == MONTAGNE) {
-                m_message = "GAGNE !";
+                if (pion->get_equipe() == RHINO) {
+                    m_message = "Les Rhinoceros ont gagné !";
+                } else if (pion->get_equipe() == ELEPH) {
+                    m_message = "Les Elephants ont gagné !";
+                }
+                
                 r = FIN;
             } else {
                 for (auto it = m_pions_joues.begin(); it != m_pions_joues.end(); it++) {
@@ -164,6 +188,16 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 
 std::vector<std::shared_ptr<Pion>> const& Plateau::get_pions() const {
     return m_equipes;
+}
+
+std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+    
+    for (auto p : get_pions()) {
+        if ((p->get_coord().get_lig() == 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+    }
+    
+    return equipe;
 }
 
 std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {

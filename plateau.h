@@ -3,6 +3,7 @@
 
 // Dépendances
 #include <memory>
+#include <set>
 #include <vector>
 
 #include "alleg.h"
@@ -42,12 +43,15 @@ class Plateau : public Affichable {
         Retour deplacer(Equipe e, Coordonnees coord, Direction dir);
         Retour tourner(Equipe e, Coordonnees coord, Direction dir);
         
+        float get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant = nullptr);
         std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
+        
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
         
         // Accesseurs
         std::vector<std::shared_ptr<Pion>> const& get_pions() const;
+        std::vector<std::shared_ptr<Pion>> get_equipe(Equipe e) const;
         std::vector<std::shared_ptr<ObjPoussable>> const& get_plateau() const;
 };
 
