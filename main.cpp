@@ -43,7 +43,7 @@ int main() {
     {
         while (!key[KEY_ESC])
         {
-
+            p.afficher();
         }
     }
 

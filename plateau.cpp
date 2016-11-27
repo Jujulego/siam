@@ -156,8 +156,9 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
 void Plateau::afficher_allegro() noexcept {
     allegro::draw_sprite(s_buffer, m_map, 0, 0);
 
-
-
+    for (auto p : m_equipes) {
+        p->afficher_allegro();
+    }
 }
 
 //Affichage sur la console

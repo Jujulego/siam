@@ -74,7 +74,7 @@
 1479115684 c:\users\maxime\desktop\programmes\siam\helloworld.h
 	"affichable.h"
 
-1479908363 source:c:\users\maxime\desktop\programmes\siam\main.cpp
+1479919146 source:c:\users\maxime\desktop\programmes\siam\main.cpp
 	<allegro.h>
 	<iostream>
 	<vector>
@@ -229,14 +229,14 @@
 	"objpoussable.h"
 	"montagne.h"
 
-1479892682 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
+1480277187 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
 	<string>
 	"alleg.h"
 	"affichable.h"
 	"coordonnee.h"
 	"objpoussable.h"
 
-1479894287 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
+1480277187 source:c:\users\maxime\desktop\programmes\siam\pion.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"pion.h"
