@@ -31,30 +31,31 @@ Direction ConsoleJoueur::demanderDirection()
 
         } while (D!='h'&& D!='b'&& D!='d'&& D!='g');
 
+    Direction d = DROITE;
+    
     switch (D) {
-
     case 'h' :
-        return HAUT;
+        d = HAUT;
         break;
 
     case 'b':
 
-        return BAS;
+        d = BAS;
         break;
 
     case 'g':
-        return GAUCHE;
+        d = GAUCHE;
 
         break;
     case 'd':
-        return DROITE;
         break;
 
     default:
         std::cout<<"Erreur, cette direction n'existe pas"<<std::endl;
         break;
     }
-
+    
+    return d;
  }
 
 Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
@@ -94,8 +95,7 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     return Coordonnees(L,C-'0');
 }
 
-ConsoleJoueur::ConsoleJoueur(Equipe e)
-:Joueur(e)
+ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5), BAS})
 {
 
 }
@@ -168,7 +168,7 @@ ConsoleJoueur::ConsoleJoueur(Equipe e)
 
  bool ConsoleJoueur::jouer(Plateau& p) //réalisation des actions
  {
-    p.appliquer_mov(m_equipe, m_mov);
+    return p.appliquer_mov(m_equipe, m_mov) == FIN;
  }
 
 
