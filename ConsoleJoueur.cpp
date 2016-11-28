@@ -16,7 +16,7 @@
 
 
 
- bool ConsoleJoueur::jouer(Plateau& p) //réalisation des actions
+ bool ConsoleJoueur::jouer(Plateau& p) //rÃ©alisation des actions
  {
 
  }

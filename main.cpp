@@ -49,7 +49,7 @@ int main() {
     bool fini = false;
     p.afficher();
 
-    if (Affichable::getEtat())
+    if (Affichable::getEtat() == ALLEGRO)
     {
         while (!key[KEY_ESC])
         {

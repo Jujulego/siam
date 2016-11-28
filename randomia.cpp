@@ -224,6 +224,6 @@ bool RandomIA::jouer(Plateau& p) {
     }
 
     usleep(1000000);
-    s_console.getch();
+    //s_console.getch();
     return r;
 }

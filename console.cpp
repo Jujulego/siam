@@ -134,8 +134,8 @@ Couleurs Windows :      Couleurs Linux :
 */
 void Console::_setColor(int front, int back) {
 #ifndef __gnu_linux__
-    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    //SetConsoleTextAttribute(H,back*16+front);
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,back*16+front);
 #else
     std::cout << "\x1b[" << front + 30 << ";" << back + 40 << "m";
 #endif
