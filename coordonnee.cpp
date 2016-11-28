@@ -69,3 +69,19 @@ Coordonnees Coordonnees::operator + (Direction const& d) {
     
     return c;
 }
+
+void Coordonnees::operator -= (Direction const& d) {
+    if (d % 2) {
+        m_lig += (d == BAS) ? -1 : 1;
+    } else {
+        m_col += (d == DROITE) ? -1 : 1;
+    }
+}
+
+Coordonnees Coordonnees::operator - (Direction const& d) {
+    // Copie
+    Coordonnees c = *this;
+    c -= d;
+    
+    return c;
+}

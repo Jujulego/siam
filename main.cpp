@@ -4,28 +4,26 @@
 #include <vector>
 
 #include "affichable.h"
+#include "ia.h"
 #include "console.h"
 #include "coordonnee.h"
 #include "objpoussable.h"
 #include "plateau.h"
 #include "progjoueur.h"
+#include "randomia.h"
+#include "ConsoleJoueur.h"
 
 int main() {
     // Initialisation
     Affichable::initier(Affichable::choix());
+    IA::init();
+
+    // Déclarations
     Console c;
     Plateau p;
 
-    Joueur* j1 = new ProgJoueur(ELEPH, {
-        {P, Coordonnees('D', 3), GAUCHE},
-        {P, Coordonnees('E', 4), HAUT},
-        {D, Coordonnees('D', 3), DROITE},
-        {T, Coordonnees('D', 4), HAUT},
-        {D, Coordonnees('E', 4), GAUCHE},
-        {D, Coordonnees('E', 3), DROITE},
-    });
-
-    Joueur* j2 = new ProgJoueur(RHINO, {
+/*    Joueur* j1 = new ProgJoueur(RHINO, {
+        {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('A', 4), BAS},
         {P, Coordonnees('D', 2), DROITE},
         {D, Coordonnees('A', 4), BAS},
@@ -33,13 +31,25 @@ int main() {
         {D, Coordonnees('B', 3), BAS},
         {D, Coordonnees('D', 2), DROITE},
         {D, Coordonnees('D', 3), DROITE},
-    });
+    });*/
+
+    Joueur* j1 = new RandomIA(RHINO);
+    Joueur* j2 = new RandomIA(ELEPH);
+/*    Joueur* j2 = new ProgJoueur(ELEPH, {
+        {P, Coordonnees('E', 2), GAUCHE},
+        {P, Coordonnees('D', 3), GAUCHE},
+        {P, Coordonnees('E', 4), HAUT},
+        {D, Coordonnees('D', 3), DROITE},
+        {T, Coordonnees('D', 4), HAUT},
+        {D, Coordonnees('E', 4), GAUCHE},
+        {D, Coordonnees('E', 3), DROITE},
+    });*/
 
     // Tests
     bool fini = false;
     p.afficher();
 
-    if (Affichable::getEtat())
+    if (Affichable::getEtat() == ALLEGRO)
     {
         while (!key[KEY_ESC])
         {
