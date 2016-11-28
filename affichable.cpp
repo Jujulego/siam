@@ -1,6 +1,12 @@
 // Importations
 #include <string>
 
+#ifndef __gnu_linux__
+# include <windows.h>
+#else
+# include <unistd.h>
+#endif
+
 #include "affichable.h"
 #include "alleg.h"
 #include "console.h"
@@ -40,14 +46,22 @@ void Affichable::erreur(std::string err) noexcept { //affichage d'une erreur en 
     s_console.setColor(COLOR_DEFAULT);
 }
 
+void Affichable::s_attendre(int milisec) noexcept {
+#ifndef __gnu_linux__
+    Sleep(milisec);
+#else
+    usleep(milisec * 1000);
+#endif
+}
+
 void Affichable::initier(Etat e) noexcept {
     // Enregistrement du choix
     s_etat = e;
 
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro::init(800, 600);
-        s_buffer = allegro::creer_bitmap(800, 600);
+        allegro::init(1100, 740);
+        s_buffer = allegro::creer_bitmap(1100, 740);
     }
 }
 

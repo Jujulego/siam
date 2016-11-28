@@ -33,8 +33,8 @@ int main() {
         {D, Coordonnees('D', 3), DROITE},
     });*/
 
-    Joueur* j1 = new RandomIA(RHINO);
-    Joueur* j2 = new RandomIA(ELEPH);
+    Joueur* j1 = new ConsoleJoueur(RHINO);
+    Joueur* j2 = new ConsoleJoueur(ELEPH);
 /*    Joueur* j2 = new ProgJoueur(ELEPH, {
         {P, Coordonnees('E', 2), GAUCHE},
         {P, Coordonnees('D', 3), GAUCHE},
@@ -49,27 +49,35 @@ int main() {
     bool fini = false;
     p.afficher();
 
-    if (Affichable::getEtat())
-    {
-        while (!key[KEY_ESC])
+    if (Affichable::getEtat() == ALLEGRO) {
+        while ((!key[KEY_ESC]) && (!fini))
         {
+            j1->afficher();
+            fini = j1->jouer(p);
+            p.afficher();
 
+            if (fini)
+                break;
+
+            j2->afficher();
+            fini = j2->jouer(p);
+            p.afficher();
         }
-    }
-
-    c.gotoLigCol(40, 0);
-
-    while (!fini) {
-        fini = j1->jouer(p);
-        p.afficher();
-        j1->afficher();
-
-        if (fini)
-            break;
-
-        fini = j2->jouer(p);
-        p.afficher();
-        j2->afficher();
+    } else {
+        c.gotoLigCol(40, 0);
+        
+        while (!fini) {
+            j1->afficher();
+            fini = j1->jouer(p);
+            p.afficher();
+            
+            if (fini)
+                break;
+            
+            j2->afficher();
+            fini = j2->jouer(p);
+            p.afficher();
+        }
     }
 
     // Libérations

@@ -1,8 +1,6 @@
 // Importations
 #include <cstdlib>
 #include <map>
-#include <unistd.h>
-
 
 #include "alleg.h"
 #include "coordonnee.h"
@@ -223,7 +221,7 @@ bool RandomIA::jouer(Plateau& p) {
 
     }
 
-    usleep(1000000);
-    s_console.getch();
+    s_attendre(1000);
+    //s_console.getch();
     return r;
 }

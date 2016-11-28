@@ -29,11 +29,11 @@ namespace c {
         while (getchar() != EOF) {}
 
         fcntl(STDIN_FILENO, F_SETFL, oldf);
-        
-        // RÃ©cupÃ©ration du char
+
+        // Récupération du char
         ch = getchar();
 
-        // RÃ©tablissement du terminal
+        // Rétablissement du terminal
         tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
 
         return ch;
@@ -51,21 +51,21 @@ namespace c {
         newt.c_lflag &= ~(ICANON | ECHO);
         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
-        // PrÃ©paration de stdin (rendu non bloquant)
+        // Préparation de stdin (rendu non bloquant)
         fflush(stdin);
         oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
         fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
 
-        // RÃ©cupÃ©ration d'un charactÃ¨re (ou EOF)
+        // Récupération d'un charactère (ou EOF)
         ch = getchar();
 
-        // RÃ©tablissement
+        // Rétablissement
         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
         fcntl(STDIN_FILENO, F_SETFL, oldf);
 
         // Test !
         if (ch != EOF) {
-            // Renvoi du charactÃ¨re
+            // Renvoi du charactère
             ungetc(ch, stdin);
             return 1;
         }
@@ -85,7 +85,7 @@ Console::Console() {
 Console::~Console() {
 }
 
-// MÃ©thodes
+// Méthodes
 void Console::gotoLigCol(int lig, int col) { //deplacement du curseur
 #ifndef __gnu_linux__
     COORD mycoord;
@@ -105,18 +105,20 @@ void Console::clear() {
 #endif
 }
 
-int Console::getch() { // recupere le caractÃ¨re du clavier
+int Console::getch() { // recupere le caractère du clavier
+    std::cin.clear();
     return c::getch();
 }
 
 int Console::kbhit() { //renvoi 0 ou 1
+    std::cin.clear();
     return c::kbhit();
 }
 
 /*
 Couleurs Windows :      Couleurs Linux :
 0: noir                 0: noir
-1: bleu foncÃ©           1: rouge
+1: bleu foncé           1: rouge
 2: vert                 2: vert
 3: bleu-gris            3: jaune
 4: marron               4: bleu
@@ -134,8 +136,8 @@ Couleurs Windows :      Couleurs Linux :
 */
 void Console::_setColor(int front, int back) {
 #ifndef __gnu_linux__
-    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    //SetConsoleTextAttribute(H,back*16+front);
+    HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,back*16+front);
 #else
     std::cout << "\x1b[" << front + 30 << ";" << back + 40 << "m";
 #endif
