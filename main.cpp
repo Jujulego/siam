@@ -51,21 +51,33 @@ int main() {
 
     if (Affichable::getEtat() == ALLEGRO)
     {
-        while (!key[KEY_ESC])
+        while ((!key[KEY_ESC]) && (!fini))
         {
+            j1->afficher();
+            fini = j1->jouer(p);
+            p.afficher();
 
+            if (fini)
+                break;
+
+            j2->afficher();
+            fini = j2->jouer(p);
+            p.afficher();
         }
     }
 
-    c.gotoLigCol(40, 0);
+    else {
 
+        c.gotoLigCol(40, 0);
     while (!fini) {
         j1->afficher();
         fini = j1->jouer(p);
         p.afficher();
 
-        if (fini)
-            break;
+        while (!fini) {
+            j1->afficher();
+            fini = j1->jouer(p);
+            p.afficher();
 
        j2->afficher();
        fini = j2->jouer(p);

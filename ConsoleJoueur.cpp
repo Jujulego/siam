@@ -103,7 +103,7 @@ ConsoleJoueur::ConsoleJoueur(Equipe e)
 
  void ConsoleJoueur::afficher_allegro()
  {
-     //ne fait rien pour le moment
+
  }
 
  void ConsoleJoueur::afficher_console() //print les choix
@@ -168,7 +168,7 @@ ConsoleJoueur::ConsoleJoueur(Equipe e)
 
  bool ConsoleJoueur::jouer(Plateau& p) //réalisation des actions
  {
-    return false;
+    p.appliquer_mov(m_equipe, m_mov);
  }
 
 

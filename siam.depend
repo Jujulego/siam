@@ -1,26 +1,67 @@
 # depslib dependency file v1.0
-1480263518 source:c:\users\nolwenn\documents\ece\projet informatique\affichable.cpp
+1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\affichable.cpp
+	<string>
+	"affichable.h"
+	"plateau.h"
 	<string>
 	"affichable.h"
 	"alleg.h"
 	"console.h"
 
-1480263518 c:\users\nolwenn\documents\ece\projet informatique\affichable.h
+1479908397 source:c:\users\maxime\desktop\programmes\siam\affichable.cpp
+	<string>
+	"affichable.h"
+	"alleg.h"
+	"console.h"
+
+1479892682 c:\users\maxime\desktop\programmes\siam\affichable.h
+
+1479737443 c:\users\nolwenn\documents\ece\projet informatique\affichable.h
 	<string>
 	"alleg.h"
 	"console.h"
+	<string>
+	"alleg.h"
+	"console.h"
+
+1479892618 c:\users\maxime\desktop\programmes\siam\console.h
+	<iostream>
+
+1479892682 source:c:\users\maxime\desktop\programmes\siam\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+
+1479115684 source:c:\users\maxime\desktop\programmes\siam\helloworld.cpp
 
 1479737443 c:\users\nolwenn\documents\ece\projet informatique\alleg.h
 	<memory>
 	<allegro.h>
+	<memory>
 
 1479737443 c:\users\nolwenn\documents\ece\projet informatique\console.h
 	<iostream>
 
+1479919146 source:c:\users\maxime\desktop\programmes\siam\main.cpp
+
 1479737443 source:c:\users\nolwenn\documents\ece\projet informatique\alleg.cpp
 	<allegro.h>
+	<iostream>
+	<vector>
 	<string.h>
 	"affichable.h"
+	"console.h"
+	"coordonnee.h"
+	"objpoussable.h"
+	"plateau.h"
+	"progjoueur.h"
+
+1479892618 c:\users\maxime\desktop\programmes\siam\plateau.h
+	<memory>
+	<vector>
 	"alleg.h"
 
 1480344240 source:c:\users\nolwenn\documents\ece\projet informatique\console.cpp
@@ -79,15 +120,49 @@
 
 1480263518 source:c:\users\nolwenn\documents\ece\projet informatique\objpoussable.cpp
 	<string>
-	"alleg.h"
+	<vector>
 	"affichable.h"
+	"coordonnee.h"
+	"montagne.h"
+	"pion.h"
+	"plateau.h"
+
+1479719223 c:\users\maxime\desktop\programmes\siam\alleg.h
+	<memory>
+	<allegro.h>
+
+1479892618 source:c:\users\maxime\desktop\programmes\siam\alleg.cpp
+	<allegro.h>
+	<string.h>
+	"affichable.h"
+	"alleg.h"
+
+1479892682 source:c:\users\maxime\desktop\programmes\siam\coordonnee.cpp
+	"affichable.h"
+	"coordonnee.h"
+
+1479892618 c:\users\maxime\desktop\programmes\siam\coordonnee.h
+	"affichable.h"
+
+1479892618 c:\users\maxime\desktop\programmes\siam\montagne.h
 	"coordonnee.h"
 	"objpoussable.h"
 
-1480343531 source:c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
+1479892618 c:\users\maxime\desktop\programmes\siam\objpoussable.h
+	<string>
+	"alleg.h"
+	"affichable.h"
+
+1480263518 source:c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
+	"coordonnee.h"
+
+1479892618 c:\users\maxime\desktop\programmes\siam\pion.h
 	"coordonnee.h"
 	"objpoussable.h"
 	"pion.h"
+
+1479894287 source:c:\users\maxime\desktop\programmes\siam\montagne.cpp
+	"coordonnee.h"
 
 1480265342 source:c:\users\nolwenn\documents\ece\projet informatique\ia.cpp
 	<cstdlib>
@@ -96,12 +171,17 @@
 	"joueur.h"
 	"objpoussable.h"
 
+1480277187 source:c:\users\maxime\desktop\programmes\siam\objpoussable.cpp
+	<string>
+	"alleg.h"
+	"affichable.h"
+
 1480265141 c:\users\nolwenn\documents\ece\projet informatique\ia.h
 	"coordonnee.h"
 	"joueur.h"
 	"objpoussable.h"
 
-1480343531 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
+1480265141 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
 	<allegro.h>
 	<iostream>
 	<vector>
@@ -169,9 +249,4 @@
 	"joueur.h"
 	"coordonnee.h"
 	"plateau.h"
-
-1480263518 c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
-	"coordonnee.h"
-	"objpoussable.h"
-	"pion.h"
 

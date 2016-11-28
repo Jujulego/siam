@@ -6,11 +6,30 @@
 
 
 // Constructeur
-Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? "test_eleph.bmp" : "test_rhino.bmp", Coordonnees('F', 5)), m_dir(HAUT) {
+Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? "elephant.bmp" : "rhino.bmp", Coordonnees('F', 5)), m_dir(HAUT) {
 }
 
 // Méthodes
 void Pion::afficher_allegro() noexcept {
+    ObjPoussable::afficher_allegro();
+
+    switch (m_dir) {
+    case HAUT:
+
+        break;
+
+    case BAS:
+
+        break;
+
+    case DROITE:
+
+        break;
+
+    case GAUCHE:
+
+        break;
+    }
 }
 
 void Pion::afficher_console() noexcept {

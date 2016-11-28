@@ -1,7 +1,7 @@
 // Importations
 #include <cstdlib>
 #include <map>
-#include <unistd.h>
+#include <windows.h>
 
 
 #include "alleg.h"
@@ -223,7 +223,7 @@ bool RandomIA::jouer(Plateau& p) {
 
     }
 
-    usleep(1000000);
+    Sleep(1000);
     //s_console.getch();
     return r;
 }

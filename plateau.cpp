@@ -27,7 +27,7 @@ static const std::string LIGNE_BAS  = "\xe2\x95\xb0\xe2\x94\x80\xe2\x94\x80\xe2\
 Plateau::Plateau() {
     // Chargement des images
     if (s_etat == ALLEGRO) {
-        m_map = allegro::charger_bitmap("test_map.bmp");
+        m_map = allegro::charger_bitmap("map.bmp");
     }
 
     // Ajout des montagnes
@@ -46,20 +46,20 @@ Plateau::Plateau() {
 Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
     Retour r = OK;
-    
+
     for (auto p : m_equipes) {
         if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
             coord -= dir;
-            
+
             p->placer(coord, dir);
             r = _deplacer(p, coord, dir);
-            
+
             if ((r == OK) || (r == FIN)) {
                 m_pions_joues.push_back(p);
             } else {
                 p->placer(Coordonnees('F', 5), BAS);
             }
-            
+
             return r;
         }
     }
@@ -81,14 +81,14 @@ Retour Plateau::deplacer(Equipe e, Coordonnees coord, Direction dir) {
         m_message = "Hey c'est pas un de tes pions ...";
         return PASPION;
     }
-    
+
     return _deplacer(pion, coord, dir);
 }
 
 float Plateau::get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant) {
     // Déclarations
     float resist = 0.0;
-    
+
     // Parcours de ce qu'il y a avant le pion
     for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
         auto p = get_pion(c);
@@ -97,11 +97,11 @@ float Plateau::get_resistance(Coordonnees coord, Direction dir, std::set<std::sh
             break;
 
         resist += p->get_resistance(dir);
-        
+
         if (objdevant != nullptr)
             objdevant->insert(p);
     }
-    
+
     return resist;
 }
 
@@ -132,7 +132,7 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
                 } else if (pion->get_equipe() == ELEPH) {
                     m_message = "Les Elephants ont gagné !";
                 }
-                
+
                 r = FIN;
             } else {
                 for (auto it = m_pions_joues.begin(); it != m_pions_joues.end(); it++) {
@@ -169,21 +169,21 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
 Retour Plateau::appliquer_mov(Equipe e, Mov m) {
     // Branchement !
     Retour r;
-    
+
     switch (m.a) {
     case P:
         r = placer(e, m.c, m.d);
         break;
-    
+
     case D:
         r = deplacer(e, m.c, m.d);
         break;
-    
+
     case T:
         r = tourner(e, m.c, m.d);
         break;
     }
-    
+
     return r;
 }
 
@@ -202,11 +202,11 @@ std::vector<std::shared_ptr<Pion>> const& Plateau::get_pions() const {
 
 std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
     std::vector<std::shared_ptr<Pion>> equipe;
-    
+
     for (auto p : get_pions()) {
         if ((p->get_coord().get_lig() == 'F') && (p->get_equipe() == e)) equipe.push_back(p);
     }
-    
+
     return equipe;
 }
 
@@ -216,6 +216,36 @@ std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {
 
 void Plateau::afficher_allegro() noexcept {
     allegro::draw_sprite(s_buffer, m_map, 0, 0);
+
+    // Affichage des pions sur le plateau
+    for (auto o : m_pions_joues) {
+        o->afficher_allegro();
+    }
+
+    // Affichage des pions restants
+    unsigned nbr = 0;
+    unsigned nbe = 0;
+    /*COLOR_MAP calque;
+    create_trans_table(&calque)*/
+
+    for (auto p : m_equipes) {
+        switch (p->get_equipe()) {
+        case RHINO:
+            if (p->get_coord().get_lig() == 'F') draw_sprite(s_buffer,p->get_image(),720+(nbr*62),460);
+
+            nbr++;
+            break;
+
+        case ELEPH:
+            if (p->get_coord().get_lig() == 'F') draw_sprite(s_buffer,p->get_image(),720+(nbe*62),165);
+
+            nbe++;
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 //Affichage sur la console

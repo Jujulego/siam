@@ -7,6 +7,8 @@
 
 class ConsoleJoueur:public Joueur
 {
+private:
+    Mov m_mov;
 
 public:
 
