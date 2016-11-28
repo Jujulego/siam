@@ -1,6 +1,12 @@
 // Importations
 #include <string>
 
+#ifndef __gnu_linux__
+# include <windows.h>
+#else
+# include <unistd.h>
+#endif
+
 #include "affichable.h"
 #include "alleg.h"
 #include "console.h"
@@ -38,6 +44,14 @@ void Affichable::erreur(std::string err) noexcept { //affichage d'une erreur en 
     s_console.setColor(COLOR_RED);
     std::cerr << err << std::endl;//cerr:affiche sur le flux d'erreur
     s_console.setColor(COLOR_DEFAULT);
+}
+
+void Affichable::s_attendre(int milisec) noexcept {
+#ifndef __gnu_linux__
+    Sleep(milisec);
+#else
+    usleep(milisec * 1000);
+#endif
 }
 
 void Affichable::initier(Etat e) noexcept {

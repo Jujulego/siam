@@ -16,6 +16,7 @@ class Affichable {
         // Méthodes statiques
         static Etat choix() noexcept;
         static void erreur(std::string err) noexcept;
+        static void s_attendre(int milisec) noexcept;
         static void initier(Etat e) noexcept;
         static void liberer() noexcept;
 
