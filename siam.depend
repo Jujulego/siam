@@ -23,7 +23,7 @@
 	"affichable.h"
 	"alleg.h"
 
-1480263518 source:c:\users\nolwenn\documents\ece\projet informatique\console.cpp
+1480337961 source:c:\users\nolwenn\documents\ece\projet informatique\console.cpp
 	"console.h"
 	<conio.h>
 	<windows.h>
@@ -43,7 +43,7 @@
 	"plateau.h"
 	"objpoussable.h"
 
-1480265064 c:\users\nolwenn\documents\ece\projet informatique\joueur.h
+1480333944 c:\users\nolwenn\documents\ece\projet informatique\joueur.h
 	"affichable.h"
 	"objpoussable.h"
 	"plateau.h"
@@ -64,7 +64,7 @@
 	"objpoussable.h"
 	"pion.h"
 
-1480263518 c:\users\nolwenn\documents\ece\projet informatique\pion.h
+1480277433 c:\users\nolwenn\documents\ece\projet informatique\pion.h
 	"coordonnee.h"
 	"objpoussable.h"
 
@@ -84,7 +84,7 @@
 	"coordonnee.h"
 	"objpoussable.h"
 
-1480263518 source:c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
+1480277433 source:c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
 	"coordonnee.h"
 	"objpoussable.h"
 	"pion.h"
@@ -101,7 +101,7 @@
 	"joueur.h"
 	"objpoussable.h"
 
-1480265141 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
+1480333097 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
 	<allegro.h>
 	<iostream>
 	<vector>
@@ -113,8 +113,9 @@
 	"plateau.h"
 	"progjoueur.h"
 	"randomia.h"
+	"ConsoleJoueur.h"
 
-1480265064 c:\users\nolwenn\documents\ece\projet informatique\progjoueur.h
+1480335486 c:\users\nolwenn\documents\ece\projet informatique\progjoueur.h
 	<vector>
 	"coordonnee.h"
 	"joueur.h"
@@ -159,10 +160,18 @@
 	"plateau.h"
 	"randomia.h"
 
-1480271746 source:c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.cpp
+1480343197 source:c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.cpp
+	<stdio.h>
 	"Joueur.h"
 	"ConsoleJoueur.h"
+	"pion.h"
 
-1480271769 c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.h
+1480340217 c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.h
 	"Joueur.h"
+	"Coordonnee.h"
+
+1480263518 c:\users\nolwenn\documents\ece\projet informatique\pion.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
 

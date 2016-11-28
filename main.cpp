@@ -33,8 +33,8 @@ int main() {
         {D, Coordonnees('D', 3), DROITE},
     });*/
 
-    Joueur* j1 = new RandomIA(RHINO);
-    Joueur* j2 = new RandomIA(ELEPH);
+    Joueur* j1 = new ConsoleJoueur(RHINO);
+    Joueur* j2 = new ConsoleJoueur(ELEPH);
 /*    Joueur* j2 = new ProgJoueur(ELEPH, {
         {P, Coordonnees('E', 2), GAUCHE},
         {P, Coordonnees('D', 3), GAUCHE},
@@ -67,8 +67,8 @@ int main() {
         if (fini)
             break;
 
-        fini = j2->jouer(p);
-        p.afficher();
+       fini = j2->jouer(p);
+       p.afficher();
         j2->afficher();
     }
 
