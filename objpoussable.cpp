@@ -51,3 +51,10 @@ Coordonnees ObjPoussable::get_coord() const {
 Equipe ObjPoussable::get_equipe() const {
     return m_equipe;
 }
+
+allegro::BITMAP_PT ObjPoussable::get_image() const {
+    return m_image;
+}
+
+
+

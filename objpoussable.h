@@ -43,6 +43,7 @@ class ObjPoussable : public Affichable {
         Equipe get_equipe() const;
         Coordonnees get_coord() const;
         virtual Direction get_dir() const = 0;
+        allegro::BITMAP_PT get_image() const;
 };
 
 #endif // __OBJPOUSSABLE

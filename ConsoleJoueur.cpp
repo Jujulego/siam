@@ -4,7 +4,7 @@
 
  void ConsoleJoueur::afficher_allegro()
  {
-     //ne fait rien pour le moment
+
  }
  void ConsoleJoueur::afficher_console() //print les choix
  {
@@ -18,5 +18,5 @@
 
  bool ConsoleJoueur::jouer(Plateau& p) //réalisation des actions
  {
-
+    p.appliquer_mov(m_equipe, m_mov);
  }

@@ -54,8 +54,6 @@
 		<Unit filename="ia.h" />
 		<Unit filename="joueur.cpp" />
 		<Unit filename="joueur.h" />
-		<Unit filename="joueur.cpp" />
-		<Unit filename="joueur.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="montagne.cpp" />
 		<Unit filename="montagne.h" />
@@ -67,6 +65,8 @@
 		<Unit filename="plateau.h" />
 		<Unit filename="progjoueur.cpp" />
 		<Unit filename="progjoueur.h" />
+		<Unit filename="randomia.cpp" />
+		<Unit filename="randomia.h" />
 		<Unit filename="siam.cbp" />
 		<Extensions>
 			<code_completion />
