@@ -3,6 +3,7 @@
 
 #include "joueur.h"
 #include "coordonnee.h"
+#include "plateau.h"
 
 class ConsoleJoueur:public Joueur
 {
