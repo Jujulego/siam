@@ -27,7 +27,10 @@ class Arbre {
         std::shared_ptr<Noeud> m_racine;
     
     public:
-        // Constructeur
+        // Constructeurs
+        Arbre() : m_racine(nullptr) {
+        }
+        
         Arbre(T racine) : m_racine(new Noeud(racine, nullptr, std::vector<std::shared_ptr<Noeud>>())) {
         }
         
@@ -41,14 +44,22 @@ class Arbre {
             return m_racine->fils.size();
         }
         
+        Arbre<T> get_pere() {
+            return Arbre<T>(m_racine->pere);
+        }
+        
+        void ajouter_fils(T val) {
+            m_racine->fils.push_back(new Noeud(val, m_racine, std::vector<std::shared_ptr<Noeud>>()));
+        }
+        
         // Accesseurs
         T const& get_val() const {
             return m_racine->val;
         }
         
         // Modateurs
-        void set_val(T& val) {
-            return m_racine->val = val;
+        void set_val(T const& val) {
+            m_racine->val = val;
         }
 };
 
