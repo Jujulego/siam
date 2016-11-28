@@ -8,13 +8,6 @@
 #include "joueur.h"
 #include "plateau.h"
 
-// Enumérations
-struct Mov {
-    Action a;
-    Coordonnees c;
-    Direction d;
-};
-
 // Classe
 class ProgJoueur : public Joueur {
     private:

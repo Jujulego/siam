@@ -12,12 +12,25 @@
 #include "objpoussable.h"
 #include "pion.h"
 
-// Enumeration
+// Enumerations
 enum Retour {
     OK,
     FIN,
     PASPION,
     ERREUR,  // Peux signifier 2 choses : si renvoyé par placer : la place est prise, si renvoyé pas deplacer : mvt impossible
+};
+
+enum Action {
+    P, // placer un pion
+    D, // deplacer un pion
+    T, // tourner un pion
+};
+
+// Structure
+struct Mov {
+    Action a;
+    Coordonnees c;
+    Direction d;
 };
 
 // Classe
@@ -42,6 +55,8 @@ class Plateau : public Affichable {
         Retour placer(Equipe e, Coordonnees coord, Direction dir);
         Retour deplacer(Equipe e, Coordonnees coord, Direction dir);
         Retour tourner(Equipe e, Coordonnees coord, Direction dir);
+        
+        Retour appliquer_mov(Equipe e, Mov m);
         
         float get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant = nullptr);
         std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);

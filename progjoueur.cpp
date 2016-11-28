@@ -27,18 +27,5 @@ bool ProgJoueur::jouer(Plateau& p) {
     m_i++;
     m_i %= m_actions.size();
     
-    switch (m.a) {
-    case P:
-        return p.placer(m_equipe, m.c, m.d) == FIN;
-    
-    case D:
-        return p.deplacer(m_equipe, m.c, m.d) == FIN;
-        break;
-    
-    case T:
-        return p.tourner(m_equipe, m.c, m.d) == FIN;
-        break;
-    }
-    
-    return false;
+    return p.appliquer_mov(m_equipe, m) == FIN;
 }

@@ -1,6 +1,7 @@
 #ifndef CONSOLEJOUEUR_H_INCLUDED
 #define CONSOLEJOUEUR_H_INCLUDED
-#include "Joueur.h"
+
+#include "joueur.h"
 
 class ConsoleJoueur:public Joueur
 {

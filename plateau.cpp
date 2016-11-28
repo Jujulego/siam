@@ -110,17 +110,6 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
 
     if (dir == pion->get_dir()) {
-        // Parcours de ce qu'il y a avant le pion
-/*        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
-            auto p = get_pion(c);
-
-            if (p == nullptr)
-                break;
-
-            resist += p->get_resistance(dir);
-            objdevant.insert(p);
-        }*/
-
         // Check resistance
         if (get_resistance(coord, dir, &objdevant) >= pion->get_force(dir)) {
             m_message = "Impossible de bouger, c'est trop lourd ...";
@@ -175,6 +164,27 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
 
     pion->tourner(dir);
     return OK;
+}
+
+Retour Plateau::appliquer_mov(Equipe e, Mov m) {
+    // Branchement !
+    Retour r;
+    
+    switch (m.a) {
+    case P:
+        r = placer(e, m.c, m.d);
+        break;
+    
+    case D:
+        r = deplacer(e, m.c, m.d);
+        break;
+    
+    case T:
+        r = tourner(e, m.c, m.d);
+        break;
+    }
+    
+    return r;
 }
 
 std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
