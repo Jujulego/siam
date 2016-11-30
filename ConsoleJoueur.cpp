@@ -9,7 +9,7 @@ Direction ConsoleJoueur::demanderDirection()
     do
         {
         s_console.gotoLigCol(4,70);
-        std::cout<<"Dans quelle direction voulez vous deplacer le pion: ";
+        std::cout<<"Dans quelle direction voulez vous tourner le pion: ";
 
         s_console.gotoLigCol(5,70);
         std::cout<<"h: Haut              "<<std::endl;
@@ -32,7 +32,7 @@ Direction ConsoleJoueur::demanderDirection()
         } while (D!='h'&& D!='b'&& D!='d'&& D!='g');
 
     Direction d = DROITE;
-    
+
     switch (D) {
     case 'h' :
         d = HAUT;
@@ -54,7 +54,7 @@ Direction ConsoleJoueur::demanderDirection()
         std::cout<<"Erreur, cette direction n'existe pas"<<std::endl;
         break;
     }
-    
+
     return d;
  }
 
@@ -88,7 +88,7 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     s_console.gotoLigCol(6,70);
     std::cout<<"                         "<<std::endl;
     s_console.gotoLigCol(6,70);
-        std::cin>>C;
+    std::cin>>C;
 
     }while ((C!='1')&& (C!='2')&& (C!='3')&& (C!='4')&& (C!='0'));
 
@@ -112,6 +112,7 @@ ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5
  {
     std::string texte;
     char a;
+
     do
 
     {
@@ -133,29 +134,30 @@ ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5
     s_console.gotoLigCol(8,83);
     std::cin >> a;
 
-    } while((a!='1') && (a!='2') && (a!='3'));
+    } while((a!='1') && (a!='2') && (a!='3')&& (a<'0'));
 
    switch (a) {
 
     case '1':
-        texte="Quelles sont les coordonnees de la case ou vous voulez placer votre pion ?";
         s_console.gotoLigCol(4,70);
-        demanderCoord(texte);
-        demanderDirection();
+        m_mov.c=demanderCoord("Quelles sont les coordonnees de la case ou vous voulez placer votre pion ?");
+        m_mov.d=demanderDirection();
+        m_mov.a=P;
+
         break;
 
     case '2':
-        texte="Quelles sont les coordonnees du pions que vous voulez deplacer?";
         s_console.gotoLigCol(4,70);
-        demanderCoord(texte);
-        demanderDirection();
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez faire tourner?");
+        m_mov.d=demanderDirection();
+        m_mov.a=T;
         break;
 
     case '3':
-        texte="Quelles sont les coordonnees du pions que vous voulez deplacer?";
         s_console.gotoLigCol(4,70);
-        demanderCoord(texte);
-        demanderDirection();
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez deplacer?");
+        m_mov.d=demanderDirection();
+        m_mov.a=D;
         break;
     default:
         std::cout<<"Error, le choix n'existe pas !"<<std::endl;
@@ -166,8 +168,10 @@ ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5
 
 
 
+
  bool ConsoleJoueur::jouer(Plateau& p) //réalisation des actions
  {
+
     return p.appliquer_mov(m_equipe, m_mov) == FIN;
  }
 
