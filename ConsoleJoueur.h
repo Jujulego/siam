@@ -5,14 +5,17 @@
 #include "coordonnee.h"
 #include "plateau.h"
 
-class ConsoleJoueur:public Joueur
+#include <memory>
+
+class ConsoleJoueur : public Joueur
 {
 private:
+    std::shared_ptr<Plateau> m_p;
     Mov m_mov;
 
 public:
 
-    ConsoleJoueur(Equipe e);
+    ConsoleJoueur(Equipe e,std::shared_ptr<Plateau> p);
     void afficher_allegro();
     void afficher_console() ;
     bool jouer(Plateau& p) ;

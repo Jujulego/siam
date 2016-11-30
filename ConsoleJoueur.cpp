@@ -1,6 +1,10 @@
 #include "joueur.h"
 #include "ConsoleJoueur.h"
 #include "pion.h"
+#include "alleg.h"
+#include "plateau.h"
+
+#include <memory>
 
 Direction ConsoleJoueur::demanderDirection()
  {
@@ -32,7 +36,7 @@ Direction ConsoleJoueur::demanderDirection()
         } while (D!='h'&& D!='b'&& D!='d'&& D!='g');
 
     Direction d = DROITE;
-    
+
     switch (D) {
     case 'h' :
         d = HAUT;
@@ -54,7 +58,7 @@ Direction ConsoleJoueur::demanderDirection()
         std::cout<<"Erreur, cette direction n'existe pas"<<std::endl;
         break;
     }
-    
+
     return d;
  }
 
@@ -95,16 +99,30 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     return Coordonnees(L,C-'0');
 }
 
-ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5), BAS})
+ConsoleJoueur::ConsoleJoueur(Equipe e,std::shared_ptr<Plateau> p) : Joueur(e), m_p(p), m_mov({P, Coordonnees('F', 5), BAS})
 {
 
 }
 
 
- void ConsoleJoueur::afficher_allegro()
- {
+void ConsoleJoueur::afficher_allegro()
+{
+    std::shared_ptr<Pion> VIPion;
 
- }
+    if (allegro::mouse_b&1) {
+        for (auto plat : m_p->get_pions()) {
+            if (plat->get_equipe() == m_equipe) {
+                if (plat->get_coord().get_lig() == 'F') {
+                    if ((plat->get_equipe() == RHINO) && (allegro::mouse_x >= 715) && (allegro::mouse_x <= 1022) && (allegro::mouse_y >= 455) && (allegro::mouse_y <= 515)) VIPion = plat;
+                    if ((plat->get_equipe() == ELEPH) && (allegro::mouse_x >= 715) && (allegro::mouse_x <= 1022) && (allegro::mouse_y >= 160) && (allegro::mouse_y <= 220)) VIPion = plat;
+                }
+                else {
+                    if ((allegro::mouse_x >= plat->get_coord().get_as_x(s_etat)) && (allegro::mouse_x <= plat->get_coord().get_as_x(s_etat)+50) && (allegro::mouse_y >= plat->get_coord().get_as_y(s_etat)) && (allegro::mouse_y <= plat->get_coord().get_as_y(s_etat)+50)) VIPion = plat;
+                }
+            }
+        }
+    }
+}
 
  void ConsoleJoueur::afficher_console() //print les choix
 

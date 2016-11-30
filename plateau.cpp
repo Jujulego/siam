@@ -246,6 +246,8 @@ void Plateau::afficher_allegro() noexcept {
             break;
         }
     }
+
+    allegro::show_mouse(s_buffer);
 }
 
 //Affichage sur la console

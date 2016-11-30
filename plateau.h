@@ -41,12 +41,12 @@ class Plateau : public Affichable {
         int m_larg = 5;
         allegro::BITMAP_PT m_map;
         std::string m_message = "";
-        
+
         std::vector<std::shared_ptr<Pion>> m_equipes;
         std::vector<std::shared_ptr<ObjPoussable>> m_pions_joues;
-        
+
         Retour _deplacer(std::shared_ptr<ObjPoussable> p, Coordonnees coord, Direction dir);
-    
+
     public:
         // Constructeur
         Plateau();
@@ -55,15 +55,15 @@ class Plateau : public Affichable {
         Retour placer(Equipe e, Coordonnees coord, Direction dir);
         Retour deplacer(Equipe e, Coordonnees coord, Direction dir);
         Retour tourner(Equipe e, Coordonnees coord, Direction dir);
-        
+
         Retour appliquer_mov(Equipe e, Mov m);
-        
+
         float get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant = nullptr);
         std::shared_ptr<ObjPoussable> get_pion(Coordonnees coord);
-        
+
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
-        
+
         // Accesseurs
         std::vector<std::shared_ptr<Pion>> const& get_pions() const;
         std::vector<std::shared_ptr<Pion>> get_equipe(Equipe e) const;
