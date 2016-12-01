@@ -32,13 +32,30 @@ Plateau::Plateau() {
 
     // Ajout des montagnes
     for (unsigned i = 1; i < 4; i++)
-        m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', i)));
+        m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(Coordonnees('C', i))));
 
     // Création des équipes
     for (auto e : {ELEPH, RHINO}) {
         for (unsigned i = 0; i < 5; i++) {
-            m_equipes.push_back((std::shared_ptr<Pion>) new Pion(e));
+            m_equipes.push_back(std::shared_ptr<Pion>(new Pion(e)));
         }
+    }
+}
+
+Plateau::Plateau(Plateau const& p) : m_map(p.m_map) {
+    // Copie des equipes
+    for (auto i : p.m_equipes) {
+        auto pion = std::shared_ptr<Pion>(new Pion(*i));
+        
+        m_equipes.push_back(pion);
+        if (pion->get_coord().get_lig() != 'F')
+            m_pions_joues.push_back(pion);
+    }
+    
+    // Copie des montagnes
+    for (auto i : p.m_pions_joues) {
+        if (i->get_equipe() == MONTAGNE)
+            m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(i->get_coord())));
     }
 }
 
@@ -210,6 +227,16 @@ std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
     return equipe;
 }
 
+std::vector<std::shared_ptr<Pion>> Plateau::get_full_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+
+    for (auto p : get_pions()) {
+        if (p->get_equipe() == e) equipe.push_back(p);
+    }
+
+    return equipe;
+}
+
 std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {
     return m_pions_joues;
 }
@@ -251,7 +278,7 @@ void Plateau::afficher_allegro() noexcept {
 //Affichage sur la console
 void Plateau::afficher_console() noexcept {
     // Affichage du plateau
-    s_console.clear();
+//    s_console.clear();
     s_console.gotoLigCol(3, 0);
 
     char l;

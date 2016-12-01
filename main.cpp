@@ -3,18 +3,22 @@
 #include <iostream>
 #include <vector>
 
+#include <unistd.h>
+
 #include "affichable.h"
 #include "ia.h"
 #include "console.h"
 #include "coordonnee.h"
 #include "objpoussable.h"
 #include "plateau.h"
-#include "progjoueur.h"
+
+#include "intellia.h"
 #include "randomia.h"
 #include "ConsoleJoueur.h"
 
 int main() {
     // Initialisation
+    std::cout << std::boolalpha;
     Affichable::initier(Affichable::choix());
     IA::init();
 
@@ -22,34 +26,16 @@ int main() {
     Console c;
     Plateau p;
 
-/*    Joueur* j1 = new ProgJoueur(RHINO, {
-        {P, Coordonnees('A', 4), BAS},
-        {P, Coordonnees('A', 4), BAS},
-        {P, Coordonnees('D', 2), DROITE},
-        {D, Coordonnees('A', 4), BAS},
-        {D, Coordonnees('B', 4), GAUCHE},
-        {D, Coordonnees('B', 3), BAS},
-        {D, Coordonnees('D', 2), DROITE},
-        {D, Coordonnees('D', 3), DROITE},
-    });*/
-
-    Joueur* j1 = new ConsoleJoueur(RHINO);
-    Joueur* j2 = new ConsoleJoueur(ELEPH);
-/*    Joueur* j2 = new ProgJoueur(ELEPH, {
-        {P, Coordonnees('E', 2), GAUCHE},
-        {P, Coordonnees('D', 3), GAUCHE},
-        {P, Coordonnees('E', 4), HAUT},
-        {D, Coordonnees('D', 3), DROITE},
-        {T, Coordonnees('D', 4), HAUT},
-        {D, Coordonnees('E', 4), GAUCHE},
-        {D, Coordonnees('E', 3), DROITE},
-    });*/
+    Joueur* j1 = new RandomIA(RHINO);
+    IntellIA* j2 = new IntellIA(ELEPH, p);
+    
+    c.gotoLigCol(9, 60);
 
     // Tests
     bool fini = false;
     p.afficher();
-
-    if (Affichable::getEtat() == ALLEGRO) {
+    
+/*    if (Affichable::getEtat() == ALLEGRO) {
         while ((!key[KEY_ESC]) && (!fini))
         {
             j1->afficher();
@@ -63,22 +49,36 @@ int main() {
             fini = j2->jouer(p);
             p.afficher();
         }
-    } else {
+    } else {*/
         c.gotoLigCol(40, 0);
         
         while (!fini) {
-            j1->afficher();
-            fini = j1->jouer(p);
-            p.afficher();
+//            j1->afficher();
+//            fini = j1->jouer(p);
+//            p.afficher();
             
             if (fini)
                 break;
+            
+            c.gotoLigCol(10, 60);
+            std::cout << "null  : " << j2->m_arbre.is_null() << std::endl;
+            
+            c.gotoLigCol(11, 60);
+            std::cout << "prevu : " << j2->m_arbre.get_val()->prevu << std::endl;
+            
+            c.gotoLigCol(12, 60);
+            std::cout << "cool  : " << j2->m_arbre.get_val()->cool << std::endl;
+            
+            sleep(1);
+            
+            c.gotoLigCol(40, 0);
+            std::cout << std::endl;
             
             j2->afficher();
             fini = j2->jouer(p);
             p.afficher();
         }
-    }
+//    }
 
     // Libérations
     Affichable::liberer();

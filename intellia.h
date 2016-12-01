@@ -13,21 +13,25 @@
 // Structure
 struct ICoup {
     // Attributs
-    Mov m;    // Mouvement
-    Plateau p;// Plateau après mvt
-    bool v;   // Victoire !!!
+    Mov m;      // Mouvement
+    Plateau p;  // Plateau après mvt
+    bool v;     // Victoire !!!
+    bool prevu; // Faut-il encore calculer
     
-    int cool; // Niveau de coolitude !
+    int cool;   // Niveau de coolitude !
 };
 
 // Classe
 class IntellIA : public IA {
     private:
         // Attributs
+        std::vector<Coordonnees> m_pos_placement;
         Arbre<ICoup> m_arbre;
         
         // Méthodes privées
-        ICoup gen_icoup(Plateau dep, Mov mvt) const;
+        void prevision();
+        bool ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt);
+        ICoup gen_icoup(Plateau& dep, Mov mvt, Retour r) const;
         void maj_icoups(Plateau nouv);
     
     public:
@@ -38,6 +42,8 @@ class IntellIA : public IA {
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
         virtual bool jouer(Plateau& p);
+        
+        friend int main();
 };
 
 #endif // __INTELLIA
