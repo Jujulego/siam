@@ -60,21 +60,24 @@ int main() {
             if (fini)
                 break;
             
-            c.gotoLigCol(10, 60);
+/*            c.gotoLigCol(10, 60);
             std::cout << "null  : " << j2->m_arbre.is_null() << std::endl;
             
-            c.gotoLigCol(11, 60);
-            std::cout << "prevu : " << j2->m_arbre.get_val()->prevu << std::endl;
-            
-            c.gotoLigCol(12, 60);
-            std::cout << "cool  : " << j2->m_arbre.get_val()->cool << std::endl;
+            if (!(j2->m_arbre.is_null())) {
+                c.gotoLigCol(11, 60);
+                std::cout << "prevu : " << j2->m_arbre.get_val()->prevu << std::endl;
+                
+                c.gotoLigCol(12, 60);
+                std::cout << "cool  : " << j2->m_arbre.get_val()->cool << std::endl;
+            }
             
             sleep(1);
             
             c.gotoLigCol(40, 0);
-            std::cout << std::endl;
+            std::cout << std::endl;*/
             
             j2->afficher();
+//            c.clear();
             fini = j2->jouer(p);
             p.afficher();
         }

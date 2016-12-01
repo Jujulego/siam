@@ -59,6 +59,33 @@ Plateau::Plateau(Plateau const& p) : m_map(p.m_map) {
     }
 }
 
+// Opérateurs
+bool Plateau::operator == (Plateau const& p) {
+    // Déclarations
+    bool ok = true;
+    
+    // Comparaison du nombre de pions joues
+    if (get_plateau().size() != p.get_plateau().size())
+        return false;
+    
+    // Comparaison des coordonnées des pions
+    for (auto p1 : get_plateau()) {
+        ok = false;
+        
+        for (auto p2 : p.get_plateau()) {
+            if (p1->get_coord() == p2->get_coord()) {
+                ok = true;
+                break;
+            }
+        }
+        
+        if (!ok)
+            return false;
+    }
+    
+    return true;
+}
+
 // Méthodes
 Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
@@ -278,7 +305,7 @@ void Plateau::afficher_allegro() noexcept {
 //Affichage sur la console
 void Plateau::afficher_console() noexcept {
     // Affichage du plateau
-//    s_console.clear();
+    s_console.clear();
     s_console.gotoLigCol(3, 0);
 
     char l;

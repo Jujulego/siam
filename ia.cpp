@@ -27,7 +27,7 @@ void IA::init() noexcept {
 }
 
 int IA::random(int min, int max) noexcept {
-    return (rand() % (max - min +1)) + min;
+    return (rand() % (max - min)) + min;
 }
 
 Direction IA::as_dir(int d) noexcept {

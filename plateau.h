@@ -51,6 +51,9 @@ class Plateau : public Affichable {
         // Constructeurs
         Plateau();
         Plateau(Plateau const& p);
+        
+        // Opérateurs
+        bool operator == (Plateau const& p);
 
         // Méthodes
         Retour placer(Equipe e, Coordonnees coord, Direction dir);

@@ -17,6 +17,7 @@ struct ICoup {
     Plateau p;  // Plateau après mvt
     bool v;     // Victoire !!!
     bool prevu; // Faut-il encore calculer
+    bool tete;  // pb deb
     
     int cool;   // Niveau de coolitude !
 };
