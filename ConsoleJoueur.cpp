@@ -3,6 +3,7 @@
 #include "pion.h"
 #include "alleg.h"
 #include "plateau.h"
+#include "coordonnee.h"
 
 #include <memory>
 
@@ -104,24 +105,99 @@ ConsoleJoueur::ConsoleJoueur(Equipe e,std::shared_ptr<Plateau> p) : Joueur(e), m
 
 }
 
+Coordonnees ConsoleJoueur::find_coord_alleg(int x, int y)
+{
+    int tab_x = 6;
+    char tab_y = 'G';
+
+    for (int i = 0; i < 5; i++) {
+        if ((x >= 70+i*120) && (x <= 70+(i+1)*120)) tab_x = i;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        if ((y >= 70+i*120) && (y <= 70+(i+1)*120)) tab_y = 'A' + i;
+    }
+
+    return Coordonnees(tab_y, tab_x);
+}
+
+void ConsoleJoueur::dess_fleches(Coordonnees clic_coord)
+{
+    int x = clic_coord.get_col()*120 + 70;
+    int y = (clic_coord.get_lig() - 'A')*120 + 70;
+
+    int points_h[8] = {x+40, y+36, x+60, y+9, x+80, y+36, x+60, y+18};
+    int points_d[8] = {x+84, y+40, x+111, y+60, x+84, y+80, x+102, y+60};
+    int points_b[8] = {x+40, y+84, x+60, y+111, x+80, y+84, x+60, y+102};
+    int points_g[8] = {x+36, y+40, x+9, y+60, x+36, y+80, x+18, y+60};
+
+    allegro::polygon(s_buffer, 4, points_h, allegro::makecol(255,0,0));
+    allegro::polygon(s_buffer, 4, points_d, allegro::makecol(255,0,0));
+    allegro::polygon(s_buffer, 4, points_b, allegro::makecol(255,0,0));
+    allegro::polygon(s_buffer, 4, points_g, allegro::makecol(255,0,0));
+}
 
 void ConsoleJoueur::afficher_allegro()
 {
-    std::shared_ptr<Pion> VIPion;
+    bool action = false;
+    int Y_REF;
+    std::shared_ptr<Pion> VIPion = nullptr;
+    Coordonnees coord_clic = Coordonnees('G',6);
 
-    if (allegro::mouse_b&1) {
-        for (auto plat : m_p->get_pions()) {
-            if (plat->get_equipe() == m_equipe) {
-                if (plat->get_coord().get_lig() == 'F') {
-                    if ((plat->get_equipe() == RHINO) && (allegro::mouse_x >= 715) && (allegro::mouse_x <= 1022) && (allegro::mouse_y >= 455) && (allegro::mouse_y <= 515)) VIPion = plat;
-                    if ((plat->get_equipe() == ELEPH) && (allegro::mouse_x >= 715) && (allegro::mouse_x <= 1022) && (allegro::mouse_y >= 160) && (allegro::mouse_y <= 220)) VIPion = plat;
-                }
-                else {
-                    if ((allegro::mouse_x >= plat->get_coord().get_as_x(s_etat)) && (allegro::mouse_x <= plat->get_coord().get_as_x(s_etat)+50) && (allegro::mouse_y >= plat->get_coord().get_as_y(s_etat)) && (allegro::mouse_y <= plat->get_coord().get_as_y(s_etat)+50)) VIPion = plat;
+    if (m_equipe == RHINO) Y_REF = 455;
+    else Y_REF = 160;
+
+    allegro::textout_ex(s_buffer, allegro::font, "A votre tour de jouer :", 775, Y_REF + 75, allegro::makecol(193,0,0), -1);
+
+    while (!VIPion) {
+        // Clic sur un pion
+        if (allegro::mouse_b&1) {
+            for (auto plat : m_p->get_pions()) {
+                if (plat->get_equipe() == m_equipe) {
+                    if (plat->get_coord().get_lig() == 'F') {
+                        if ((allegro::mouse_x >= 715) && (allegro::mouse_x <= 1022) && (allegro::mouse_y >= Y_REF) && (allegro::mouse_y <= Y_REF + 60)) VIPion = plat;
+                    }
+                    else {
+                        if ((allegro::mouse_x >= plat->get_coord().get_as_x(s_etat)) && (allegro::mouse_x <= plat->get_coord().get_as_x(s_etat)+50) && (allegro::mouse_y >= plat->get_coord().get_as_y(s_etat)) && (allegro::mouse_y <= plat->get_coord().get_as_y(s_etat)+50)) VIPion = plat;
+                    }
                 }
             }
         }
+
+        draw_sprite(allegro::screen, s_buffer, 0, 0);
     }
+
+    allegro::mouse_b &= 0;
+
+    // Affichage en fonction : pion non placé
+    if (VIPion->get_coord().get_lig() == 'F') {
+        allegro::textout_ex(s_buffer, allegro::font, "Choisissez une case pour rentrer", 720, Y_REF + 90, allegro::makecol(193,0,0), -1);
+        while (!action) {
+            if (allegro::mouse_b&1) {
+                coord_clic = find_coord_alleg(allegro::mouse_x, allegro::mouse_y);
+
+                if ((coord_clic.get_col() == 0) || (coord_clic.get_col() == 4) || (coord_clic.get_lig() == 'A') || (coord_clic.get_lig() == 'E')) {
+                    action = true;
+                    VIPion->set_coord(coord_clic);
+                }
+            }
+
+            draw_sprite(allegro::screen, s_buffer, 0, 0);
+        }
+        action=false;
+        allegro::mouse_b &= 0;
+
+        dess_fleches(coord_clic);
+        allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous rentrer ?", 720, Y_REF + 100, allegro::makecol(193,0,0), -1);
+        while (!action) {
+            if (allegro::mouse_b&1) {
+                action=true;
+            }
+
+            draw_sprite(allegro::screen, s_buffer, 0, 0);
+        }
+    }
+
 }
 
  void ConsoleJoueur::afficher_console() //print les choix

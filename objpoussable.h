@@ -44,6 +44,9 @@ class ObjPoussable : public Affichable {
         Coordonnees get_coord() const;
         virtual Direction get_dir() const = 0;
         allegro::BITMAP_PT get_image() const;
+
+        // Setter
+        void set_coord(Coordonnees _coord);
 };
 
 #endif // __OBJPOUSSABLE

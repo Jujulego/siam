@@ -158,7 +158,7 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
     }
 
     if (pion->get_equipe() != e) {
-        m_message = "Hey c'est pas un de test pions ...";
+        m_message = "Hey c'est pas un de tes pions ...";
         return ERREUR;
     }
 
@@ -225,8 +225,6 @@ void Plateau::afficher_allegro() noexcept {
     // Affichage des pions restants
     unsigned nbr = 0;
     unsigned nbe = 0;
-    /*COLOR_MAP calque;
-    create_trans_table(&calque)*/
 
     for (auto p : m_equipes) {
         switch (p->get_equipe()) {

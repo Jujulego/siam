@@ -53,9 +53,9 @@ int main() {
     if (Affichable::getEtat() == ALLEGRO) {
         while ((!key[KEY_ESC]) && (!fini))
         {
-            j1->afficher();
-            fini = j1->jouer(*p);
-            p->afficher();
+                j1->afficher();
+                fini = j1->jouer(*p);
+                p->afficher();
 
             if (fini)
                 break;

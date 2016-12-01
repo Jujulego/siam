@@ -56,5 +56,8 @@ allegro::BITMAP_PT ObjPoussable::get_image() const {
     return m_image;
 }
 
-
+void ObjPoussable::set_coord(Coordonnees _coord)
+{
+    m_coord = _coord;
+}
 
