@@ -28,11 +28,11 @@ void IntellIA::prevision(Plateau depart) {
     bool victoire = false;
     bool pplacer = false;   // 1er placement
     bool tourne = false;
+    int nbpj = 0;
     
     std::queue<Arbre<ICoup>> noeuds;
     std::shared_ptr<ObjPoussable> tmp;
     noeuds.push(arbre);
-//    int nb = 0;
     
     // Parcours de l'arbre (generation)
     while (!noeuds.empty()) {
@@ -46,11 +46,6 @@ void IntellIA::prevision(Plateau depart) {
         
         // Calcul des noeuds fils
         Plateau plateau(n.get_val()->p);
-        
-//        plateau.afficher();
-//        s_console.gotoLigCol(35, 0);
-//        std::cout << nb++ << " plus que " << noeuds.size() << std::endl;
-//        usleep(50000);
         
         // Parcours du plateau
         for (auto p : plateau.get_equipe(m_equipe)) {
@@ -87,8 +82,10 @@ void IntellIA::prevision(Plateau depart) {
         
         // Si nécéssaire (on ne gagne pas) on essaye en placant un pion (s'il en reste)
         if (!victoire) {
-            if (plateau.get_equipe(m_equipe).size() < 5) {
-                pplacer = (plateau.get_equipe(m_equipe).size() == 0);
+            nbpj = plateau.get_equipe(m_equipe).size();
+            
+            if (nbpj < 5) {
+                pplacer = (nbpj == 0);
                 
                 for (auto c : m_pos_placement) {
                     // Choix de l'action
@@ -113,10 +110,8 @@ void IntellIA::prevision(Plateau depart) {
                     }
                 }
             }
-        // Ajout des noeuds fils
-//        s_console.gotoLigCol(36, 0);
-//        std::cout << "+ de noeuds ! " << victoire << std::endl;
             
+            // Ajout des noeuds fils
             for (int i = 0; i < n.nb_fils(); i++) {
                 noeuds.push(n[i]);
             }
@@ -147,38 +142,10 @@ void IntellIA::prevision(Plateau depart) {
 bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
     // Applaction du coup
     unsigned nbpj = plateau.get_equipe(m_equipe).size();
-//    plateau.afficher();
-//    usleep(500000);
-    
     Retour r = plateau.appliquer_mov(m_equipe, mvt);
     
-/*    plateau.afficher();
-    
-    s_console.gotoLigCol(37, 0);
-    switch (r) {
-    case OK:
-        std::cout << "OK" << std::endl;
-        break;
-    
-    case FIN:
-        std::cout << "FIN" << std::endl;
-        break;
-    
-    case ERREUR:
-        std::cout << "ERREUR" << std::endl;
-        break;
-    
-    case PASPION:
-        std::cout << "PASPION" << std::endl;
-        break;
-    }*/
-    
     // Tests
-    if ((nbpj > plateau.get_equipe(m_equipe).size())) {// && (r != FIN)) {
-//        s_console.gotoLigCol(38, 0);
-//        std::cout << nbpj << " " << plateau.get_equipe(m_equipe).size() << " I" << std::endl;
-//        usleep(5000);
-        
+    if (nbpj > plateau.get_equipe(m_equipe).size()) {
         return false;
     }
     
@@ -186,26 +153,19 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
     
     while (!p.is_null()) {
         if (plateau == p.get_val()->p) {
-//            s_console.gotoLigCol(38, 0);
-//            std::cout << "boooouuum ! II" << std::endl;
-//            usleep(500000);
-            
             return false;
         }
         
         p = p.get_pere();
     }
     
-//    s_console.gotoLigCol(38, 0);
-//    std::cout << "              " << std::endl;
-//    usleep(500000);
-    
     // Création du noeud
-    if ((r == OK) || (r == FIN)) {
+    if (r == OK) {
         n.ajouter_fils(gen_icoup(plateau, mvt, r));
-    }
     
-    if (r == FIN) {
+    } else if (r == FIN) {
+        n.ajouter_fils(gen_icoup(plateau, mvt, r));
+        
         // On augmente le niveau de coolitude du chemin !
         Arbre<ICoup> p = n;
         
@@ -213,9 +173,6 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
             p.get_val()->cool++;
             p = p.get_pere();
         }
-        
-//        s_console.gotoLigCol(37, 0);
-//        std::cout << "victoire !" << std::endl;
         
         return true;
     }
@@ -275,7 +232,6 @@ bool IntellIA::jouer(Plateau& p) {
         break;
     }
     
-//    s_console.getch();
     s_attendre(1000);
     
     return ret == FIN;
