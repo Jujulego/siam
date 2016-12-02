@@ -77,18 +77,16 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     std::cout<<"                         "<<std::endl;
     s_console.gotoLigCol(6,70);
     std::cin >>L;
-    }while ((L!='A')&& (L!='B')&& (L!='C')&& (L!='D')&& (L!='E'));
+    }while ((L!='A')&& (L!='B')&&(L!='C')&& (L!='D')&& (L!='E'));
 
     do
     {
         s_console.gotoLigCol(5,70);
         std::cout<<"numero de colonne?    "<<std::endl;
-
-
-    s_console.gotoLigCol(6,70);
-    std::cout<<"                         "<<std::endl;
-    s_console.gotoLigCol(6,70);
-    std::cin>>C;
+        s_console.gotoLigCol(6,70);
+        std::cout<<"                         "<<std::endl;
+        s_console.gotoLigCol(6,70);
+        std::cin>>C;
 
     }while ((C!='1')&& (C!='2')&& (C!='3')&& (C!='4')&& (C!='0'));
 

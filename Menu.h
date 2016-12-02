@@ -3,16 +3,19 @@
 
 #include "affichable.h"
 #include "joueur.h"
-
+#include "intellia.h"
+#include "progjoueur.h"
+#include <vector>
+#include "plateau.h"
 class Menu : public Affichable {
     private:
         Joueur* j1 = nullptr;
         Joueur* j2 = nullptr;
-    
+
     public:
         Menu();
         virtual ~Menu() noexcept;
-        
+
         void afficherMenu();
         void creationJoueur();
         virtual void afficher_allegro() noexcept;
