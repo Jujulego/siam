@@ -27,6 +27,10 @@ void IA::init() noexcept {
 }
 
 int IA::random(int min, int max) noexcept {
+    if (min == max) {
+        return min;
+    }
+    
     return (rand() % (max - min)) + min;
 }
 

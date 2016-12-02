@@ -58,7 +58,7 @@ void IntellIA::prevision(Plateau depart) {
         for (auto p : plateau.get_full_equipe(m_equipe)) {
             // Pion est hors du plateau
             if (p->get_coord().get_lig() == 'F') {
-                if (placer) {
+                if (placer && !victoire) {
                     pplacer = (plateau.get_equipe(m_equipe).size() == 0);
                     placer = false;
                     
@@ -101,7 +101,7 @@ void IntellIA::prevision(Plateau depart) {
                     mvt.a = D;
                     victoire |= ajouter_noeud(n, plateau, mvt);
                     
-                    if (tourne) {
+                    if (tourne & !victoire) {
                         tmp = plateau.get_pion(mvt.c + d);
                         
                         if (tmp) {
@@ -127,25 +127,24 @@ void IntellIA::prevision(Plateau depart) {
     }
     
     // Choix final du prochain mouvement
-    int s = 0;
+    int s = 0, rand = 0;
     
     for (int i = 0; i < arbre.nb_fils(); i++) {
         s += arbre[i].get_val()->cool;
-//        std::cout << arbre[i].get_val()->cool;
+        std::cout << arbre[i].get_val()->cool << " ";
     }
     
 //    std::cout << "bonzai !!! " << arbre.is_null() << std::endl;
+    std::cout << std::endl << "s : " << s;
     if (s) {
-        std::cout << "s  : " << s << " r : " << random(0, s) << std::endl;
+        std::cout << "    r : " << random(1, s) << std::endl;
     }
 //    std::cout << "nb : " << arbre.nb_fils() << std::endl;
     
     if (s == 0) {
         m_mov = arbre[random(0, arbre.nb_fils())].get_val()->m;
     } else {
-        std::cout << "booum !" << std::endl;
-        
-        int rand = random(0, s) +1;
+        rand = random(1, s);
         
         for (int i = 0; i < arbre.nb_fils(); i++) {
             rand -= arbre[i].get_val()->cool;
@@ -189,7 +188,7 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
     
     // Tests
     if (!n.get_val()->tete) {
-        if ((nbpj > plateau.get_equipe(m_equipe).size()) && (r != FIN)) {
+        if ((nbpj > plateau.get_equipe(m_equipe).size())) {// && (r != FIN)) {
 //            s_console.gotoLigCol(38, 0);
 //            std::cout << nbpj << " " << plateau.get_equipe(m_equipe).size() << " I" << std::endl;
 //            usleep(5000);
@@ -241,7 +240,7 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
 
 ICoup IntellIA::gen_icoup(Plateau& dep, Mov mvt, Retour r) const {
     // Application du mvt
-    return {mvt, dep, r == FIN, false, false, 0};
+    return {mvt, dep, r == FIN, false, false, (r == FIN) ? 1 : 0};
 }
 
 // Méthodes
@@ -261,15 +260,33 @@ bool IntellIA::jouer(Plateau& p) {
     s_console.gotoLigCol(35, 0);
     switch (m_mov.a) {
     case P:
-        std::cout << "P" << m_mov.c.get_lig() << m_mov.c.get_col() << std::endl;
+        std::cout << "P " << m_mov.c.get_lig() << m_mov.c.get_col();
         break;
     
     case D:
-        std::cout << "D" << m_mov.c.get_lig() << m_mov.c.get_col() << std::endl;
+        std::cout << "D " << m_mov.c.get_lig() << m_mov.c.get_col();
         break;
     
     case T:
-        std::cout << "T" << m_mov.c.get_lig() << m_mov.c.get_col() << std::endl;
+        std::cout << "T " << m_mov.c.get_lig() << m_mov.c.get_col();
+        break;
+    }
+    
+    switch (m_mov.d) {
+    case HAUT:
+        std::cout << " H" << std::endl;
+        break;
+    
+    case DROITE:
+        std::cout << " D" << std::endl;
+        break;
+    
+    case BAS:
+        std::cout << " B" << std::endl;
+        break;
+    
+    case GAUCHE:
+        std::cout << " G" << std::endl;
         break;
     }
     

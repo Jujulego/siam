@@ -202,7 +202,7 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
     }
 
     if (pion->get_equipe() != e) {
-        m_message = "Hey c'est pas un de test pions ...";
+        m_message = "Hey c'est pas un de tes pions ...";
         return ERREUR;
     }
 
@@ -212,7 +212,7 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
 
 Retour Plateau::appliquer_mov(Equipe e, Mov m) {
     // Branchement !
-    Retour r;
+    Retour r = OK;
 
     switch (m.a) {
     case P:
