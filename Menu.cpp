@@ -1,40 +1,40 @@
+#include "alleg.h"
+#include "ConsoleJoueur.h"
 #include "Menu.h"
+#include "randomia.h"
+#include "objpoussable.h"
 
-Menu::Menu()
-{
-    //constructeur par default
+using namespace allegro;
+
+// constructeur par defaut
+Menu::Menu() {
 }
 
-Menu:: ~Menu() noexcept
-{
-
-}
-
-
-void afficher_allegro() noexcept
-{
-
+Menu::~Menu() noexcept {
+    delete j1;
+    delete j2;
 }
 
 
+void Menu::afficher_allegro() noexcept {
+}
 
-void Menu::afficherMenu()
-{
+void Menu::afficherMenu() {
     char choix;
 
     std::cout <<"Que souhaitez vous faire?"<<std::endl;
     std::cout <<"1. Jouer"<<std::endl;
     std::cout <<"2. Quitter"<<std::endl;
-    std::cin>>choix;
+    std::cin >> choix;
 
     switch(choix)
     {
         case '1':
-    std::cout <<"1. Jouer"<<std::endl;
+            std::cout <<"1. Jouer"<<std::endl;
             break;
 
         case '2':
-        std::cout <<"2. Quitter"<<std::endl;
+            std::cout <<"2. Quitter"<<std::endl;
             break;
     }
 
@@ -46,34 +46,32 @@ void Menu::creationJoueur()
     char animal;
     Equipe e1;
     Equipe e2;
-    Joueur* j1=NULL;
-    Joueur* j2=NULL;
 
     std::cout <<"Quel personnage voulez vous incarner ?"<<std::endl;
     std::cout <<"1. Elephant"<<std::endl;
     std::cout <<"2. Rhinoceros"<<std::endl;
-    std::cin>>animal;
+    std::cin >> animal;
 
     if (animal =='1')
     {
-        e1=ELEPH;
-        e2=RHINO;
+        e1 = ELEPH;
+        e2 = RHINO;
     }
 
 
     else if (animal=='2')
     {
-        e1=RHINO;
-        e2=ELEPH;
+        e1 = RHINO;
+        e2 = ELEPH;
     }
 
     else
         std::cout<<"Erreur, ce choix n'est pas autorisé"<<std::endl;
 
-    std::cout <<"Quel mode de jeu?"<<std::endl;
-    std::cout <<"1. J1 vs J2"<<std::endl;
-    std::cout <<"2. J1 vs IA"<<std::endl;
-    std::cin>>choix;
+    std::cout << "Quel mode de jeu?"<<std::endl;
+    std::cout << "1. J1 vs J2"<<std::endl;
+    std::cout << "2. J1 vs IA"<<std::endl;
+    std::cin  >> choix;
 
     switch(choix)
     {
@@ -88,18 +86,14 @@ void Menu::creationJoueur()
                 j2 = new RandomIA(e2);
             break;
     }
-
-
 }
 
 void Menu::afficher_console()noexcept
 {
-    Joueur* j1=NULL;
-    Joueur* j2=NULL;
     afficherMenu();
     creationJoueur();
 
-    // Déclarations
+    // DÃ©clarations
     Console c;
     Plateau p;
 
@@ -162,6 +156,4 @@ void Menu::afficher_console()noexcept
             p.afficher();
         }
     }
-    delete j1;
-    delete j2;
 }

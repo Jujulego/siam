@@ -3,30 +3,20 @@
 
 #include "affichable.h"
 #include "joueur.h"
-#include "ConsoleJoueur.h"
-#include "randomia.h"
-#include <vector>
-#include "allegro.h"
-#include "ia.h"
-#include "console.h"
-#include "coordonnee.h"
-#include "objpoussable.h"
-#include "plateau.h"
-#include "progjoueur.h"
-#include "randomia.h"
-using namespace allegro;
 
-class Menu: public Affichable
-{
-private:
-
-public:
-    Menu();
-    void afficherMenu();
-    void creationJoueur();
-    void afficher_allegro() noexcept;
-    void afficher_console() noexcept;
-    virtual ~Menu() noexcept;
+class Menu : public Affichable {
+    private:
+        Joueur* j1 = nullptr;
+        Joueur* j2 = nullptr;
+    
+    public:
+        Menu();
+        virtual ~Menu() noexcept;
+        
+        void afficherMenu();
+        void creationJoueur();
+        virtual void afficher_allegro() noexcept;
+        virtual void afficher_console() noexcept;
 };
 
 
