@@ -19,7 +19,7 @@ namespace allegro {
 
     // Fonctions
     void init(int l, int h);
-    void exit();
+    void liberer();
     BITMAP_PT creer_bitmap(int l, int h);
     BITMAP_PT charger_bitmap(std::string nom);
 };

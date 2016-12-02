@@ -18,7 +18,7 @@ void allegro::init(int l, int h) {
     if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, l, h, 0, 0)) {
         Affichable::erreur("Erreur : GFX Mode");
         allegro_exit();
-        std::exit(1);
+        exit(1);
     }
 }
 
@@ -29,7 +29,7 @@ BITMAP_PT allegro::creer_bitmap(int l, int h) {
     // Cas d'erreur
     if (pt == nullptr) {
         Affichable::erreur("Erreur : create_bitmap");
-        std::exit(1);
+        exit(1);
     }
 
     return pt;
@@ -46,7 +46,7 @@ BITMAP_PT allegro::charger_bitmap(std::string nom) {
     // Cas d'erreur
     if (pt == nullptr) {
         Affichable::erreur("Erreur : load_bitmap(\"" + nom + "\")");
-        std::exit(1);
+        exit(1);
     }
     
     // Ajout à la map
@@ -55,7 +55,7 @@ BITMAP_PT allegro::charger_bitmap(std::string nom) {
     return pt;
 }
 
-void allegro::exit() {
+void allegro::liberer() {
     for (auto v : tab_bitmaps) {
         destroy_bitmap(v.second);
     }
