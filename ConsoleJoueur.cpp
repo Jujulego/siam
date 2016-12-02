@@ -148,14 +148,14 @@ ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5
 
     case '2':
         s_console.gotoLigCol(4,70);
-        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez faire tourner?");
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez faire tourner        ?");
         m_mov.d=demanderDirection();
         m_mov.a=T;
         break;
 
     case '3':
         s_console.gotoLigCol(4,70);
-        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez deplacer?");
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez deplacer             ?");
         m_mov.d=demanderDirection();
         m_mov.a=D;
         break;

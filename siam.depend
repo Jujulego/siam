@@ -15,7 +15,7 @@
 
 1479892682 c:\users\maxime\desktop\programmes\siam\affichable.h
 
-1480497664 c:\users\nolwenn\documents\ece\projet informatique\affichable.h
+1480675086 c:\users\nolwenn\documents\ece\projet informatique\affichable.h
 	<string>
 	"alleg.h"
 	"console.h"
@@ -176,10 +176,11 @@
 	"joueur.h"
 	"objpoussable.h"
 
-1480500293 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
+1480676237 source:c:\users\nolwenn\documents\ece\projet informatique\main.cpp
 	<allegro.h>
 	<iostream>
 	<vector>
+	<iostream>
 	"affichable.h"
 	"ia.h"
 	"console.h"
@@ -189,6 +190,7 @@
 	"progjoueur.h"
 	"randomia.h"
 	"ConsoleJoueur.h"
+	"Menu.h"
 
 1480343490 c:\users\nolwenn\documents\ece\projet informatique\progjoueur.h
 	<vector>
@@ -234,7 +236,7 @@
 	"plateau.h"
 	"randomia.h"
 
-1480500178 source:c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.cpp
+1480675086 source:c:\users\nolwenn\documents\ece\projet informatique\consolejoueur.cpp
 	"joueur.h"
 	"ConsoleJoueur.h"
 	"pion.h"
@@ -243,4 +245,22 @@
 	"joueur.h"
 	"coordonnee.h"
 	"plateau.h"
+
+1480675495 source:c:\users\nolwenn\documents\ece\projet informatique\menu.cpp
+	"Menu.h"
+
+1480676419 c:\users\nolwenn\documents\ece\projet informatique\menu.h
+	"affichable.h"
+	"joueur.h"
+	"ConsoleJoueur.h"
+	"randomia.h"
+	<vector>
+	"allegro.h"
+	"ia.h"
+	"console.h"
+	"coordonnee.h"
+	"objpoussable.h"
+	"plateau.h"
+	"progjoueur.h"
+	"randomia.h"
 
