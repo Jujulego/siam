@@ -248,7 +248,7 @@ std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
     std::vector<std::shared_ptr<Pion>> equipe;
 
     for (auto p : get_pions()) {
-        if ((p->get_coord().get_lig() == 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+        if ((p->get_coord().get_lig() != 'F') && (p->get_equipe() == e)) equipe.push_back(p);
     }
 
     return equipe;

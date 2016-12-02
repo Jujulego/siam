@@ -27,7 +27,7 @@ int main() {
     Plateau p;
 
     Joueur* j1 = new RandomIA(RHINO);
-    IntellIA* j2 = new IntellIA(ELEPH, p);
+    Joueur* j2 = new IntellIA(ELEPH);
     
     c.gotoLigCol(9, 60);
 
@@ -53,31 +53,14 @@ int main() {
         c.gotoLigCol(40, 0);
         
         while (!fini) {
-//            j1->afficher();
-//            fini = j1->jouer(p);
-//            p.afficher();
+            j1->afficher();
+            fini = j1->jouer(p);
+            p.afficher();
             
             if (fini)
                 break;
             
-/*            c.gotoLigCol(10, 60);
-            std::cout << "null  : " << j2->m_arbre.is_null() << std::endl;
-            
-            if (!(j2->m_arbre.is_null())) {
-                c.gotoLigCol(11, 60);
-                std::cout << "prevu : " << j2->m_arbre.get_val()->prevu << std::endl;
-                
-                c.gotoLigCol(12, 60);
-                std::cout << "cool  : " << j2->m_arbre.get_val()->cool << std::endl;
-            }
-            
-            sleep(1);
-            
-            c.gotoLigCol(40, 0);
-            std::cout << std::endl;*/
-            
             j2->afficher();
-//            c.clear();
             fini = j2->jouer(p);
             p.afficher();
         }

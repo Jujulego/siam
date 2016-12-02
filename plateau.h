@@ -31,6 +31,10 @@ struct Mov {
     Action a;
     Coordonnees c;
     Direction d;
+    
+    // Constructeur
+    Mov() : a(P), c(Coordonnees('F', 5)), d(BAS) {
+    }
 };
 
 // Classe

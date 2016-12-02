@@ -95,7 +95,7 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     return Coordonnees(L,C-'0');
 }
 
-ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov({P, Coordonnees('F', 5), BAS})
+ConsoleJoueur::ConsoleJoueur(Equipe e) : Joueur(e), m_mov()
 {
 
 }
