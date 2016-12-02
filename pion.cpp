@@ -1,9 +1,9 @@
 // Importations
+#include <memory>
+
 #include "coordonnee.h"
 #include "objpoussable.h"
 #include "pion.h"
-
-
 
 // Constructeur
 Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? "elephant.bmp" : "rhino.bmp", Coordonnees('F', 5)), m_dir(HAUT) {

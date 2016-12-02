@@ -31,6 +31,10 @@ struct Mov {
     Action a;
     Coordonnees c;
     Direction d;
+    
+    // Constructeur
+    Mov() : a(P), c(Coordonnees('F', 5)), d(BAS) {
+    }
 };
 
 // Classe
@@ -48,8 +52,12 @@ class Plateau : public Affichable {
         Retour _deplacer(std::shared_ptr<ObjPoussable> p, Coordonnees coord, Direction dir);
     
     public:
-        // Constructeur
+        // Constructeurs
         Plateau();
+        Plateau(Plateau const& p);
+        
+        // Opérateurs
+        bool operator == (Plateau const& p);
 
         // Méthodes
         Retour placer(Equipe e, Coordonnees coord, Direction dir);
@@ -65,9 +73,10 @@ class Plateau : public Affichable {
         virtual void afficher_console() noexcept;
         
         // Accesseurs
-        std::vector<std::shared_ptr<Pion>> const& get_pions() const;
-        std::vector<std::shared_ptr<Pion>> get_equipe(Equipe e) const;
-        std::vector<std::shared_ptr<ObjPoussable>> const& get_plateau() const;
+        std::vector<std::shared_ptr<Pion>> const& get_pions() const;           // Renvoie l'ensemble des pions ELEPH et RHINO, joués ou pas
+        std::vector<std::shared_ptr<Pion>> get_equipe(Equipe e) const;         // Renvoie les pions de l'equipe donnée, joués (sur le plateau)
+        std::vector<std::shared_ptr<Pion>> get_full_equipe(Equipe e) const;    // Renvoie les pions de l'equipe donnée, joués ou pas
+        std::vector<std::shared_ptr<ObjPoussable>> const& get_plateau() const; // Renvoie l'ensemble des pions ELEPH et RHINO joués
 };
 
 #endif // __PLATEAU

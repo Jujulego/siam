@@ -32,14 +32,58 @@ Plateau::Plateau() {
 
     // Ajout des montagnes
     for (unsigned i = 1; i < 4; i++)
-        m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', i)));
+        m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(Coordonnees('C', i))));
 
     // Création des équipes
     for (auto e : {ELEPH, RHINO}) {
         for (unsigned i = 0; i < 5; i++) {
-            m_equipes.push_back((std::shared_ptr<Pion>) new Pion(e));
+            m_equipes.push_back(std::shared_ptr<Pion>(new Pion(e)));
         }
     }
+}
+
+Plateau::Plateau(Plateau const& p) : m_map(p.m_map) {
+    // Copie des equipes
+    for (auto i : p.m_equipes) {
+        auto pion = std::shared_ptr<Pion>(new Pion(*i));
+        
+        m_equipes.push_back(pion);
+        if (pion->get_coord().get_lig() != 'F')
+            m_pions_joues.push_back(pion);
+    }
+    
+    // Copie des montagnes
+    for (auto i : p.m_pions_joues) {
+        if (i->get_equipe() == MONTAGNE)
+            m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(i->get_coord())));
+    }
+}
+
+// Opérateurs
+bool Plateau::operator == (Plateau const& p) {
+    // Déclarations
+    bool ok = true;
+    
+    // Comparaison du nombre de pions joues
+    if (get_plateau().size() != p.get_plateau().size())
+        return false;
+    
+    // Comparaison des coordonnées des pions
+    for (auto p1 : get_plateau()) {
+        ok = false;
+        
+        for (auto p2 : p.get_plateau()) {
+            if (p1->get_coord() == p2->get_coord()) {
+                ok = true;
+                break;
+            }
+        }
+        
+        if (!ok)
+            return false;
+    }
+    
+    return true;
 }
 
 // Méthodes
@@ -158,7 +202,7 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
     }
 
     if (pion->get_equipe() != e) {
-        m_message = "Hey c'est pas un de test pions ...";
+        m_message = "Hey c'est pas un de tes pions ...";
         return ERREUR;
     }
 
@@ -168,7 +212,7 @@ Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
 
 Retour Plateau::appliquer_mov(Equipe e, Mov m) {
     // Branchement !
-    Retour r;
+    Retour r = OK;
 
     switch (m.a) {
     case P:
@@ -204,7 +248,17 @@ std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
     std::vector<std::shared_ptr<Pion>> equipe;
 
     for (auto p : get_pions()) {
-        if ((p->get_coord().get_lig() == 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+        if ((p->get_coord().get_lig() != 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+    }
+
+    return equipe;
+}
+
+std::vector<std::shared_ptr<Pion>> Plateau::get_full_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+
+    for (auto p : get_pions()) {
+        if (p->get_equipe() == e) equipe.push_back(p);
     }
 
     return equipe;

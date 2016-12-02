@@ -2,6 +2,8 @@
 #define __PION
 
 // Dépendances
+#include <memory>
+
 #include "coordonnee.h"
 #include "objpoussable.h"
 

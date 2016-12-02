@@ -10,9 +10,9 @@
 
 // Enumerations
 enum Equipe {
-    ELEPH,
-    RHINO,
-    MONTAGNE,
+    ELEPH = 0,
+    RHINO = 1,
+    MONTAGNE = 2,
 };
 
 // Classe

@@ -10,13 +10,15 @@
 #include "coordonnee.h"
 #include "objpoussable.h"
 #include "plateau.h"
-#include "progjoueur.h"
+
+#include "intellia.h"
 #include "randomia.h"
 #include "ConsoleJoueur.h"
 #include "Menu.h"
 
 int main() {
     // Initialisation
+    std::cout << std::boolalpha;
     Affichable::initier(Affichable::choix());
     IA::init();
 
