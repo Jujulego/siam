@@ -27,7 +27,6 @@ void IntellIA::prevision(Plateau depart) {
     Arbre<ICoup> arbre(gen_icoup(depart, m_mov, OK));
     bool victoire = false;
     bool pplacer = false;   // 1er placement
-    bool placer = true;
     bool tourne = false;
     
     std::queue<Arbre<ICoup>> noeuds;
@@ -43,7 +42,6 @@ void IntellIA::prevision(Plateau depart) {
         
         // Réinit
         pplacer = false;
-        placer = true;
         Mov mvt;
         
         // Calcul des noeuds fils
@@ -55,71 +53,70 @@ void IntellIA::prevision(Plateau depart) {
 //        usleep(50000);
         
         // Parcours du plateau
-        for (auto p : plateau.get_full_equipe(m_equipe)) {
-            // Pion est hors du plateau
-            if (p->get_coord().get_lig() == 'F') {
-                if (placer && !victoire) {
-                    pplacer = (plateau.get_equipe(m_equipe).size() == 0);
-                    placer = false;
+        for (auto p : plateau.get_equipe(m_equipe)) {
+            mvt.c = p->get_coord();
+            
+            tourne = false;
+            tmp = plateau.get_pion(mvt.c + p->get_dir());
+            
+            if (tmp) {
+                if (tmp->get_equipe() != MONTAGNE) {
+                    tourne = true;
+                }
+            }
+            
+            for (auto d : {HAUT, DROITE, BAS, GAUCHE}) {
+                mvt.d = d;
+                
+                // Actions
+                mvt.a = D;
+                victoire |= ajouter_noeud(n, plateau, mvt);
+                
+                if (tourne & !victoire) {
+                    tmp = plateau.get_pion(mvt.c + d);
                     
-                    for (auto c : m_pos_placement) {
-                        // Choix de l'action
-                        mvt.a = P;
-                        mvt.c = c;
-                        
-                        if (c.get_lig() == 'A')
-                            mvt.d = BAS;
-                        else if (c.get_lig() == 'E')
-                            mvt.d = HAUT;
-                        else if (c.get_col() == 0)
-                            mvt.d = DROITE;
-                        else if (c.get_col() == 4)
-                            mvt.d = GAUCHE;
-                        
-                        // création du noeud (sauf erreur ...)
-                        if ((!pplacer) || ((c.get_col() != 0) && (c.get_col() != 4)))
+                    if (tmp) {
+                        if (tmp->get_equipe() == MONTAGNE) {
+                            mvt.a = T;
                             victoire |= ajouter_noeud(n, plateau, mvt);
-                    }
-                }
-            } else {
-                // Le pion est déjà placé :
-                mvt.c = p->get_coord();
-                
-                tourne = false;
-                tmp = plateau.get_pion(mvt.c + p->get_dir());
-                
-                if (tmp) {
-                    if (tmp->get_equipe() != MONTAGNE) {
-                        tourne = true;
-                    }
-                }
-                
-                for (auto d : {HAUT, DROITE, BAS, GAUCHE}) {
-                    mvt.d = d;
-                    
-                    // Actions
-                    mvt.a = D;
-                    victoire |= ajouter_noeud(n, plateau, mvt);
-                    
-                    if (tourne & !victoire) {
-                        tmp = plateau.get_pion(mvt.c + d);
-                        
-                        if (tmp) {
-                            if (tmp->get_equipe() == MONTAGNE) {
-                                mvt.a = T;
-                                victoire |= ajouter_noeud(n, plateau, mvt);
-                            }
                         }
                     }
                 }
             }
         }
         
+        // Si nécéssaire (on ne gagne pas) on essaye en placant un pion (s'il en reste)
+        if (!victoire) {
+            if (plateau.get_equipe(m_equipe).size() < 5) {
+                pplacer = (plateau.get_equipe(m_equipe).size() == 0);
+                
+                for (auto c : m_pos_placement) {
+                    // Choix de l'action
+                    mvt.a = P;
+                    mvt.c = c;
+                    
+                    if (c.get_lig() == 'A')
+                        mvt.d = BAS;
+                    else if (c.get_lig() == 'E')
+                        mvt.d = HAUT;
+                    else if (c.get_col() == 0)
+                        mvt.d = DROITE;
+                    else if (c.get_col() == 4)
+                        mvt.d = GAUCHE;
+                    
+                    // création du noeud (sauf erreur ...)
+                    if (pplacer) {
+                        if ((c.get_col() == 2) && (c.get_lig() == 'A'))
+                            victoire |= ajouter_noeud(n, plateau, mvt);
+                    } else {
+                        victoire |= ajouter_noeud(n, plateau, mvt);
+                    }
+                }
+            }
         // Ajout des noeuds fils
 //        s_console.gotoLigCol(36, 0);
 //        std::cout << "+ de noeuds ! " << victoire << std::endl;
-        
-        if (!victoire) {
+            
             for (int i = 0; i < n.nb_fils(); i++) {
                 noeuds.push(n[i]);
             }
@@ -127,33 +124,23 @@ void IntellIA::prevision(Plateau depart) {
     }
     
     // Choix final du prochain mouvement
-    int s = 0, rand = 0;
+    int max = 0, t = 0, choix = -1;
     
-    for (int i = 0; i < arbre.nb_fils(); i++) {
-        s += arbre[i].get_val()->cool;
-        std::cout << arbre[i].get_val()->cool << " ";
+    for (int i = arbre.nb_fils()-1; i >= 0; i--) {
+        t = arbre[i].get_val()->cool;
+        
+        if (t > max) {
+            max = t;
+            choix = i;
+        }
+        
+        std::cout << t << " ";
     }
     
-//    std::cout << "bonzai !!! " << arbre.is_null() << std::endl;
-    std::cout << std::endl << "s : " << s;
-    if (s) {
-        std::cout << "    r : " << random(1, s) << std::endl;
-    }
-//    std::cout << "nb : " << arbre.nb_fils() << std::endl;
-    
-    if (s == 0) {
+    if (choix == -1) {
         m_mov = arbre[random(0, arbre.nb_fils())].get_val()->m;
     } else {
-        rand = random(1, s);
-        
-        for (int i = 0; i < arbre.nb_fils(); i++) {
-            rand -= arbre[i].get_val()->cool;
-            
-            if (rand <= 0) {
-                m_mov = arbre[i].get_val()->m;
-                break;
-            }
-        }
+        m_mov = arbre[choix].get_val()->m;
     }
 }
 
@@ -187,28 +174,26 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
     }*/
     
     // Tests
-    if (!n.get_val()->tete) {
-        if ((nbpj > plateau.get_equipe(m_equipe).size())) {// && (r != FIN)) {
+    if ((nbpj > plateau.get_equipe(m_equipe).size())) {// && (r != FIN)) {
+//        s_console.gotoLigCol(38, 0);
+//        std::cout << nbpj << " " << plateau.get_equipe(m_equipe).size() << " I" << std::endl;
+//        usleep(5000);
+        
+        return false;
+    }
+    
+    Arbre<ICoup> p = n.get_pere();
+    
+    while (!p.is_null()) {
+        if (plateau == p.get_val()->p) {
 //            s_console.gotoLigCol(38, 0);
-//            std::cout << nbpj << " " << plateau.get_equipe(m_equipe).size() << " I" << std::endl;
-//            usleep(5000);
+//            std::cout << "boooouuum ! II" << std::endl;
+//            usleep(500000);
             
             return false;
         }
         
-        Arbre<ICoup> p = n.get_pere();
-        
-        while (!p.is_null()) {
-            if (plateau == p.get_val()->p) {
-//                s_console.gotoLigCol(38, 0);
-//                std::cout << "boooouuum ! II" << std::endl;
-//                usleep(500000);
-                
-                return false;
-            }
-            
-            p = p.get_pere();
-        }
+        p = p.get_pere();
     }
     
 //    s_console.gotoLigCol(38, 0);
@@ -240,7 +225,7 @@ bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {
 
 ICoup IntellIA::gen_icoup(Plateau& dep, Mov mvt, Retour r) const {
     // Application du mvt
-    return {mvt, dep, r == FIN, false, false, (r == FIN) ? 1 : 0};
+    return {mvt, dep, r == FIN, (r == FIN) ? 1 : 0};
 }
 
 // Méthodes

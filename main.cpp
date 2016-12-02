@@ -35,7 +35,7 @@ int main() {
     bool fini = false;
     p.afficher();
     
-/*    if (Affichable::getEtat() == ALLEGRO) {
+    if (Affichable::getEtat() == ALLEGRO) {
         while ((!key[KEY_ESC]) && (!fini))
         {
             j1->afficher();
@@ -49,7 +49,7 @@ int main() {
             fini = j2->jouer(p);
             p.afficher();
         }
-    } else {*/
+    } else {
         c.gotoLigCol(40, 0);
         
         while (!fini) {
@@ -64,7 +64,7 @@ int main() {
             fini = j2->jouer(p);
             p.afficher();
         }
-//    }
+    }
 
     // Libérations
     Affichable::liberer();

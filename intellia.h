@@ -15,10 +15,8 @@ struct ICoup {
     // Attributs
     Mov m;      // Mouvement
     Plateau p;  // Plateau après mvt
+//    std::vector<std::shared_ptr<ObjPoussable>> p;  // Plateau après mvt
     bool v;     // Victoire !!!
-    bool prevu; // Faut-il encore calculer
-    bool tete;  // pb deb
-    
     int cool;   // Niveau de coolitude !
 };
 
