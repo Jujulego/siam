@@ -110,12 +110,14 @@ Coordonnees ConsoleJoueur::find_coord_alleg(int x, int y)
     int tab_x = 6;
     char tab_y = 'G';
 
-    for (int i = 0; i < 5; i++) {
-        if ((x >= 70+i*120) && (x <= 70+(i+1)*120)) tab_x = i;
-    }
+    if ((x >= 70) && (x <= 670) && (y >= 70) && (y <= 670)) {
+        for (int i = 0; i < 5; i++) {
+            if ((x >= 70+i*120) && (x <= 70+(i+1)*120)) tab_x = i;
+        }
 
-    for (int i = 0; i < 5; i++) {
-        if ((y >= 70+i*120) && (y <= 70+(i+1)*120)) tab_y = 'A' + i;
+        for (int i = 0; i < 5; i++) {
+            if ((y >= 70+i*120) && (y <= 70+(i+1)*120)) tab_y = 'A' + i;
+        }
     }
 
     return Coordonnees(tab_y, tab_x);
@@ -181,6 +183,7 @@ void ConsoleJoueur::afficher_allegro()
     // Affichage en fonction : pion non placé
     if (VIPion->get_coord().get_lig() == 'F') {
         allegro::textout_ex(s_buffer, allegro::font, "Choisissez une case pour rentrer", 720, Y_REF + 90, allegro::makecol(193,0,0), -1);
+
         while (!action) {
             if (allegro::mouse_b&1) {
                 coord_clic = find_coord_alleg(allegro::mouse_x, allegro::mouse_y);
@@ -195,11 +198,13 @@ void ConsoleJoueur::afficher_allegro()
 
             draw_sprite(allegro::screen, s_buffer, 0, 0);
         }
+
         action=false;
         allegro::mouse_b &= 0;
 
         dess_fleches(coord_clic);
-        allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous rentrer ?", 720, Y_REF + 100, allegro::makecol(193,0,0), -1);
+        allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous rentrer ?", 720, Y_REF + 105, allegro::makecol(193,0,0), -1);
+
         while (m_mov.d == NO_DIR) {
             if (allegro::mouse_b&1) {
                 if ((allegro::mouse_x >= coord_clic.get_col()*120 + 70) && (allegro::mouse_x <= coord_clic.get_col()*120 + 190) && (allegro::mouse_y >= (coord_clic.get_lig() - 'A')*120 + 70) && (allegro::mouse_y <= (coord_clic.get_lig() - 'A')*120 + 190)) {
@@ -209,12 +214,70 @@ void ConsoleJoueur::afficher_allegro()
 
             draw_sprite(allegro::screen, s_buffer, 0, 0);
         }
+
+        allegro::mouse_b &= 0;
     }
 
-    allegro::mouse_b &= 0;
-
     // Affichage en fonction : pion placé
+    else {
+        allegro::textout_ex(s_buffer, allegro::font, "Que voulez-vous faire ?", 720, Y_REF + 90, allegro::makecol(193,0,0), -1);
+        allegro::rect(s_buffer, 755, Y_REF + 105, 845, Y_REF + 135, allegro::makecol(190,0,0));
+        allegro::textout_ex(s_buffer, allegro::font, "Tourner", 773, Y_REF + 116, allegro::makecol(193,0,0), -1);
+        allegro::rect(s_buffer, 895, Y_REF + 105, 985, Y_REF + 135, allegro::makecol(190,0,0));
+        allegro::textout_ex(s_buffer, allegro::font, "Déplacer", 911, Y_REF + 116, allegro::makecol(193,0,0), -1);
 
+        while (!action) {
+            if (allegro::mouse_b&1) {
+                if ((allegro::mouse_x >= 755) && (allegro::mouse_x <= 845) && (allegro::mouse_y >= Y_REF + 105) && (allegro::mouse_y <= Y_REF + 135)) m_mov.a = T;
+                if ((allegro::mouse_x >= 895) && (allegro::mouse_x <= 985) && (allegro::mouse_y >= Y_REF + 105) && (allegro::mouse_y <= Y_REF + 135)) m_mov.a = D;
+                action = true;
+            }
+
+            draw_sprite(allegro::screen, s_buffer, 0, 0);
+        }
+
+        action=false;
+        allegro::mouse_b &= 0;
+
+        if (m_mov.a == T) {
+            allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous tourner le pion ?", 720, Y_REF + 150, allegro::makecol(193,0,0), -1);
+            dess_fleches(VIPion->get_coord());
+
+            while (!action) {
+                if (allegro::mouse_b&1) {
+                    m_mov.d = find_dir_alleg(allegro::mouse_x, allegro::mouse_y, VIPion->get_coord());
+
+                    if ((m_mov.d != VIPion->get_dir()) && (m_mov.d != NO_DIR)) action = true;
+                }
+
+                draw_sprite(allegro::screen, s_buffer, 0, 0);
+            }
+
+            action=false;
+            allegro::mouse_b &= 0;
+        }
+
+        else if (m_mov.a == D) {
+            allegro::textout_ex(s_buffer, allegro::font, "Dans quelle direction voulez-vous", 720, Y_REF + 150, allegro::makecol(193,0,0), -1);
+            allegro::textout_ex(s_buffer, allegro::font, "bouger le pion ?", 720, Y_REF + 162, allegro::makecol(193,0,0), -1);
+            dess_fleches(VIPion->get_coord());
+
+            while (!action) {
+                if (allegro::mouse_b&1) {
+                    m_mov.d = find_dir_alleg(allegro::mouse_x, allegro::mouse_y, VIPion->get_coord());
+
+                    if (m_mov.d != NO_DIR) action = true;
+                }
+
+                draw_sprite(allegro::screen, s_buffer, 0, 0);
+            }
+
+            action=false;
+            allegro::mouse_b &= 0;
+        }
+
+        m_mov.c = VIPion->get_coord();
+    }
 }
 
  void ConsoleJoueur::afficher_console() //print les choix
@@ -270,6 +333,7 @@ void ConsoleJoueur::afficher_allegro()
         m_mov.d=demanderDirection();
         m_mov.a=D;
         break;
+
     default:
         std::cout<<"Error, le choix n'existe pas !"<<std::endl;
         break;
