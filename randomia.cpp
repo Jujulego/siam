@@ -84,7 +84,7 @@ bool RandomIA::jouer(Plateau& p) {
     // ajout des positions déplacables
     for (auto pion : p.get_equipe(m_equipe)) {
         Coordonnees c = pion->get_coord();
-
+        
         auto cote = p.get_pion(c + pion->get_dir());
         
         // Tourner

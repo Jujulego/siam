@@ -18,6 +18,9 @@ void IA::afficher_allegro() noexcept {
 }
 
 void IA::afficher_console() noexcept {
+    s_console.gotoLigCol(30, 0);
+    std::cout << "Laissez moi réfléchir ..." << std::endl;
+    std::cout.flush();
 }
 
 // Méthodes statiques

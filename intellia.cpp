@@ -35,7 +35,7 @@ void IntellIA::prevision(Plateau depart) {
     noeuds.push(arbre);
     
     // Parcours de l'arbre (generation)
-    while (!noeuds.empty()) {
+    while (!noeuds.empty() && !victoire) {
         // Récupération du noeud
         auto n = noeuds.front();
         noeuds.pop();
@@ -51,22 +51,26 @@ void IntellIA::prevision(Plateau depart) {
         for (auto p : plateau.get_equipe(m_equipe)) {
             mvt.c = p->get_coord();
             
+            // recupération du pion en face du pion p
             tourne = false;
             tmp = plateau.get_pion(mvt.c + p->get_dir());
             
             if (tmp) {
+                // on peut tourner que s'il y a pas une montagne en face
                 if (tmp->get_equipe() != MONTAGNE) {
                     tourne = true;
                 }
             }
             
+            // Parcours des 4 directions
             for (auto d : {HAUT, DROITE, BAS, GAUCHE}) {
                 mvt.d = d;
                 
-                // Actions
+                // deplacement
                 mvt.a = D;
                 victoire |= ajouter_noeud(n, plateau, mvt);
                 
+                // tourner !
                 if (tourne & !victoire) {
                     tmp = plateau.get_pion(mvt.c + d);
                     
@@ -103,14 +107,17 @@ void IntellIA::prevision(Plateau depart) {
                     
                     // création du noeud (sauf erreur ...)
                     if (pplacer) {
-                        if ((c.get_col() == 2) && (c.get_lig() == 'A'))
+                        if ((c.get_col() == 2) && (c.get_lig() == 'A')) {
                             victoire |= ajouter_noeud(n, plateau, mvt);
+                        }
                     } else {
                         victoire |= ajouter_noeud(n, plateau, mvt);
                     }
                 }
             }
-            
+        }
+        
+        if (!victoire) {
             // Ajout des noeuds fils
             for (int i = 0; i < n.nb_fils(); i++) {
                 noeuds.push(n[i]);
@@ -137,6 +144,9 @@ void IntellIA::prevision(Plateau depart) {
     } else {
         m_mov = arbre[choix].get_val()->m;
     }
+    
+    // Destruction de l'arbre
+    arbre.incendie();
 }
 
 bool IntellIA::ajouter_noeud(Arbre<ICoup> n, Plateau plateau, Mov mvt) {

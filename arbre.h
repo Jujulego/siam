@@ -4,6 +4,7 @@
 // Dépendances
 #include <memory>
 #include <vector>
+#include <queue>
 
 // Classe
 template <typename T>
@@ -13,13 +14,26 @@ class Arbre {
         struct Noeud {
             // Contenu
             std::shared_ptr<T> val;
+            int generation;
             
             // Relations
             std::shared_ptr<Noeud> pere;
             std::vector<std::shared_ptr<Noeud>> fils;
             
             // Constructeur
-            Noeud(T v, std::shared_ptr<Noeud> p) : val(new T(v)), pere(p) {
+            Noeud(T v, std::shared_ptr<Noeud> p, int g) : val(new T(v)), generation(g), pere(p) {
+            }
+            
+            // Méthodes
+            void incendie() {
+                // destruction des fils
+                for (auto f : fils) {
+                    f->incendie();
+                }
+                
+                // destruction du noeud
+                fils.clear();
+                pere = nullptr;
             }
         };
         
@@ -35,7 +49,7 @@ class Arbre {
         Arbre() : m_racine(nullptr) {
         }
         
-        Arbre(T racine) : m_racine(new Noeud(racine, nullptr)) {
+        Arbre(T racine) : m_racine(new Noeud(racine, nullptr, 1)) {
         }
         
         // Opérateurs
@@ -67,7 +81,7 @@ class Arbre {
         
         void ajouter_fils(T val) {
             if (!is_null())
-                m_racine->fils.push_back(std::shared_ptr<Noeud>(new Noeud(val, m_racine)));
+                m_racine->fils.push_back(std::shared_ptr<Noeud>(new Noeud(val, m_racine, m_racine->generation + 1)));
         }
         
         void suppr_parents() {
@@ -75,7 +89,18 @@ class Arbre {
                 m_racine->pere = nullptr;
         }
         
+        void incendie() {
+            m_racine->incendie();
+        }
+        
         // Accesseurs
+        int get_generation() const {
+            if (!is_null())
+                return m_racine->generation;
+            
+            return 0;
+        }
+        
         std::shared_ptr<T> get_val() const {
             if (!is_null())
                 return std::shared_ptr<T>(m_racine->val);
@@ -88,7 +113,7 @@ class Arbre {
             if (m_racine) {
                 *(m_racine->val) = val;
             } else {
-                m_racine = std::shared_ptr<Noeud>(new Noeud(val, nullptr));
+                m_racine = std::shared_ptr<Noeud>(new Noeud(val, nullptr, 0));
             }
         }
 };
