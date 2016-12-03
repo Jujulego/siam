@@ -11,6 +11,7 @@ class Menu : public Affichable {
     private:
         Joueur* j1 = nullptr;
         Joueur* j2 = nullptr;
+        std::shared_ptr<Plateau> p = nullptr;
 
     public:
         Menu();

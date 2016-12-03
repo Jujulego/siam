@@ -7,7 +7,7 @@
 using namespace allegro;
 
 // constructeur par defaut
-Menu::Menu() {
+Menu::Menu() : p(new Plateau()) {
 }
 
 Menu::~Menu() noexcept {
@@ -28,9 +28,6 @@ void Menu::creationJoueur()
     char animal;
     Equipe e1;
     Equipe e2;
-
-
-
 
     s_console.gotoLigCol(0,0);
     std::cout <<"Quel personnage voulez vous incarner ?"<<std::endl;
@@ -66,13 +63,13 @@ void Menu::creationJoueur()
     switch(choix)
     {
         case '1':
-                j1 = new ConsoleJoueur(e1);
-                j2 = new ConsoleJoueur(e2);
+                j1 = new ConsoleJoueur(e1, p);
+                j2 = new ConsoleJoueur(e2, p);
 
             break;
 
         case '2':
-                j1 = new ConsoleJoueur(e1);
+                j1 = new ConsoleJoueur(e1, p);
                 j2 = new ProgJoueur(e2, {{P, Coordonnees('A', 4), BAS},
                                          {P, Coordonnees('A', 4), BAS},
                                          {P, Coordonnees('D', 2), DROITE},
@@ -84,12 +81,12 @@ void Menu::creationJoueur()
             break;
 
         case '3':
-                j1 = new ConsoleJoueur(e1);
+                j1 = new ConsoleJoueur(e1, p);
                 j2 = new RandomIA(e2);
             break;
 
         case '4':
-            j1 = new ConsoleJoueur(e1);
+            j1 = new ConsoleJoueur(e1, p);
             j2 = new IntellIA(e2);
         break;
 
@@ -135,16 +132,15 @@ void Menu::afficher_console()noexcept
 
     // Declarations
     Console c;
-    Plateau p;
 
     // Tests
     bool fini = false;
-    p.afficher();
+    p->afficher();
 
     while (!fini) {
         j1->afficher();
-        fini = j1->jouer(p);
-        p.afficher();
+        fini = j1->jouer(*p);
+        p->afficher();
 
         if (fini)
             break;
@@ -155,8 +151,8 @@ void Menu::afficher_console()noexcept
         }
 
         j2->afficher();
-        fini = j2->jouer(p);
-        p.afficher();
+        fini = j2->jouer(*p);
+        p->afficher();
 
         if (Affichable::getEtat() == ALLEGRO) {
             if (key[KEY_ESC])

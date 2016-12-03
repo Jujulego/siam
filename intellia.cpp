@@ -240,6 +240,10 @@ bool IntellIA::jouer(Plateau& p) {
     case GAUCHE:
         std::cout << " G" << std::endl;
         break;
+    
+    case NO_DIR:
+        // Meme si ca n'arrive jamais !
+        break;
     }
     
     s_attendre(1000);
