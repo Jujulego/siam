@@ -82,18 +82,22 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     std::cout<<"                         "<<std::endl;
     s_console.gotoLigCol(6,70);
     std::cin >>L;
-    }while ((L!='A')&& (L!='B')&& (L!='C')&& (L!='D')&& (L!='E'));
+    
+    // Mise en majuscule
+    if ((L >= 'a') && (L <= 'e')) {
+        L += 'A' - 'a';
+    }
+    
+    } while ((L!='A') && (L!='B')&&(L!='C')&& (L!='D')&& (L!='E'));
 
     do
     {
         s_console.gotoLigCol(5,70);
         std::cout<<"numero de colonne?    "<<std::endl;
-
-
-    s_console.gotoLigCol(6,70);
-    std::cout<<"                         "<<std::endl;
-    s_console.gotoLigCol(6,70);
-    std::cin>>C;
+        s_console.gotoLigCol(6,70);
+        std::cout<<"                         "<<std::endl;
+        s_console.gotoLigCol(6,70);
+        std::cin>>C;
 
     }while ((C!='1')&& (C!='2')&& (C!='3')&& (C!='4')&& (C!='0'));
 
@@ -322,14 +326,14 @@ void ConsoleJoueur::afficher_allegro()
 
     case '2':
         s_console.gotoLigCol(4,70);
-        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez faire tourner?");
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez faire tourner        ?");
         m_mov.d=demanderDirection();
         m_mov.a=T;
         break;
 
     case '3':
         s_console.gotoLigCol(4,70);
-        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez deplacer?");
+        m_mov.c=demanderCoord("Quelles sont les coordonnees du pions que vous voulez deplacer             ?");
         m_mov.d=demanderDirection();
         m_mov.a=D;
         break;

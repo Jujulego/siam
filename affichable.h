@@ -13,10 +13,10 @@ enum Etat {CONSOLE, ALLEGRO};
 // Classe
 class Affichable {
     public:
-        // Méthodes statiques
         static Etat choix() noexcept;
         static void erreur(std::string err) noexcept;
         static void s_attendre(int milisec) noexcept;
+        // Méthodes statiques
         static void initier(Etat e) noexcept;
         static void liberer() noexcept;
 

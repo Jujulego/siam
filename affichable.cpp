@@ -68,7 +68,7 @@ void Affichable::initier(Etat e) noexcept {
 void Affichable::liberer() noexcept {
     // Initialisation de Allegro
     if (s_etat == ALLEGRO) {
-        allegro::allegro_exit();
+        allegro::liberer();
     }
 }
 

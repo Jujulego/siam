@@ -79,27 +79,25 @@ void RandomIA::allegro_allegro() noexcept {
 
 bool RandomIA::jouer(Plateau& p) {
     // Analyse du plateau
-    reset_map(INTERET_P * p.get_equipe(m_equipe).size());
+    reset_map(INTERET_P * (5 - p.get_equipe(m_equipe).size()));
 
     // ajout des positions déplacables
-    for (auto pion : p.get_plateau()) {
+    for (auto pion : p.get_equipe(m_equipe)) {
         Coordonnees c = pion->get_coord();
+        
+        auto cote = p.get_pion(c + pion->get_dir());
+        
+        // Tourner
+        set_coup(c.get_lig(), c.get_col(), T, INTERET_T);
 
-        if ((c.get_lig() != 'F') && (pion->get_equipe() == m_equipe)) {
-            auto cote = p.get_pion(c + pion->get_dir());
+        // Déplacer
+        if (p.get_resistance(c, pion->get_dir()) < pion->get_force(pion->get_dir())) {
+            set_coup(c.get_lig(), c.get_col(), D, INTERET_D);
 
-            // Tourner
-            set_coup(c.get_lig(), c.get_col(), T, INTERET_T);
-
-            // Déplacer
-            if (p.get_resistance(c, pion->get_dir()) < pion->get_force(pion->get_dir())) {
-                set_coup(c.get_lig(), c.get_col(), D, INTERET_D);
-
-                if (cote != nullptr) {
-                    if (cote->get_equipe() == MONTAGNE) {
-                        set_coup(c.get_lig(), c.get_col(), D, 2*INTERET_D);
-                        set_coup(c.get_lig(), c.get_col(), T, 0);
-                    }
+            if (cote != nullptr) {
+                if (cote->get_equipe() == MONTAGNE) {
+                    set_coup(c.get_lig(), c.get_col(), D, 2*INTERET_D);
+                    set_coup(c.get_lig(), c.get_col(), T, 0);
                 }
             }
         }

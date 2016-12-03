@@ -1,8 +1,10 @@
 #ifndef __ALLEGRO
 #define __ALLEGRO
 
-// Dépandances
+// DÃ©pandances
 #include <memory>
+#include <map>
+#include <string>
 
 // Namespace
 namespace allegro {
@@ -11,9 +13,13 @@ namespace allegro {
 
     // Alias
     using BITMAP_PT = BITMAP*;
+    
+    // Variables
+    static std::map<std::string, BITMAP_PT> tab_bitmaps;
 
     // Fonctions
     void init(int l, int h);
+    void liberer();
     BITMAP_PT creer_bitmap(int l, int h);
     BITMAP_PT charger_bitmap(std::string nom);
 };

@@ -18,6 +18,9 @@ void IA::afficher_allegro() noexcept {
 }
 
 void IA::afficher_console() noexcept {
+    s_console.gotoLigCol(30, 0);
+    std::cout << "Laissez moi réfléchir ..." << std::endl;
+    std::cout.flush();
 }
 
 // Méthodes statiques
@@ -27,7 +30,11 @@ void IA::init() noexcept {
 }
 
 int IA::random(int min, int max) noexcept {
-    return (rand() % (max - min +1)) + min;
+    if (min == max) {
+        return min;
+    }
+    
+    return (rand() % (max - min)) + min;
 }
 
 Direction IA::as_dir(int d) noexcept {

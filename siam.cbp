@@ -41,6 +41,8 @@
 		</Compiler>
 		<Unit filename="ConsoleJoueur.cpp" />
 		<Unit filename="ConsoleJoueur.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
 		<Unit filename="affichable.cpp" />
 		<Unit filename="affichable.h" />
 		<Unit filename="alleg.cpp" />
