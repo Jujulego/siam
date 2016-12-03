@@ -137,53 +137,30 @@ void Menu::afficher_console()noexcept
     Console c;
     Plateau p;
 
-
-/*    Joueur* j2 = new ProgJoueur(ELEPH, {
-        {P, Coordonnees('E', 2), GAUCHE},
-        {P, Coordonnees('D', 3), GAUCHE},
-        {P, Coordonnees('E', 4), HAUT},
-        {D, Coordonnees('D', 3), DROITE},
-        {T, Coordonnees('D', 4), HAUT},
-        {D, Coordonnees('E', 4), GAUCHE},
-        {D, Coordonnees('E', 3), DROITE},
-    });*/
-
     // Tests
     bool fini = false;
     p.afficher();
 
-    if (Affichable::getEtat() == ALLEGRO)
-    {
-        while ((!key[KEY_ESC]) && (!fini))
-        {
-            j1->afficher();
-            fini = j1->jouer(p);
-            p.afficher();
+    while (!fini) {
+        j1->afficher();
+        fini = j1->jouer(p);
+        p.afficher();
 
-            if (fini)
+        if (fini)
+            break;
+        
+        if (Affichable::getEtat() == ALLEGRO) {
+            if (key[KEY_ESC])
                 break;
-
-            j2->afficher();
-            fini = j2->jouer(p);
-            p.afficher();
         }
-    }
-    else
-    {
-        c.gotoLigCol(40, 0);
 
-        while (!fini)
-        {
-            j1->afficher();
-            fini = j1->jouer(p);
-            p.afficher();
+        j2->afficher();
+        fini = j2->jouer(p);
+        p.afficher();
 
-            if (fini)
+        if (Affichable::getEtat() == ALLEGRO) {
+            if (key[KEY_ESC])
                 break;
-
-            j2->afficher();
-            fini = j2->jouer(p);
-            p.afficher();
         }
     }
 }
