@@ -77,7 +77,13 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     std::cout<<"                         "<<std::endl;
     s_console.gotoLigCol(6,70);
     std::cin >>L;
-    }while ((L!='A')&& (L!='B')&&(L!='C')&& (L!='D')&& (L!='E'));
+    
+    // Mise en majuscule
+    if ((L >= 'a') && (L <= 'e')) {
+        L += 'A' - 'a';
+    }
+    
+    } while ((L!='A') && (L!='B')&&(L!='C')&& (L!='D')&& (L!='E'));
 
     do
     {
