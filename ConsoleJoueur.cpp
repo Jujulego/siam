@@ -137,6 +137,15 @@ void ConsoleJoueur::dess_fleches(Coordonnees clic_coord)
     allegro::polygon(s_buffer, 4, points_g, allegro::makecol(255,0,0));
 }
 
+Direction ConsoleJoueur::find_dir_alleg(int x, int y, Coordonnees clic_coord)
+{
+    if ((x >= clic_coord.get_col()*120 + 110) && (x <= clic_coord.get_col()*120 + 150) && (y >= (clic_coord.get_lig() - 'A')*120 + 79) && (y <= (clic_coord.get_lig() - 'A')*120 + 106)) return HAUT;
+    if ((x >= clic_coord.get_col()*120 + 154) && (x <= clic_coord.get_col()*120 + 171) && (y >= (clic_coord.get_lig() - 'A')*120 + 110) && (y <= (clic_coord.get_lig() - 'A')*120 + 150)) return DROITE;
+    if ((x >= clic_coord.get_col()*120 + 110) && (x <= clic_coord.get_col()*120 + 150) && (y >= (clic_coord.get_lig() - 'A')*120 + 154) && (y <= (clic_coord.get_lig() - 'A')*120 + 172)) return BAS;
+    if ((x >= clic_coord.get_col()*120 + 79) && (x <= clic_coord.get_col()*120 + 106) && (y >= (clic_coord.get_lig() - 'A')*120 + 110) && (y <= (clic_coord.get_lig() - 'A')*120 + 150)) return GAUCHE;
+    return NO_DIR;
+}
+
 void ConsoleJoueur::afficher_allegro()
 {
     bool action = false;
@@ -178,7 +187,9 @@ void ConsoleJoueur::afficher_allegro()
 
                 if ((coord_clic.get_col() == 0) || (coord_clic.get_col() == 4) || (coord_clic.get_lig() == 'A') || (coord_clic.get_lig() == 'E')) {
                     action = true;
-                    VIPion->set_coord(coord_clic);
+                    m_mov.a = P;
+                    m_mov.c = coord_clic;
+                    m_mov.d = NO_DIR;
                 }
             }
 
@@ -189,14 +200,20 @@ void ConsoleJoueur::afficher_allegro()
 
         dess_fleches(coord_clic);
         allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous rentrer ?", 720, Y_REF + 100, allegro::makecol(193,0,0), -1);
-        while (!action) {
+        while (m_mov.d == NO_DIR) {
             if (allegro::mouse_b&1) {
-                action=true;
+                if ((allegro::mouse_x >= coord_clic.get_col()*120 + 70) && (allegro::mouse_x <= coord_clic.get_col()*120 + 190) && (allegro::mouse_y >= (coord_clic.get_lig() - 'A')*120 + 70) && (allegro::mouse_y <= (coord_clic.get_lig() - 'A')*120 + 190)) {
+                    m_mov.d = find_dir_alleg(allegro::mouse_x, allegro::mouse_y, coord_clic);
+                }
             }
 
             draw_sprite(allegro::screen, s_buffer, 0, 0);
         }
     }
+
+    allegro::mouse_b &= 0;
+
+    // Affichage en fonction : pion placé
 
 }
 

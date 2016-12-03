@@ -31,8 +31,8 @@ bool ObjPoussable::deplacer(Direction dir) {
 }
 
 void ObjPoussable::afficher_allegro() noexcept {
-    if (get_coord().get_lig() != 'F') {
-        draw_sprite(s_buffer,m_image,get_coord().get_as_x(s_etat),get_coord().get_as_y(s_etat));
+    if (m_equipe == MONTAGNE) {
+        draw_sprite(s_buffer,m_image,get_coord().get_as_x(s_etat)-10,get_coord().get_as_y(s_etat)-20);
     }
 }
 

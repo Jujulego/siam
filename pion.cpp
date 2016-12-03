@@ -13,22 +13,27 @@ Pion::Pion(Equipe e) : ObjPoussable(e, (e == ELEPH) ? 'E' : 'R', (e == ELEPH) ? 
 void Pion::afficher_allegro() noexcept {
     ObjPoussable::afficher_allegro();
 
-    switch (m_dir) {
-    case HAUT:
+    if (m_equipe != MONTAGNE) {
+        switch (m_dir) {
+        case HAUT:
+            allegro::rotate_sprite(s_buffer, m_image, get_coord().get_as_x(s_etat), get_coord().get_as_y(s_etat), allegro::itofix(128));
+            break;
 
-        break;
+        case BAS:
+            allegro::rotate_sprite(s_buffer, m_image, get_coord().get_as_x(s_etat), get_coord().get_as_y(s_etat), allegro::itofix(256));
+            break;
 
-    case BAS:
+        case DROITE:
+            allegro::rotate_sprite(s_buffer, m_image, get_coord().get_as_x(s_etat), get_coord().get_as_y(s_etat), allegro::itofix(192));
+            break;
 
-        break;
+        case GAUCHE:
+            allegro::rotate_sprite(s_buffer, m_image, get_coord().get_as_x(s_etat), get_coord().get_as_y(s_etat), allegro::itofix(64));
+            break;
 
-    case DROITE:
-
-        break;
-
-    case GAUCHE:
-
-        break;
+        default:
+            break;
+        }
     }
 }
 
@@ -54,6 +59,9 @@ void Pion::afficher_console() noexcept {
     case GAUCHE:
         s_console.gotoLigCol(get_coord().get_as_y(s_etat) + 1, get_coord().get_as_x(s_etat) + 1);
         std::cout << FLECHE_GAUCHE;
+        break;
+
+    default:
         break;
     }
 }

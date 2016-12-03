@@ -25,6 +25,7 @@ public:
     Coordonnees demanderCoord(std::string texte);
     Coordonnees find_coord_alleg(int x, int y);
     void dess_fleches(Coordonnees clic_coord);
+    Direction find_dir_alleg(int x, int y, Coordonnees clic_coord);
 };
 
 #endif // CONSOLEJOUEUR_H_INCLUDED
