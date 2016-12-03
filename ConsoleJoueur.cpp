@@ -10,6 +10,7 @@
 Direction ConsoleJoueur::demanderDirection()
  {
     char D;
+    std::string D1;
 
     do
         {
@@ -32,7 +33,8 @@ Direction ConsoleJoueur::demanderDirection()
         std::cout <<"Votre choix: ";
 
         s_console.gotoLigCol(9,83);
-        std::cin>>D;
+        std::cin>>D1;
+        D=D1[0];
 
         } while (D!='h'&& D!='b'&& D!='d'&& D!='g');
 
@@ -65,8 +67,10 @@ Direction ConsoleJoueur::demanderDirection()
 
 Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
 {
-    char L; //Definition de la variable de la ligne
+    char L;//Definition de la variable de la ligne
+    std::string L1;
     char C;//Definition de la variable de la colonne
+    std::string C1;
 
     s_console.gotoLigCol(4,70);
     std::cout<<texte<<std::endl;
@@ -81,13 +85,14 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
     s_console.gotoLigCol(8,70);
     std::cout<<"                         "<<std::endl;
     s_console.gotoLigCol(6,70);
-    std::cin >>L;
-    
+    std::cin >>L1;
+    L=L1[0];
+
     // Mise en majuscule
     if ((L >= 'a') && (L <= 'e')) {
         L += 'A' - 'a';
     }
-    
+
     } while ((L!='A') && (L!='B')&&(L!='C')&& (L!='D')&& (L!='E'));
 
     do
@@ -97,7 +102,8 @@ Coordonnees ConsoleJoueur::demanderCoord(std::string texte)
         s_console.gotoLigCol(6,70);
         std::cout<<"                         "<<std::endl;
         s_console.gotoLigCol(6,70);
-        std::cin>>C;
+        std::cin>>C1;
+        C=C1[0];
 
     }while ((C!='1')&& (C!='2')&& (C!='3')&& (C!='4')&& (C!='0'));
 
@@ -318,7 +324,11 @@ void ConsoleJoueur::afficher_allegro()
 
     case '1':
         s_console.gotoLigCol(4,70);
-        m_mov.c=demanderCoord("Quelles sont les coordonnees de la case ou vous voulez placer votre pion ?");
+          do{
+              m_mov.c=demanderCoord("Quelles sont les coordonnees de la case ou vous voulez placer votre pion ?");
+          }while (!((m_mov.c.get_lig()=='A')||(m_mov.c.get_lig()=='E' )||(m_mov.c.get_col()==0)||(m_mov.c.get_col()==4)));
+
+
         m_mov.d=demanderDirection();
         m_mov.a=P;
 

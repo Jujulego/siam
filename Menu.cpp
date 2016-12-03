@@ -25,40 +25,57 @@ void Menu::afficherMenu() {
 void Menu::creationJoueur()
 {
     char choix;
-    char animal;
+    std::string choix1;
+    std::string animal1;
     Equipe e1;
     Equipe e2;
+    char animal;
 
-    s_console.gotoLigCol(0,0);
-    std::cout <<"Quel personnage voulez vous incarner ?"<<std::endl;
-    std::cout <<"1. Elephant"<<std::endl;
-    std::cout <<"2. Rhinoceros"<<std::endl;
-    s_console.gotoLigCol(4,4);
-    std::cin >> animal;
-
-    if (animal =='1')
+    do
     {
+        s_console.gotoLigCol(0,0);
+        std::cout <<"Quel personnage voulez vous incarner ?"<<std::endl;
+        std::cout <<"1. Elephant"<<std::endl;
+        std::cout <<"2. Rhinoceros"<<std::endl;
+        s_console.gotoLigCol(4,4);
+        std::cin >> animal1;
+        animal=animal1[0];
+    }while (animal != '1'&& animal != '2');
+
+    switch (animal)
+    {
+       case '1':
+
         e1 = ELEPH;
         e2 = RHINO;
-    }
+        break;
 
 
-    else if (animal=='2')
-    {
+        case '2':
+
         e1 = RHINO;
         e2 = ELEPH;
+
+        default:
+
+        std::cout<<"Erreur, ce choix n'est pas autorisé"<<std::endl;
+        break;
+
     }
 
-    else
-        std::cout<<"Erreur, ce choix n'est pas autorisé"<<std::endl;
-    s_console.gotoLigCol(0,0);
-    std::cout << "Quel mode de jeu?"<<std::endl;
-    std::cout << "1. J1 vs J2"<<std::endl;
-    std::cout << "2. J1 vs IA (Tutoriel)"<<std::endl;
-    std::cout << "3. J1 vs IA (intermediaire)"<<std::endl;
-    std::cout << "4. J1 vs IA (difficile)"<<std::endl;
+    do
+    {
+        s_console.gotoLigCol(0,0);
+        std::cout << "Quel mode de jeu?"<<std::endl;
+        std::cout << "1. J1 vs J2"<<std::endl;
+        std::cout << "2. J1 vs IA (Tutoriel)"<<std::endl;
+        std::cout << "3. J1 vs IA (intermediaire)"<<std::endl;
+        std::cout << "4. J1 vs IA (difficile)"<<std::endl;
+        std::cout <<"        "<<std::endl;
+        std::cin  >> choix1;
+        choix=choix1[0];
 
-    std::cin  >> choix;
+    }while( choix != '1'&&choix != '2'&&choix != '3'&&choix != '4');
 
     switch(choix)
     {
@@ -99,6 +116,7 @@ void Menu::creationJoueur()
 void Menu::afficher_console()noexcept
 {
     char choix;
+    std::string choix1;
     do
     {
     s_console.gotoLigCol(0,0);
@@ -106,7 +124,11 @@ void Menu::afficher_console()noexcept
     std::cout <<"1. Jouer     "<<std::endl;
     std::cout <<"2. Quitter   "<<std::endl;
     s_console.gotoLigCol(4,4);
-    std::cin >> choix;
+    std::cout <<"        "<<std::endl;
+    s_console.gotoLigCol(4,4);
+    std::cin >> choix1;
+
+    choix=choix1[0];
 
     }while (choix !='1' && choix !=2);
 
@@ -144,7 +166,7 @@ void Menu::afficher_console()noexcept
 
         if (fini)
             break;
-        
+
         if (Affichable::getEtat() == ALLEGRO) {
             if (key[KEY_ESC])
                 break;

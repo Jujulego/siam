@@ -450,3 +450,215 @@
 	"plateau.h"
 	"randomia.h"
 
+1480801341 source:c:\users\nolwenn\documents\siam\affichable.cpp
+	<string>
+	<windows.h>
+	<unistd.h>
+	"affichable.h"
+	"alleg.h"
+	"console.h"
+
+1480801341 c:\users\nolwenn\documents\siam\affichable.h
+	<string>
+	"alleg.h"
+	"console.h"
+
+1480801341 c:\users\nolwenn\documents\siam\alleg.h
+	<memory>
+	<map>
+	<string>
+	<allegro.h>
+
+1480801001 c:\users\nolwenn\documents\siam\console.h
+	<iostream>
+
+1480801341 source:c:\users\nolwenn\documents\siam\alleg.cpp
+	<allegro.h>
+	<string.h>
+	"affichable.h"
+	"alleg.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\console.cpp
+	"console.h"
+	<conio.h>
+	<windows.h>
+	<fcntl.h>
+	<unistd.h>
+	<termios.h>
+
+1480805827 source:c:\users\nolwenn\documents\siam\consolejoueur.cpp
+	"joueur.h"
+	"ConsoleJoueur.h"
+	"pion.h"
+	"alleg.h"
+	"plateau.h"
+	"coordonnee.h"
+	<memory>
+
+1480801001 c:\users\nolwenn\documents\siam\joueur.h
+	"affichable.h"
+	"objpoussable.h"
+	"plateau.h"
+
+1480801341 c:\users\nolwenn\documents\siam\objpoussable.h
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+
+1480801341 c:\users\nolwenn\documents\siam\coordonnee.h
+	"affichable.h"
+
+1480801341 c:\users\nolwenn\documents\siam\plateau.h
+	<memory>
+	<set>
+	<vector>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1480801341 c:\users\nolwenn\documents\siam\pion.h
+	<memory>
+	"coordonnee.h"
+	"objpoussable.h"
+
+1480801341 c:\users\nolwenn\documents\siam\consolejoueur.h
+	"joueur.h"
+	"coordonnee.h"
+	"plateau.h"
+	<memory>
+
+1480801341 source:c:\users\nolwenn\documents\siam\coordonnee.cpp
+	"affichable.h"
+	"coordonnee.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\ia.cpp
+	<cstdlib>
+	<time.h>
+	"ia.h"
+	"joueur.h"
+	"objpoussable.h"
+
+1480801341 c:\users\nolwenn\documents\siam\ia.h
+	"coordonnee.h"
+	"joueur.h"
+	"objpoussable.h"
+
+1480801001 source:c:\users\nolwenn\documents\siam\joueur.cpp
+	"joueur.h"
+	"plateau.h"
+	"objpoussable.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\main.cpp
+	<allegro.h>
+	"affichable.h"
+	"ia.h"
+	"Menu.h"
+
+1480801341 c:\users\nolwenn\documents\siam\menu.h
+	"affichable.h"
+	"joueur.h"
+	"intellia.h"
+	"progjoueur.h"
+	<vector>
+	"plateau.h"
+
+1480801341 c:\users\nolwenn\documents\siam\intellia.h
+	<vector>
+	"arbre.h"
+	"coordonnee.h"
+	"ia.h"
+	"objpoussable.h"
+	"plateau.h"
+
+1480801341 c:\users\nolwenn\documents\siam\arbre.h
+	<memory>
+	<vector>
+	<queue>
+
+1480801341 c:\users\nolwenn\documents\siam\progjoueur.h
+	<vector>
+	"coordonnee.h"
+	"joueur.h"
+	"plateau.h"
+
+1480803067 source:c:\users\nolwenn\documents\siam\menu.cpp
+	"alleg.h"
+	"ConsoleJoueur.h"
+	"Menu.h"
+	"randomia.h"
+	"objpoussable.h"
+
+1480801341 c:\users\nolwenn\documents\siam\randomia.h
+	<map>
+	<vector>
+	"coordonnee.h"
+	"ia.h"
+	"objpoussable.h"
+	"plateau.h"
+
+1480801001 source:c:\users\nolwenn\documents\siam\montagne.cpp
+	"coordonnee.h"
+	"objpoussable.h"
+	"montagne.h"
+
+1480801001 c:\users\nolwenn\documents\siam\montagne.h
+	"coordonnee.h"
+	"objpoussable.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\objpoussable.cpp
+	<string>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"objpoussable.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\pion.cpp
+	<memory>
+	"coordonnee.h"
+	"objpoussable.h"
+	"pion.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\plateau.cpp
+	<memory>
+	<set>
+	<string>
+	<vector>
+	"alleg.h"
+	"affichable.h"
+	"coordonnee.h"
+	"montagne.h"
+	"pion.h"
+	"plateau.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\progjoueur.cpp
+	<vector>
+	"affichable.h"
+	"coordonnee.h"
+	"joueur.h"
+	"plateau.h"
+	"progjoueur.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\randomia.cpp
+	<cstdlib>
+	<map>
+	"alleg.h"
+	"coordonnee.h"
+	"joueur.h"
+	"objpoussable.h"
+	"plateau.h"
+	"randomia.h"
+
+1480801341 source:c:\users\nolwenn\documents\siam\intellia.cpp
+	<unistd.h>
+	<queue>
+	<vector>
+	"arbre.h"
+	"coordonnee.h"
+	"ia.h"
+	"intellia.h"
+	"objpoussable.h"
+	"plateau.h"
+
