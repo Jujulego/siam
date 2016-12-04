@@ -27,45 +27,83 @@ static const std::string LIGNE_BAS  = "\xe2\x95\xb0\xe2\x94\x80\xe2\x94\x80\xe2\
 Plateau::Plateau() {
     // Chargement des images
     if (s_etat == ALLEGRO) {
-        m_map = allegro::charger_bitmap("test_map.bmp");
+        m_map = allegro::charger_bitmap("map.bmp");
     }
 
     // Ajout des montagnes
     for (unsigned i = 1; i < 4; i++)
-        m_pions_joues.push_back((std::shared_ptr<ObjPoussable>) new Montagne(Coordonnees('C', i)));
+        m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(Coordonnees('C', i))));
 
     // Création des équipes
     for (auto e : {ELEPH, RHINO}) {
         for (unsigned i = 0; i < 5; i++) {
-            m_equipes.push_back((std::shared_ptr<Pion>) new Pion(e));
+            m_equipes.push_back(std::shared_ptr<Pion>(new Pion(e)));
         }
     }
 }
 
+Plateau::Plateau(Plateau const& p) : m_map(p.m_map) {
+    // Copie des equipes
+    for (auto i : p.m_equipes) {
+        auto pion = std::shared_ptr<Pion>(new Pion(*i));
+        
+        m_equipes.push_back(pion);
+        if (pion->get_coord().get_lig() != 'F')
+            m_pions_joues.push_back(pion);
+    }
+    
+    // Copie des montagnes
+    for (auto i : p.m_pions_joues) {
+        if (i->get_equipe() == MONTAGNE)
+            m_pions_joues.push_back(std::shared_ptr<ObjPoussable>(new Montagne(i->get_coord())));
+    }
+}
+
+// Opérateurs
+bool Plateau::operator == (Plateau const& p) {
+    // Déclarations
+    bool ok = true;
+    
+    // Comparaison du nombre de pions joues
+    if (get_plateau().size() != p.get_plateau().size())
+        return false;
+    
+    // Comparaison des coordonnées des pions
+    for (auto p1 : get_plateau()) {
+        ok = false;
+        
+        for (auto p2 : p.get_plateau()) {
+            if (p1->get_coord() == p2->get_coord()) {
+                ok = true;
+                break;
+            }
+        }
+        
+        if (!ok)
+            return false;
+    }
+    
+    return true;
+}
+
 // Méthodes
 Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
-    // Verification que la case est vide
-/*    if (get_pion(coord) != nullptr) {
-        m_message = "Cette case est déjà occupée !";
-        return ERREUR;
-    }*/
-
     // Récupération du pion
     Retour r = OK;
-    
+
     for (auto p : m_equipes) {
         if ((p->get_equipe() == e) && (p->get_coord().get_lig() == 'F')) {
             coord -= dir;
-            
+
             p->placer(coord, dir);
             r = _deplacer(p, coord, dir);
-            
-            if (r == OK) {
+
+            if ((r == OK) || (r == FIN)) {
                 m_pions_joues.push_back(p);
             } else {
                 p->placer(Coordonnees('F', 5), BAS);
             }
-            
+
             return r;
         }
     }
@@ -74,7 +112,7 @@ Retour Plateau::placer(Equipe e, Coordonnees coord, Direction dir) {
     return PASPION;
 }
 
-Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
+Retour Plateau::deplacer(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
 
@@ -83,33 +121,41 @@ Retour Plateau::deplacer(Coordonnees coord, Direction dir) {
         return PASPION;
     }
 
-    if (pion->get_equipe() == MONTAGNE) {
-        m_message = "Hey c'est une montagne ...";
+    if (pion->get_equipe() != e) {
+        m_message = "Hey c'est pas un de tes pions ...";
         return PASPION;
     }
-    
+
     return _deplacer(pion, coord, dir);
+}
+
+float Plateau::get_resistance(Coordonnees coord, Direction dir, std::set<std::shared_ptr<ObjPoussable>>* objdevant) {
+    // Déclarations
+    float resist = 0.0;
+
+    // Parcours de ce qu'il y a avant le pion
+    for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
+        auto p = get_pion(c);
+
+        if (p == nullptr)
+            break;
+
+        resist += p->get_resistance(dir);
+
+        if (objdevant != nullptr)
+            objdevant->insert(p);
+    }
+
+    return resist;
 }
 
 Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord, Direction dir) {
     // Récupérations des éléments dans la direction
     std::set<std::shared_ptr<ObjPoussable>> objdevant = {pion};
-    float resist = 0.0;
 
     if (dir == pion->get_dir()) {
-        // Parcours de ce qu'il y a avant le pion
-        for (Coordonnees c = coord + dir; (c.get_lig() <= 'E') && (c.get_lig() >= 'A') && (c.get_col() <= 4) && (c.get_col() >= 0); c += dir) {
-            auto p = get_pion(c);
-
-            if (p == nullptr)
-                break;
-
-            resist += p->get_resistance(dir);
-            objdevant.insert(p);
-        }
-
         // Check resistance
-        if (resist >= pion->get_force(dir)) {
+        if (get_resistance(coord, dir, &objdevant) >= pion->get_force(dir)) {
             m_message = "Impossible de bouger, c'est trop lourd ...";
             return ERREUR;
         }
@@ -125,7 +171,12 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     for (auto p : objdevant) {
         if (p->deplacer(dir)) {
             if (p->get_equipe() == MONTAGNE) {
-                m_message = "GAGNE !";
+                if (pion->get_equipe() == RHINO) {
+                    m_message = "Les Rhinoceros ont gagné !";
+                } else if (pion->get_equipe() == ELEPH) {
+                    m_message = "Les Elephants ont gagné !";
+                }
+
                 r = FIN;
             } else {
                 for (auto it = m_pions_joues.begin(); it != m_pions_joues.end(); it++) {
@@ -141,7 +192,7 @@ Retour Plateau::_deplacer(std::shared_ptr<ObjPoussable> pion, Coordonnees coord,
     return r;
 }
 
-Retour Plateau::tourner(Coordonnees coord, Direction dir) {
+Retour Plateau::tourner(Equipe e, Coordonnees coord, Direction dir) {
     // Récupération du pion
     auto pion = get_pion(coord);
 
@@ -150,13 +201,34 @@ Retour Plateau::tourner(Coordonnees coord, Direction dir) {
         return PASPION;
     }
 
-    if (pion->get_equipe() == MONTAGNE) {
-        m_message = "Hey c'est une montagne ...";
+    if (pion->get_equipe() != e) {
+        m_message = "Hey c'est pas un de tes pions ...";
         return ERREUR;
     }
 
     pion->tourner(dir);
     return OK;
+}
+
+Retour Plateau::appliquer_mov(Equipe e, Mov m) {
+    // Branchement !
+    Retour r = OK;
+
+    switch (m.a) {
+    case P:
+        r = placer(e, m.c, m.d);
+        break;
+
+    case D:
+        r = deplacer(e, m.c, m.d);
+        break;
+
+    case T:
+        r = tourner(e, m.c, m.d);
+        break;
+    }
+
+    return r;
 }
 
 std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
@@ -168,8 +240,66 @@ std::shared_ptr<ObjPoussable> Plateau::get_pion(Coordonnees coord) {
     return nullptr;
 }
 
+std::vector<std::shared_ptr<Pion>> const& Plateau::get_pions() const {
+    return m_equipes;
+}
+
+std::vector<std::shared_ptr<Pion>> Plateau::get_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+
+    for (auto p : get_pions()) {
+        if ((p->get_coord().get_lig() != 'F') && (p->get_equipe() == e)) equipe.push_back(p);
+    }
+
+    return equipe;
+}
+
+std::vector<std::shared_ptr<Pion>> Plateau::get_full_equipe(Equipe e) const {
+    std::vector<std::shared_ptr<Pion>> equipe;
+
+    for (auto p : get_pions()) {
+        if (p->get_equipe() == e) equipe.push_back(p);
+    }
+
+    return equipe;
+}
+
+std::vector<std::shared_ptr<ObjPoussable>> const& Plateau::get_plateau() const {
+    return m_pions_joues;
+}
+
 void Plateau::afficher_allegro() noexcept {
     allegro::draw_sprite(s_buffer, m_map, 0, 0);
+
+    // Affichage des pions sur le plateau
+    for (auto o : m_pions_joues) {
+        o->afficher_allegro();
+    }
+
+    // Affichage des pions restants
+    unsigned nbr = 0;
+    unsigned nbe = 0;
+
+    for (auto p : m_equipes) {
+        switch (p->get_equipe()) {
+        case RHINO:
+            if (p->get_coord().get_lig() == 'F') draw_sprite(s_buffer,p->get_image(),720+(nbr*62),460);
+
+            nbr++;
+            break;
+
+        case ELEPH:
+            if (p->get_coord().get_lig() == 'F') draw_sprite(s_buffer,p->get_image(),720+(nbe*62),165);
+
+            nbe++;
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    allegro::show_mouse(s_buffer);
 }
 
 //Affichage sur la console

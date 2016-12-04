@@ -10,6 +10,7 @@ enum Direction {
     HAUT   = 1,
     GAUCHE = 2,
     BAS    = 3,
+    NO_DIR = 4,
 };
 
 // Classe
@@ -17,23 +18,23 @@ class Coordonnees {
     private:
         char m_lig;
         int m_col;
-    
+
     public:
         // Constructeur
         Coordonnees(char lig, int col);
         Coordonnees(Coordonnees const& c);
-        
+
         // Méthodes
         int get_as_x(Etat etat) const;
         int get_as_y(Etat etat) const;
-        
+
         // Accesseurs
         char get_lig() const;
         int  get_col() const;
-        
+
         void set_lig(char lig);
         void set_col(int col);
-        
+
         // Opérateurs
         bool operator == (Coordonnees const& c);
         void operator += (Direction const& d);

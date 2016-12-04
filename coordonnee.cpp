@@ -20,7 +20,7 @@ int Coordonnees::get_as_x(Etat etat) const {
         return (get_col() * (X_CONSOLE + 1)) + 4;
     }
 
-    return (get_col() * XY_ALLEG)+ 35;
+    return (get_col() * XY_ALLEG)+ 105;
 }
 
 int Coordonnees::get_as_y(Etat etat) const {
@@ -28,7 +28,7 @@ int Coordonnees::get_as_y(Etat etat) const {
         return ((int) (get_lig() - 'A') * (Y_CONSOLE + 1)) + 5;
     }
 
-    return ((get_lig() - 'A')* XY_ALLEG)+ 35;
+    return ((get_lig() - 'A')* XY_ALLEG)+ 105;
 }
 
 // Accesseurs
@@ -66,7 +66,7 @@ Coordonnees Coordonnees::operator + (Direction const& d) {
     // Copie
     Coordonnees c = *this;
     c += d;
-    
+
     return c;
 }
 
@@ -82,6 +82,6 @@ Coordonnees Coordonnees::operator - (Direction const& d) {
     // Copie
     Coordonnees c = *this;
     c -= d;
-    
+
     return c;
 }

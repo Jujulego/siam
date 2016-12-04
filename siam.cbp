@@ -39,14 +39,25 @@
 			<Add option="-Wextra" />
 			<Add option="-std=c++11" />
 		</Compiler>
+		<Unit filename="ConsoleJoueur.cpp" />
+		<Unit filename="ConsoleJoueur.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
 		<Unit filename="affichable.cpp" />
 		<Unit filename="affichable.h" />
 		<Unit filename="alleg.cpp" />
 		<Unit filename="alleg.h" />
+		<Unit filename="arbre.h" />
 		<Unit filename="console.cpp" />
 		<Unit filename="console.h" />
 		<Unit filename="coordonnee.cpp" />
 		<Unit filename="coordonnee.h" />
+		<Unit filename="ia.cpp" />
+		<Unit filename="ia.h" />
+		<Unit filename="intellia.cpp" />
+		<Unit filename="intellia.h" />
+		<Unit filename="joueur.cpp" />
+		<Unit filename="joueur.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="montagne.cpp" />
 		<Unit filename="montagne.h" />
@@ -56,6 +67,10 @@
 		<Unit filename="pion.h" />
 		<Unit filename="plateau.cpp" />
 		<Unit filename="plateau.h" />
+		<Unit filename="progjoueur.cpp" />
+		<Unit filename="progjoueur.h" />
+		<Unit filename="randomia.cpp" />
+		<Unit filename="randomia.h" />
 		<Unit filename="siam.cbp" />
 		<Extensions>
 			<code_completion />

@@ -20,18 +20,20 @@ ObjPoussable::~ObjPoussable() noexcept{
 // Méthodes
 bool ObjPoussable::deplacer(Direction dir) {
     m_coord += dir;
-    
+
     if ((m_coord.get_lig() < 'A') || (m_coord.get_lig() > 'E') || (m_coord.get_col() < 0) || (m_coord.get_col() > 4)) {
         m_coord.set_lig('F');
         m_coord.set_col(5);
         return true;
     }
-    
+
     return false;
 }
 
 void ObjPoussable::afficher_allegro() noexcept {
-    allegro::draw_sprite(s_buffer,m_image,get_coord().get_as_x(s_etat),get_coord().get_as_y(s_etat));
+    if (m_equipe == MONTAGNE) {
+        draw_sprite(s_buffer,m_image,get_coord().get_as_x(s_etat)-10,get_coord().get_as_y(s_etat)-20);
+    }
 }
 
 void ObjPoussable::afficher_console() noexcept {
@@ -49,3 +51,13 @@ Coordonnees ObjPoussable::get_coord() const {
 Equipe ObjPoussable::get_equipe() const {
     return m_equipe;
 }
+
+allegro::BITMAP_PT ObjPoussable::get_image() const {
+    return m_image;
+}
+
+void ObjPoussable::set_coord(Coordonnees _coord)
+{
+    m_coord = _coord;
+}
+
