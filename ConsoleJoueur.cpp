@@ -250,7 +250,8 @@ void ConsoleJoueur::afficher_allegro()
         allegro::mouse_b &= 0;
 
         if (m_mov.a == T) {
-            allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous tourner le pion ?", 720, Y_REF + 150, allegro::makecol(193,0,0), -1);
+            allegro::textout_ex(s_buffer, allegro::font, "Dans quel sens voulez-vous tourner", 720, Y_REF + 150, allegro::makecol(193,0,0), -1);
+            allegro::textout_ex(s_buffer, allegro::font, "le pion ?", 720, Y_REF + 160, allegro::makecol(193,0,0), -1);
             dess_fleches(VIPion->get_coord());
 
             while (!action) {

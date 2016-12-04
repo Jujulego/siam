@@ -17,7 +17,6 @@ class Menu : public Affichable {
         Menu();
         virtual ~Menu() noexcept;
 
-        void afficherMenu();
         void creationJoueur();
         virtual void afficher_allegro() noexcept;
         virtual void afficher_console() noexcept;
