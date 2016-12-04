@@ -135,8 +135,6 @@ void IntellIA::prevision(Plateau depart) {
             max = t;
             choix = i;
         }
-        
-        std::cout << t << " ";
     }
     
     if (choix == -1) {
@@ -208,44 +206,6 @@ bool IntellIA::jouer(Plateau& p) {
     
     // On joue
     Retour ret = p.appliquer_mov(m_equipe, m_mov);
-    
-    s_console.gotoLigCol(35, 0);
-    switch (m_mov.a) {
-    case P:
-        std::cout << "P " << m_mov.c.get_lig() << m_mov.c.get_col();
-        break;
-    
-    case D:
-        std::cout << "D " << m_mov.c.get_lig() << m_mov.c.get_col();
-        break;
-    
-    case T:
-        std::cout << "T " << m_mov.c.get_lig() << m_mov.c.get_col();
-        break;
-    }
-    
-    switch (m_mov.d) {
-    case HAUT:
-        std::cout << " H" << std::endl;
-        break;
-    
-    case DROITE:
-        std::cout << " D" << std::endl;
-        break;
-    
-    case BAS:
-        std::cout << " B" << std::endl;
-        break;
-    
-    case GAUCHE:
-        std::cout << " G" << std::endl;
-        break;
-    
-    case NO_DIR:
-        // Meme si ca n'arrive jamais !
-        break;
-    }
-    
     s_attendre(1000);
     
     return ret == FIN;

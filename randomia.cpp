@@ -113,17 +113,12 @@ bool RandomIA::jouer(Plateau& p) {
 
     for (; l <= 'E'; l++) {
         for (c = 0; c <= 4; c++) {
-            std::cout << case_ << " ";
             case_ -= m_map[l][c].s;
-
             if (case_ <= 0) break;
         }
-        std::cout << std::endl;
-
         if (case_ <= 0) break;
     }
 
-    std::cout << l << c << std::endl;
     bool r = false;
 
     if ((l != 'F') && (c != 5)) {
@@ -134,23 +129,16 @@ bool RandomIA::jouer(Plateau& p) {
         int act = random(1, coup.s);
 
         // déplacement
-        std::cout << act;
         act -= coup.d;
-        std::cout << " " << act;
 
         if (act <= 0) {
-            std::cout << " D";
-
             // Déplacement dans la direction du pion
             r = (p.deplacer(m_equipe, coord, p.get_pion(coord)->get_dir()) == FIN);
         } else {
             // placer
             act -= coup.p;
-            std::cout << " " << act;
 
             if (act <= 0) {
-                std::cout << " P";
-
                 // Choix de la direction
                 Direction d = GAUCHE;
 
@@ -164,9 +152,6 @@ bool RandomIA::jouer(Plateau& p) {
                 // Placement !
                 r = (p.placer(m_equipe, coord, d) == FIN);
             } else {
-                // tourner
-                std::cout << " T";
-
                 // Choix de la direction
                 int s = 4;
                 std::map<Direction,int> dirs = {
@@ -220,6 +205,5 @@ bool RandomIA::jouer(Plateau& p) {
     }
 
     s_attendre(1000);
-    //s_console.getch();
     return r;
 }
