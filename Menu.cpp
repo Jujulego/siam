@@ -15,8 +15,28 @@ Menu::~Menu() noexcept {
     delete j2;
 }
 
+void Menu::afficher_allegro() noexcept
+{
+    bool action = false;
+    BITMAP_PT menu = charger_bitmap("menu.bmp");
 
-void Menu::afficher_allegro() noexcept {
+    draw_sprite(s_buffer, menu, 0, 0);
+    rectfill(s_buffer, 420, 400, 620, 440, makecol(68,41,28));
+    rect(s_buffer, 420, 400, 620, 440, makecol(91,64,45));
+    textout_ex(s_buffer, font, "JOUER", 498, 417, makecol(255,255,255), -1);
+    rectfill(s_buffer, 420, 460, 620, 500, makecol(68,41,28));
+    rect(s_buffer, 420, 460, 620, 500, makecol(91,64,45));
+    textout_ex(s_buffer, font, "QUITTER", 492, 477, makecol(255,255,255), -1);
+
+    while (!action) {
+        if (mouse_b&1) {
+            if ((mouse_x >= 420) && (mouse_x <= 620) && (mouse_y >= 400) && (mouse_y <= 440)) action = true;
+            //if ((mouse_x >= 420) && (mouse_x <= 620) && (mouse_y >= 460) && (mouse_y <= 500))
+        }
+
+        show_mouse(s_buffer);
+        draw_sprite(screen, s_buffer, 0, 0);
+    }
 }
 
 void Menu::afficherMenu() {

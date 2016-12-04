@@ -54,6 +54,8 @@
 		<Unit filename="coordonnee.h" />
 		<Unit filename="ia.cpp" />
 		<Unit filename="ia.h" />
+		<Unit filename="intellia.cpp" />
+		<Unit filename="intellia.h" />
 		<Unit filename="joueur.cpp" />
 		<Unit filename="joueur.h" />
 		<Unit filename="main.cpp" />
